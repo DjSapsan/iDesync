@@ -1,0 +1,88 @@
+{
+  '0': { '0': 2, op: 'call', sub: 4 },
+  '1': { '0': 'A', '1': 'B', op: 'call', sub: 1 },
+  '2': { '1': 8, '2': 'A', '3': { num: 80 }, op: 'check_number' },
+  '3': { '1': 8, '2': 'B', '3': { num: 20 }, op: 'check_number' },
+  '4': { op: 'turnon' },
+  '5': { '0': 3, op: 'call', sub: 6 },
+  '6': { '0': 2, '1': 1, '2': -3, '3': 3, next: 2, op: 'call', sub: 3 },
+  '7': { '0': 1, next: 2, op: 'call', sub: 2 },
+  subs: [
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      pnames: [Array],
+      parameters: [Array],
+      name: 'Wellbeing'
+    },
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      '3': [Object],
+      '4': [Object],
+      '5': [Object],
+      pnames: [Array],
+      parameters: [Array],
+      name: 'Return to the garage'
+    },
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      '3': [Object],
+      '4': [Object],
+      '5': [Object],
+      '6': [Object],
+      '7': [Object],
+      pnames: [Array],
+      parameters: [Array],
+      name: 'Scout'
+    },
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      '3': [Object],
+      '4': [Object],
+      '5': [Object],
+      '6': [Object],
+      '7': [Object],
+      parameters: [Array],
+      pnames: [Array],
+      name: 'Dropoff'
+    },
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      '3': [Object],
+      '4': [Object],
+      '5': [Object],
+      '6': [Object],
+      '7': [Object],
+      '8': [Object],
+      '9': [Object],
+      '10': [Object],
+      '11': [Object],
+      '12': [Object],
+      '13': [Object],
+      '14': [Object],
+      parameters: [Array],
+      pnames: [Array],
+      name: 'Solve'
+    },
+    {
+      '0': [Object],
+      '1': [Object],
+      '2': [Object],
+      pnames: [Array],
+      parameters: [Array],
+      name: 'Return to the last spot'
+    }
+  ],
+  parameters: [ false, false, true ],
+  pnames: [ 'Garage', 'Dropoff', 'Return Spot' ],
+  name: 'Scouting for Something'
+}
