@@ -1,0 +1,14 @@
+{
+	"scopeName": "source.desync_Language",
+	"patterns": [
+			{
+					"match": "\\b(if|else|return)\\b",
+					"name": "keyword.control.desync_Language"
+			},
+			{
+					"match": "//.*$",
+					"name": "comment.line.double-slash.desync_Language"
+			}
+	],
+	"fileTypes": ["beh"]
+}

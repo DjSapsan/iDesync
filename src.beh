@@ -1,0 +1,85 @@
+params (
+    Cargo
+    param2
+    param3
+    param4
+)
+
+vars (
+    State = 0
+    Entity
+    Signal
+    Items
+    Closest
+)
+
+------------------- start -----------------
+
+turnOn()
+lockSlots(Cargo)
+State = 0   --STATES \"A\".			   0=SEARCHING.			   1=LOADING.			   -1=UNLOADING
+unlock()
+
+repeat
+
+    compare(State, 0)
+        
+        equal
+            Entity, Signal = foreach(Cargo)
+                if Signal > 0 then
+                    State = 1
+                    break   --break from the loopSignal
+                end
+            end
+        end
+
+        larger
+            Entity, Signal = foreach(Cargo)
+                if Signal > 0 then
+                    pickItems(Entity)
+                        if not checkFreeSpace(Cargo) then
+                            State = -1
+                        end
+                        break   --break from the loopSignal
+                end
+            end
+            wait(300)   -- wait for 300 ticks without changing state
+        end
+
+        smaller
+            Closest = foreach(param1, param2)
+            dropItems(Closest)
+            Items = countItems()
+            Items = -1 * Items
+            State = Items
+        end
+end
+
+wait(1)
+goto(MAIN_LOOP)
+
+function findClosest (Arg1, Arg2)
+    vars (Var1 Var2 Var3)
+
+    Entity, Signal = foreach(Cargo)
+        if Signal < 0 then
+            RoomForItems = getFreeSpace(Entity, Signal)
+            if RoomForItems > 0 then
+                Closest = Entity
+                break   --break from the loopSignal
+            end
+        end
+    end
+
+    Entity, Signal = foreach(Cargo)
+        if Signal < 0 then
+            RoomForItems = getFreeSpace(Entity, Signal)
+            if RoomForItems > 0 then
+                Other = nearest(Closest, Entity)
+                Closest = Other
+            end
+        end
+    end
+
+    return (Arg1 Other)
+end

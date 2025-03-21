@@ -223,7 +223,7 @@ function ObjectToDesyncedString(obj, type)
 		{
 			case 'undefined':
 				if (is_table_key) throw new Error("Unable to serialize table key of type 'null/undefined'");
-				Push(MP_Nil);
+				Push(MP_Nil); 
 				break;
 			case 'boolean':
 				if (is_table_key) throw new Error("Unable to serialize table key of type 'boolean'");
@@ -344,23 +344,3 @@ function ObjectToDesyncedString(obj, type)
 	Base62_WriteData(arr, bytes, end);
 	return arr.join('');
 }
-
-const functionName = process.argv[2]; // The name of the function to call
-const args = process.argv.slice(3); // The rest of the arguments
-
-let result;
-
-switch (functionName) {
-    case "DesyncedStringToObject":
-        result = DesyncedStringToObject(...args);
-        break;
-    case "ObjectToDesyncedString":
-        result = AnotherFunction(...args);
-        break;
-    default:
-        console.error("Unknown function");
-        process.exit(1);
-}
-
-//console.log(JSON.stringify(result));
-console.log(result);

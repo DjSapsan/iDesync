@@ -1,88 +1,272 @@
 {
-  '0': { '0': 2, op: 'call', sub: 4 },
-  '1': { '0': 'A', '1': 'B', op: 'call', sub: 1 },
-  '2': { '1': 8, '2': 'A', '3': { num: 80 }, op: 'check_number' },
-  '3': { '1': 8, '2': 'B', '3': { num: 20 }, op: 'check_number' },
-  '4': { op: 'turnon' },
-  '5': { '0': 3, op: 'call', sub: 6 },
-  '6': { '0': 2, '1': 1, '2': -3, '3': 3, next: 2, op: 'call', sub: 3 },
-  '7': { '0': 1, next: 2, op: 'call', sub: 2 },
-  subs: [
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      pnames: [Array],
-      parameters: [Array],
-      name: 'Wellbeing'
+    "0": {
+        "op": "turnon"
     },
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      '3': [Object],
-      '4': [Object],
-      '5': [Object],
-      pnames: [Array],
-      parameters: [Array],
-      name: 'Return to the garage'
+    "1": {
+        "0": 1,
+        "op": "lock_slots"
     },
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      '3': [Object],
-      '4': [Object],
-      '5': [Object],
-      '6': [Object],
-      '7': [Object],
-      pnames: [Array],
-      parameters: [Array],
-      name: 'Scout'
+    "2": {
+        "2": "A",
+        "cmt": "STATES \"A\".               0=SEARCHING.               1=LOADING.               -1=UNLOADING",
+        "op": "set_number"
     },
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      '3': [Object],
-      '4': [Object],
-      '5': [Object],
-      '6': [Object],
-      '7': [Object],
-      parameters: [Array],
-      pnames: [Array],
-      name: 'Dropoff'
+    "3": {
+        "op": "unlock"
     },
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      '3': [Object],
-      '4': [Object],
-      '5': [Object],
-      '6': [Object],
-      '7': [Object],
-      '8': [Object],
-      '9': [Object],
-      '10': [Object],
-      '11': [Object],
-      '12': [Object],
-      '13': [Object],
-      '14': [Object],
-      parameters: [Array],
-      pnames: [Array],
-      name: 'Solve'
+    "4": {
+        "0": {
+            "id": "v_letter_L"
+        },
+        "cmt": "MAIN LOOP",
+        "op": "label"
     },
-    {
-      '0': [Object],
-      '1': [Object],
-      '2': [Object],
-      pnames: [Array],
-      parameters: [Array],
-      name: 'Return to the last spot'
-    }
-  ],
-  parameters: [ false, false, true ],
-  pnames: [ 'Garage', 'Dropoff', 'Return Spot' ],
-  name: 'Scouting for Something'
+    "5": {
+        "0": 13,
+        "1": 22,
+        "2": "A",
+        "3": false,
+        "cmt": "CHECK STATE",
+        "op": "check_number"
+    },
+    "6": {
+        "0": 1,
+        "1": "B",
+        "2": "C",
+        "3": 11,
+        "cmt": "FIND A SOURCE",
+        "op": "for_signal_match"
+    },
+    "7": {
+        "1": false,
+        "2": "C",
+        "cmt": "Check if the object provides resources",
+        "nx": 2714.4998779296875,
+        "ny": -101,
+        "op": "check_number",
+        "next": false
+    },
+    "8": {
+        "0": false,
+        "1": {
+            "num": 1
+        },
+        "2": "A",
+        "cmt": "If found then state = 1",
+        "op": "set_number"
+    },
+    "9": {
+        "op": "last"
+    },
+    "10": {
+        "ny": 196.92315673828125,
+        "op": "wait",
+        "nx": 4686.15478515625
+    },
+    "11": {
+        "0": {
+            "id": "v_letter_L"
+        },
+        "op": "jump",
+        "next": false
+    },
+    "12": {
+        "0": 1,
+        "1": "B",
+        "2": "C",
+        "3": 19,
+        "cmt": "GO TO THE SOURCE",
+        "op": "for_signal_match"
+    },
+    "13": {
+        "1": false,
+        "2": "C",
+        "cmt": "Check if the object provides resources",
+        "op": "check_number",
+        "next": false
+    },
+    "14": {
+        "0": "B",
+        "1": false,
+        "op": "dopickup"
+    },
+    "15": {
+        "1": 1,
+        "cmt": "if can fit more, then go to a next target. If full, then switch state",
+        "next": false,
+        "op": "checkfreespace"
+    },
+    "16": {
+        "1": {
+            "num": -1
+        },
+        "2": "A",
+        "cmt": "If full then state = -1",
+        "op": "set_number"
+    },
+    "17": {
+        "op": "last"
+    },
+    "18": {
+        "op": "shutdown"
+    },
+    "19": {
+        "0": {
+            "num": 300
+        },
+        "op": "wait"
+    },
+    "20": {
+        "op": "turnon",
+        "next": 11
+    },
+    "21": {
+        "0": 1,
+        "1": "F",   
+        "op": "call",
+        "sub": 1
+    },
+    "22": {
+        "0": "F",
+        "op": "dodrop",
+        "c": 2
+    },
+    "23": {
+        "0": 1,
+        "1": "D",
+        "op": "count_item"
+    },
+    "24": {
+        "0": {
+            "num": -1
+        },
+        "1": "D",
+        "2": "D",
+        "op": "mul"
+    },
+    "25": {
+        "0": false,
+        "1": "D",
+        "2": "A",
+        "cmt": "Reset",
+        "op": "set_number",
+        "next": 11
+    },
+    "pnames": [
+        "Cargo"
+    ],
+    "dependencies": [
+        {
+            "0": {
+                "2": 2,
+                "op": "set_number"
+            },
+            "1": {
+                "0": 1,
+                "1": "A",
+                "2": "B",
+                "3": 8,
+                "op": "for_signal_match",
+                "cmt": "FIND ANYONE"
+            },
+            "2": {
+                "0": false,
+                "2": "B",
+                "op": "check_number",
+                "next": false
+            },
+            "3": {
+                "0": 1,
+                "1": "D",
+                "2": "A",
+                "op": "getfreespace"
+            },
+            "4": {
+                "1": false,
+                "2": "D",
+                "op": "check_number",
+                "next": false
+            },
+            "5": {
+                "0": "A",
+                "1": false,
+                "2": 2,
+                "op": "set_number"
+            },
+            "6": {
+                "op": "last"
+            },
+            "7": {
+                "0": 1,
+                "1": "A",
+                "2": "B",
+                "3": false,
+                "cmt": "FIND CLOSEST (COMPARED TO ANYONE)",
+                "op": "for_signal_match"
+            },
+            "8": {
+                "0": false,
+                "2": "B",
+                "op": "check_number",
+                "next": false
+            },
+            "9": {
+                "0": 1,
+                "1": "D",
+                "2": "A",
+                "op": "getfreespace"
+            },
+            "10": {
+                "1": false,
+                "2": "D",
+                "op": "check_number",
+                "next": false
+            },
+            "11": {
+                "1": false,
+                "2": "A",
+                "3": "C",
+                "op": "select_nearest",
+                "next": false
+            },
+            "12": {
+                "0": "A",
+                "1": false,
+                "2": "C",
+                "op": "set_number"
+            },
+            "13": {
+                "0": "C",
+                "1": false,
+                "2": 2,
+                "op": "set_number"
+            },
+            "parameters": [
+                false,
+                true
+            ],
+            "pnames": [
+                "Signal",
+                "Closest"
+            ],
+            "vars": {
+                "A": 1,
+                "B": 2,
+                "C": 4,
+                "D": 3
+            },
+            "name": "Find Closest Drop Off"
+        }
+    ],
+    "parameters": [
+        false
+    ],
+    "vars": {
+        "A": 1,
+        "B": 3,
+        "C": 4,
+        "D": 10,
+        "F": 9
+    },
+    "name": "Signal Ore Carrier"
 }

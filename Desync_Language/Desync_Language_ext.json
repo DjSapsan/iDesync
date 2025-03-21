@@ -1,0 +1,14 @@
+{"contributes":
+{
+	"languages": [{
+			"id": "desync_Language",
+			"extensions": [".beh"],
+			"aliases": ["Desync Language"],
+			"configuration": "./language-configuration.json"
+	}],
+	"grammars": [{
+			"language": "yourLanguage",
+			"scopeName": "source.yourLanguage",
+			"path": "./syntaxes/yourLanguage.tmLanguage.json"
+	}]
+}}

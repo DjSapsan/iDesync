@@ -1,0 +1,78 @@
+[1] type: COMMENT, value: -- var A current state
+
+[2] type: COMMENT, value: -- var B entity
+
+[3] type: COMMENT, value: -- var C signal to search
+
+[4] type: COMMENT, value: -- var D own counted items
+
+[5] type: COMMENT, value: -- var F closest drop off for the signal
+
+[6] type: COMMENT, value: ------------------- start -----------------
+
+[7] type: COMMENT, value: --STATES \"A\".                          0=SEARCHING.                    1=LOADING.                      -1=UNLOADING
+
+[8] type: COMMENT, value: --break from the loopSignal
+
+[9] type: COMMENT, value: --break from the loopSignal
+
+[10] type: COMMENT, value: -- wait for 300 ticks without changing state
+
+[11] type: COMMENT, value: -- var A
+
+[12] type: COMMENT, value: -- var B
+
+[13] type: COMMENT, value: -- var C
+
+[14] type: COMMENT, value: -- var D is the room for items that can be fit
+
+[15] type: COMMENT, value: --break from the loopSignal
+
+[16] type: IDENTIFIER, value: end
+[17] type: IDENTIFIER, value: end
+[18] type: IDENTIFIER, value: end
+[19] type: IDENTIFIER, value: Entity
+[20] type: SYMBOL, value: ,
+[21] type: IDENTIFIER, value: Signal
+[22] type: OP, value: =
+[23] type: IDENTIFIER, value: loopSignal
+[24] type: SYMBOL, value: (
+[25] type: IDENTIFIER, value: Cargo
+[26] type: SYMBOL, value: )
+[27] type: SYMBOL, value: :
+[28] type: IDENTIFIER, value: if
+[29] type: IDENTIFIER, value: Signal
+[30] type: OP, value: <
+[31] type: NUMBER, value: 0
+[32] type: SYMBOL, value: :
+[33] type: IDENTIFIER, value: RoomForItems
+[34] type: OP, value: =
+[35] type: IDENTIFIER, value: getFreeSpace
+[36] type: SYMBOL, value: (
+[37] type: IDENTIFIER, value: Entity
+[38] type: SYMBOL, value: ,
+[39] type: IDENTIFIER, value: Signal
+[40] type: SYMBOL, value: )
+[41] type: IDENTIFIER, value: if
+[42] type: IDENTIFIER, value: RoomForItems
+[43] type: OP, value: >
+[44] type: NUMBER, value: 0
+[45] type: SYMBOL, value: :
+[46] type: IDENTIFIER, value: Other
+[47] type: OP, value: =
+[48] type: IDENTIFIER, value: nearest
+[49] type: SYMBOL, value: (
+[50] type: IDENTIFIER, value: Closest
+[51] type: SYMBOL, value: ,
+[52] type: IDENTIFIER, value: Entity
+[53] type: SYMBOL, value: )
+[54] type: SYMBOL, value: :
+[55] type: IDENTIFIER, value: Closest
+[56] type: OP, value: =
+[57] type: IDENTIFIER, value: Other
+[58] type: IDENTIFIER, value: end
+[59] type: IDENTIFIER, value: end
+[60] type: IDENTIFIER, value: end
+[61] type: IDENTIFIER, value: return
+[62] type: IDENTIFIER, value: Closest
+[63] type: IDENTIFIER, value: end

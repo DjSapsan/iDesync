@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Godot
+Exec=/mnt/Arsen/Godot/Godot_v4.2.1-stable_linux.x86_64
+Icon=/path/to/your/icon.png
+Categories=Development;

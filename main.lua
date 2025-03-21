@@ -19,7 +19,7 @@ end
 
 --- RUN ---
 
-local fileName = "Example.txt"
+local fileName = "src.beh"
 local file = io.open(fileName, "r")
 if not file then
   error("Failed to open file: " .. fileName)
