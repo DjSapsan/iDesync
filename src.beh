@@ -1,17 +1,15 @@
-params (
-    Cargo
-    param2
-    param3
+params [
+    Cargo,
+    param2,
+    param3,
     param4
-)
+]
 
-vars (
-    State = 0
-    Entity
-    Signal
-    Items
-    Closest
-)
+var State = 0
+var Entity
+var Signal
+var Items
+var Closest
 
 ------------------- start -----------------
 
@@ -23,7 +21,7 @@ unlock()
 repeat
 
     compare(State, 0)
-        
+
         equal
             Entity, Signal = foreach(Cargo)
                 if Signal > 0 then
@@ -47,39 +45,40 @@ repeat
         end
 
         smaller
-            Closest = foreach(param1, param2)
+            Closest = foreach(param1, param2) end;
             dropItems(Closest)
             Items = countItems()
             Items = -1 * Items
             State = Items
         end
+    end
 end
 
 wait(1)
 goto(MAIN_LOOP)
 
 function findClosest (Arg1, Arg2)
-    vars (Var1 Var2 Var3)
+    var Var1, Var2, Var3
 
-    Entity, Signal = foreach(Cargo)
-        if Signal < 0 then
-            RoomForItems = getFreeSpace(Entity, Signal)
+    var Var4, Var5 = foreach(Cargo)
+        if Var5 < 0 then
+            RoomForItems = getFreeSpace(Var4, Var5)
             if RoomForItems > 0 then
-                Closest = Entity
-                break   --break from the loopSignal
+                Closest = Var4
+                break   --break from the loopVar5
             end
         end
     end
 
-    Entity, Signal = foreach(Cargo)
-        if Signal < 0 then
-            RoomForItems = getFreeSpace(Entity, Signal)
+    Var4, Var5 = foreach(Cargo)
+        if Var5 < 0 then
+            RoomForItems = getFreeSpace(Var4, Var5)
             if RoomForItems > 0 then
-                Other = nearest(Closest, Entity)
-                Closest = Other
+                Var1 = nearest(Closest, Var4)
+                Closest = Var1
             end
         end
     end
 
-    return (Arg1 Other)
+    return Arg1, Var1
 end

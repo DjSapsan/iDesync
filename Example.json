@@ -1,272 +1,425 @@
 {
-    "0": {
-        "op": "turnon"
+  "0": {
+    "op": "unlock"
+  },
+  "1": {
+    "op": "turnon"
+  },
+  "2": {
+    "1": -3,
+    "op": "set_reg"
+  },
+  "3": {
+    "1": -3,
+    "op": "set_reg"
+  },
+  "4": {
+    "op": "unlock_slots"
+  },
+  "5": {
+    "0": 19,
+    "1": 1,
+    "2": {
+      "id": "crystal"
     },
+    "op": "is_a"
+  },
+  "6": {
+    "0": {
+      "id": "f_resourcenode_crystal"
+    },
+    "1": "Object",
+    "op": "set_reg"
+  },
+  "7": {
+    "0": "i",
+    "1": 11,
+    "nx": 2703,
+    "ny": -1,
+    "op": "for_inventory_item"
+  },
+  "8": {
+    "1": "i",
+    "2": 1,
+    "next": false,
+    "op": "is_a"
+  },
+  "9": {
+    "2": false,
+    "c": 2,
+    "op": "dodrop",
+    "next": false
+  },
+  "10": {
+    "0": 1,
+    "c": 2,
+    "op": "lock_slots"
+  },
+  "11": {
+    "0": "Object",
+    "1": "Leader",
+    "3": 14,
+    "c": 6,
+    "op": "for_signal_match"
+  },
+  "12": {
+    "op": "last"
+  },
+  "13": {
+    "0": "Leader",
+    "2": 18,
+    "op": "is_empty"
+  },
+  "14": {
+    "0": {
+      "id": "v_color_brown"
+    },
+    "1": -3,
+    "op": "set_reg"
+  },
+  "15": {
+    "0": {
+      "num": 20
+    },
+    "op": "wait"
+  },
+  "16": {
+    "0": {
+      "id": "v_letter_F"
+    },
+    "op": "jump",
+    "next": false
+  },
+  "17": {
+    "0": {
+      "id": "v_letter_M"
+    },
+    "cmt": "MOVE AND START MINING",
+    "op": "jump",
+    "next": false
+  },
+  "18": {
+    "0": 21,
+    "1": 1,
+    "2": {
+      "id": "metalore"
+    },
+    "nx": 1488,
+    "ny": 293,
+    "op": "is_a"
+  },
+  "19": {
+    "0": {
+      "id": "f_resourcenode_metal"
+    },
+    "1": "Object",
+    "next": 8,
+    "op": "set_reg"
+  },
+  "20": {
+    "0": 23,
+    "1": 1,
+    "2": {
+      "id": "silica"
+    },
+    "nx": 1488,
+    "ny": 627,
+    "op": "is_a"
+  },
+  "21": {
+    "0": {
+      "id": "f_resourcenode_silica"
+    },
+    "1": "Object",
+    "next": 8,
+    "op": "set_reg"
+  },
+  "22": {
+    "0": 25,
+    "1": 1,
+    "2": {
+      "id": "blight_crystal"
+    },
+    "nx": 1489,
+    "ny": 948,
+    "op": "is_a"
+  },
+  "23": {
+    "0": {
+      "id": "f_resourcenode_blightcrystal"
+    },
+    "1": "Object",
+    "next": 8,
+    "op": "set_reg"
+  },
+  "24": {
+    "0": 27,
+    "1": 1,
+    "2": {
+      "id": "obsidian"
+    },
+    "nx": 1495,
+    "ny": 1278,
+    "op": "is_a"
+  },
+  "25": {
+    "0": {
+      "id": "f_resourcenode_obsidian"
+    },
+    "1": "Object",
+    "next": 8,
+    "op": "set_reg"
+  },
+  "26": {
+    "0": 1,
+    "1": 1,
+    "next": 8,
+    "op": "get_resource_item"
+  },
+  "27": {
+    "0": 1,
     "1": {
-        "0": 1,
-        "op": "lock_slots"
+      "num": 30
+    },
+    "txt": "Wrong resource!",
+    "op": "notify"
+  },
+  "28": {
+    "0": {
+      "num": 1
+    },
+    "op": "wait"
+  },
+  "29": {
+    "op": "exit"
+  },
+  "30": {
+    "0": {
+      "id": "v_letter_F"
+    },
+    "cmt": "FIND MINER LEADER",
+    "nx": 2451,
+    "ny": 647,
+    "op": "label"
+  },
+  "31": {
+    "0": {
+      "num": 2
     },
     "2": {
-        "2": "A",
-        "cmt": "STATES \"A\".               0=SEARCHING.               1=LOADING.               -1=UNLOADING",
-        "op": "set_number"
+      "id": "c_miner",
+      "num": 1
     },
+    "ny": 627,
+    "op": "clear_link",
+    "nx": 2770
+  },
+  "32": {
+    "0": 2,
+    "1": {
+      "num": 5
+    },
+    "next": 12,
+    "nx": 3065,
+    "ny": 648,
+    "op": "call",
+    "sub": 1
+  },
+  "33": {
+    "pnum": 1,
+    "nx": 0,
+    "ny": 124,
+    "op": "event_parameter",
+    "next": 1
+  },
+  "34": {
+    "0": {
+      "id": "v_letter_M"
+    },
+    "cmt": "MOVE AND START MINING",
+    "nx": 1244,
+    "ny": 2751,
+    "op": "label"
+  },
+  "35": {
+    "0": "Leader",
+    "1": "To Mine",
+    "op": "read_signal"
+  },
+  "36": {
+    "1": 54,
+    "2": "To Mine",
+    "op": "check_number"
+  },
+  "37": {
+    "0": "To Mine",
+    "1": {
+      "num": 3
+    },
+    "op": "call",
+    "sub": 1
+  },
+  "38": {
+    "0": 1,
+    "1": -3,
+    "op": "set_reg"
+  },
+  "39": {
+    "0": {
+      "num": 2
+    },
+    "2": {
+      "id": "c_miner",
+      "num": 1
+    },
+    "op": "set_link"
+  },
+  "40": {
+    "0": 48,
+    "1": 1,
+    "op": "checkfreespace"
+  },
+  "41": {
+    "0": 1,
+    "1": "count",
+    "c": 1,
+    "op": "count_item"
+  },
+  "42": {
+    "1": 47,
+    "2": "count",
     "3": {
-        "op": "unlock"
+      "num": 20
     },
-    "4": {
-        "0": {
-            "id": "v_letter_L"
+    "op": "check_number"
+  },
+  "43": {
+    "0": "count",
+    "1": -4,
+    "op": "set_reg"
+  },
+  "44": {
+    "0": {
+      "num": 1
+    },
+    "op": "wait"
+  },
+  "45": {
+    "0": {
+      "id": "v_letter_M"
+    },
+    "op": "jump",
+    "next": false
+  },
+  "46": {
+    "1": -4,
+    "next": 45,
+    "op": "set_reg"
+  },
+  "47": {
+    "0": 1,
+    "1": "count",
+    "op": "count_item"
+  },
+  "48": {
+    "0": "count",
+    "1": -4,
+    "op": "set_reg"
+  },
+  "49": {
+    "op": "shutdown"
+  },
+  "50": {
+    "0": 53,
+    "1": 1,
+    "op": "checkfreespace"
+  },
+  "51": {
+    "op": "turnon",
+    "next": 45
+  },
+  "52": {
+    "0": {
+      "num": 20
+    },
+    "op": "wait",
+    "next": 51
+  },
+  "53": {
+    "0": {
+      "num": 20
+    },
+    "op": "wait"
+  },
+  "54": {
+    "0": {
+      "id": "v_letter_F"
+    },
+    "cmt": "FIND MINER LEADER",
+    "op": "jump"
+  },
+  "pnames": [
+    "Resource",
+    "Depot"
+  ],
+  "dependencies": [
+    {
+      "0": {
+        "0": 4,
+        "2": {
+          "num": 1
         },
-        "cmt": "MAIN LOOP",
-        "op": "label"
-    },
-    "5": {
-        "0": 13,
-        "1": 22,
-        "2": "A",
-        "3": false,
-        "cmt": "CHECK STATE",
+        "3": 2,
         "op": "check_number"
-    },
-    "6": {
-        "0": 1,
-        "1": "B",
-        "2": "C",
-        "3": 11,
-        "cmt": "FIND A SOURCE",
-        "op": "for_signal_match"
-    },
-    "7": {
-        "1": false,
-        "2": "C",
-        "cmt": "Check if the object provides resources",
-        "nx": 2714.4998779296875,
-        "ny": -101,
-        "op": "check_number",
-        "next": false
-    },
-    "8": {
-        "0": false,
+      },
+      "1": {
+        "0": 2,
         "1": {
-            "num": 1
+          "num": 7
         },
-        "2": "A",
-        "cmt": "If found then state = 1",
+        "2": "range",
         "op": "set_number"
-    },
-    "9": {
-        "op": "last"
-    },
-    "10": {
-        "ny": 196.92315673828125,
-        "op": "wait",
-        "nx": 4686.15478515625
-    },
-    "11": {
-        "0": {
-            "id": "v_letter_L"
-        },
-        "op": "jump",
-        "next": false
-    },
-    "12": {
+      },
+      "2": {
         "0": 1,
-        "1": "B",
-        "2": "C",
-        "3": 19,
-        "cmt": "GO TO THE SOURCE",
-        "op": "for_signal_match"
-    },
-    "13": {
-        "1": false,
-        "2": "C",
-        "cmt": "Check if the object provides resources",
-        "op": "check_number",
-        "next": false
-    },
-    "14": {
-        "0": "B",
-        "1": false,
-        "op": "dopickup"
-    },
-    "15": {
-        "1": 1,
-        "cmt": "if can fit more, then go to a next target. If full, then switch state",
-        "next": false,
-        "op": "checkfreespace"
-    },
-    "16": {
-        "1": {
-            "num": -1
-        },
-        "2": "A",
-        "cmt": "If full then state = -1",
+        "1": "range",
+        "2": "target",
         "op": "set_number"
-    },
-    "17": {
-        "op": "last"
-    },
-    "18": {
-        "op": "shutdown"
-    },
-    "19": {
+      },
+      "3": {
+        "0": "target",
+        "c": 1,
+        "op": "domove",
+        "next": false
+      },
+      "4": {
         "0": {
-            "num": 300
+          "num": 10
         },
         "op": "wait"
-    },
-    "20": {
-        "op": "turnon",
-        "next": 11
-    },
-    "21": {
-        "0": 1,
-        "1": "F",   
-        "op": "call",
-        "sub": 1
-    },
-    "22": {
-        "0": "F",
-        "op": "dodrop",
-        "c": 2
-    },
-    "23": {
-        "0": 1,
-        "1": "D",
-        "op": "count_item"
-    },
-    "24": {
+      },
+      "5": {
         "0": {
-            "num": -1
+          "id": "v_pathblocked"
         },
-        "1": "D",
-        "2": "D",
-        "op": "mul"
-    },
-    "25": {
-        "0": false,
-        "1": "D",
-        "2": "A",
-        "cmt": "Reset",
-        "op": "set_number",
-        "next": 11
-    },
-    "pnames": [
-        "Cargo"
-    ],
-    "dependencies": [
-        {
-            "0": {
-                "2": 2,
-                "op": "set_number"
-            },
-            "1": {
-                "0": 1,
-                "1": "A",
-                "2": "B",
-                "3": 8,
-                "op": "for_signal_match",
-                "cmt": "FIND ANYONE"
-            },
-            "2": {
-                "0": false,
-                "2": "B",
-                "op": "check_number",
-                "next": false
-            },
-            "3": {
-                "0": 1,
-                "1": "D",
-                "2": "A",
-                "op": "getfreespace"
-            },
-            "4": {
-                "1": false,
-                "2": "D",
-                "op": "check_number",
-                "next": false
-            },
-            "5": {
-                "0": "A",
-                "1": false,
-                "2": 2,
-                "op": "set_number"
-            },
-            "6": {
-                "op": "last"
-            },
-            "7": {
-                "0": 1,
-                "1": "A",
-                "2": "B",
-                "3": false,
-                "cmt": "FIND CLOSEST (COMPARED TO ANYONE)",
-                "op": "for_signal_match"
-            },
-            "8": {
-                "0": false,
-                "2": "B",
-                "op": "check_number",
-                "next": false
-            },
-            "9": {
-                "0": 1,
-                "1": "D",
-                "2": "A",
-                "op": "getfreespace"
-            },
-            "10": {
-                "1": false,
-                "2": "D",
-                "op": "check_number",
-                "next": false
-            },
-            "11": {
-                "1": false,
-                "2": "A",
-                "3": "C",
-                "op": "select_nearest",
-                "next": false
-            },
-            "12": {
-                "0": "A",
-                "1": false,
-                "2": "C",
-                "op": "set_number"
-            },
-            "13": {
-                "0": "C",
-                "1": false,
-                "2": 2,
-                "op": "set_number"
-            },
-            "parameters": [
-                false,
-                true
-            ],
-            "pnames": [
-                "Signal",
-                "Closest"
-            ],
-            "vars": {
-                "A": 1,
-                "B": 2,
-                "C": 4,
-                "D": 3
-            },
-            "name": "Find Closest Drop Off"
-        }
-    ],
-    "parameters": [
+        "1": -3,
+        "op": "set_reg",
+        "next": 4
+      },
+      "parameters": [
+        false,
         false
-    ],
-    "vars": {
-        "A": 1,
-        "B": 3,
-        "C": 4,
-        "D": 10,
-        "F": 9
-    },
-    "name": "Signal Ore Carrier"
+      ],
+      "pnames": [
+        "Target",
+        "Range"
+      ],
+      "name": "Move Close"
+    }
+  ],
+  "parameters": [
+    true,
+    false
+  ],
+  "name": "Miner Smart"
 }

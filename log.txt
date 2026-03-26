@@ -1,78 +1,143 @@
-[1] type: COMMENT, value: -- var A current state
+[1] type: KEYWORD_DECLARATION, value: params
+[2] type: LPAREN, value: (
+[3] type: IDENTIFIER, value: Cargo
+[4] type: IDENTIFIER, value: param2
+[5] type: IDENTIFIER, value: param3
+[6] type: IDENTIFIER, value: param4
+[7] type: RPAREN, value: )
+[8] type: KEYWORD_DECLARATION, value: vars
+[9] type: LPAREN, value: (
+[10] type: IDENTIFIER, value: State
+[11] type: EQUALS, value: =
+[12] type: NUMBER, value: 0
+[13] type: IDENTIFIER, value: Entity
+[14] type: IDENTIFIER, value: Signal
+[15] type: IDENTIFIER, value: Items
+[16] type: IDENTIFIER, value: Closest
+[17] type: RPAREN, value: )
+[18] type: COMMENT, value: ------------------- start -----------------
 
-[2] type: COMMENT, value: -- var B entity
+[19] type: FUNCTION_BUILTIN, value: turnOn
+[20] type: LPAREN, value: (
+[21] type: RPAREN, value: )
+[22] type: FUNCTION_BUILTIN, value: lockSlots
+[23] type: LPAREN, value: (
+[24] type: IDENTIFIER, value: Cargo
+[25] type: RPAREN, value: )
+[26] type: IDENTIFIER, value: State
+[27] type: EQUALS, value: =
+[28] type: NUMBER, value: 0
+[29] type: COMMENT, value: --STATES \"A\".			   0=SEARCHING.			   1=LOADING.			   -1=UNLOADING
 
-[3] type: COMMENT, value: -- var C signal to search
+[30] type: FUNCTION_BUILTIN, value: unlock
+[31] type: LPAREN, value: (
+[32] type: RPAREN, value: )
+[33] type: KEYWORD_CONTROL, value: repeat
+[34] type: KEYWORD_CONTROL, value: compare
+[35] type: LPAREN, value: (
+[36] type: IDENTIFIER, value: State
+[37] type: COMMA, value: ,
+[38] type: NUMBER, value: 0
+[39] type: RPAREN, value: )
+[40] type: KEYWORD_CONTROL, value: equal
+[41] type: IDENTIFIER, value: Entity
+[42] type: COMMA, value: ,
+[43] type: IDENTIFIER, value: Signal
+[44] type: EQUALS, value: =
+[45] type: FUNCTION_BUILTIN, value: foreach
+[46] type: LPAREN, value: (
+[47] type: IDENTIFIER, value: Cargo
+[48] type: RPAREN, value: )
+[49] type: KEYWORD_CONTROL, value: if
+[50] type: IDENTIFIER, value: Signal
+[51] type: OPERATOR, value: >
+[52] type: NUMBER, value: 0
+[53] type: KEYWORD_CONTROL, value: then
+[54] type: IDENTIFIER, value: State
+[55] type: EQUALS, value: =
+[56] type: NUMBER, value: 1
+[57] type: KEYWORD_CONTROL, value: break
+[58] type: COMMENT, value: --break from the loopSignal
 
-[4] type: COMMENT, value: -- var D own counted items
+[59] type: KEYWORD_CONTROL, value: end
+[60] type: KEYWORD_CONTROL, value: end
+[61] type: KEYWORD_CONTROL, value: end
+[62] type: KEYWORD_CONTROL, value: larger
+[63] type: IDENTIFIER, value: Entity
+[64] type: COMMA, value: ,
+[65] type: IDENTIFIER, value: Signal
+[66] type: EQUALS, value: =
+[67] type: FUNCTION_BUILTIN, value: foreach
+[68] type: LPAREN, value: (
+[69] type: IDENTIFIER, value: Cargo
+[70] type: RPAREN, value: )
+[71] type: KEYWORD_CONTROL, value: if
+[72] type: IDENTIFIER, value: Signal
+[73] type: OPERATOR, value: >
+[74] type: NUMBER, value: 0
+[75] type: KEYWORD_CONTROL, value: then
+[76] type: FUNCTION_BUILTIN, value: pickItems
+[77] type: LPAREN, value: (
+[78] type: IDENTIFIER, value: Entity
+[79] type: RPAREN, value: )
+[80] type: KEYWORD_CONTROL, value: if
+[81] type: KEYWORD_CONTROL, value: not
+[82] type: FUNCTION_BUILTIN, value: checkFreeSpace
+[83] type: LPAREN, value: (
+[84] type: IDENTIFIER, value: Cargo
+[85] type: RPAREN, value: )
+[86] type: KEYWORD_CONTROL, value: then
+[87] type: IDENTIFIER, value: State
+[88] type: EQUALS, value: =
+[89] type: OPERATOR, value: -
+[90] type: NUMBER, value: 1
+[91] type: KEYWORD_CONTROL, value: end
+[92] type: KEYWORD_CONTROL, value: break
+[93] type: COMMENT, value: --break from the loopSignal
 
-[5] type: COMMENT, value: -- var F closest drop off for the signal
+[94] type: KEYWORD_CONTROL, value: end
+[95] type: KEYWORD_CONTROL, value: end
+[96] type: KEYWORD_CONTROL, value: wait
+[97] type: LPAREN, value: (
+[98] type: NUMBER, value: 300
+[99] type: RPAREN, value: )
+[100] type: COMMENT, value: -- wait for 300 ticks without changing state
 
-[6] type: COMMENT, value: ------------------- start -----------------
-
-[7] type: COMMENT, value: --STATES \"A\".                          0=SEARCHING.                    1=LOADING.                      -1=UNLOADING
-
-[8] type: COMMENT, value: --break from the loopSignal
-
-[9] type: COMMENT, value: --break from the loopSignal
-
-[10] type: COMMENT, value: -- wait for 300 ticks without changing state
-
-[11] type: COMMENT, value: -- var A
-
-[12] type: COMMENT, value: -- var B
-
-[13] type: COMMENT, value: -- var C
-
-[14] type: COMMENT, value: -- var D is the room for items that can be fit
-
-[15] type: COMMENT, value: --break from the loopSignal
-
-[16] type: IDENTIFIER, value: end
-[17] type: IDENTIFIER, value: end
-[18] type: IDENTIFIER, value: end
-[19] type: IDENTIFIER, value: Entity
-[20] type: SYMBOL, value: ,
-[21] type: IDENTIFIER, value: Signal
-[22] type: OP, value: =
-[23] type: IDENTIFIER, value: loopSignal
-[24] type: SYMBOL, value: (
-[25] type: IDENTIFIER, value: Cargo
-[26] type: SYMBOL, value: )
-[27] type: SYMBOL, value: :
-[28] type: IDENTIFIER, value: if
-[29] type: IDENTIFIER, value: Signal
-[30] type: OP, value: <
-[31] type: NUMBER, value: 0
-[32] type: SYMBOL, value: :
-[33] type: IDENTIFIER, value: RoomForItems
-[34] type: OP, value: =
-[35] type: IDENTIFIER, value: getFreeSpace
-[36] type: SYMBOL, value: (
-[37] type: IDENTIFIER, value: Entity
-[38] type: SYMBOL, value: ,
-[39] type: IDENTIFIER, value: Signal
-[40] type: SYMBOL, value: )
-[41] type: IDENTIFIER, value: if
-[42] type: IDENTIFIER, value: RoomForItems
-[43] type: OP, value: >
-[44] type: NUMBER, value: 0
-[45] type: SYMBOL, value: :
-[46] type: IDENTIFIER, value: Other
-[47] type: OP, value: =
-[48] type: IDENTIFIER, value: nearest
-[49] type: SYMBOL, value: (
-[50] type: IDENTIFIER, value: Closest
-[51] type: SYMBOL, value: ,
-[52] type: IDENTIFIER, value: Entity
-[53] type: SYMBOL, value: )
-[54] type: SYMBOL, value: :
-[55] type: IDENTIFIER, value: Closest
-[56] type: OP, value: =
-[57] type: IDENTIFIER, value: Other
-[58] type: IDENTIFIER, value: end
-[59] type: IDENTIFIER, value: end
-[60] type: IDENTIFIER, value: end
-[61] type: IDENTIFIER, value: return
-[62] type: IDENTIFIER, value: Closest
-[63] type: IDENTIFIER, value: end
+[101] type: KEYWORD_CONTROL, value: end
+[102] type: KEYWORD_CONTROL, value: smaller
+[103] type: IDENTIFIER, value: Closest
+[104] type: EQUALS, value: =
+[105] type: FUNCTION_BUILTIN, value: foreach
+[106] type: LPAREN, value: (
+[107] type: IDENTIFIER, value: param1
+[108] type: COMMA, value: ,
+[109] type: IDENTIFIER, value: param2
+[110] type: RPAREN, value: )
+[111] type: FUNCTION_BUILTIN, value: dropItems
+[112] type: LPAREN, value: (
+[113] type: IDENTIFIER, value: Closest
+[114] type: RPAREN, value: )
+[115] type: IDENTIFIER, value: Items
+[116] type: EQUALS, value: =
+[117] type: FUNCTION_BUILTIN, value: countItems
+[118] type: LPAREN, value: (
+[119] type: RPAREN, value: )
+[120] type: IDENTIFIER, value: Items
+[121] type: EQUALS, value: =
+[122] type: OPERATOR, value: -
+[123] type: NUMBER, value: 1
+[124] type: OPERATOR, value: *
+[125] type: IDENTIFIER, value: Items
+[126] type: IDENTIFIER, value: State
+[127] type: EQUALS, value: =
+[128] type: IDENTIFIER, value: Items
+[129] type: KEYWORD_CONTROL, value: end
+[130] type: KEYWORD_CONTROL, value: end
+[131] type: KEYWORD_CONTROL, value: wait
+[132] type: LPAREN, value: (
+[133] type: NUMBER, value: 1
+[134] type: RPAREN, value: )
+[135] type: KEYWORD_CONTROL, value: goto
+[136] type: LPAREN, value: (
+[137] type: IDENTIFIER, value: MAIN_LOOP
+[138] type: RPAREN, value: )
