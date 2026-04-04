@@ -31,16 +31,14 @@ vars [
 
 ### Statements
 
-| Syntax | Description |
-|--------|-------------|
-| `turnOn()` | Call built-in with no args |
-| `lockSlots(Cargo)` | Call built-in with args |
-| `State = 0` | Assignment |
-| `Entity, Signal = foreach(Cargo)` | Multi-assign from loop |
-| `Items = -1 * Items` | Arithmetic expression |
-| `goto(MAIN_LOOP)` | Unconditional jump to label |
-| `wait(300)` | Wait N ticks |
-| `break` | Break out of loop |
+- `turnOn()` — Call built-in with no args
+- `lockSlots(Cargo)` — Call built-in with args
+- `State = 0` — Assignment
+- `Entity, Signal = foreach(Cargo)` — Multi-assign from loop
+- `Items = -1 * Items` — Arithmetic expression
+- `goto(MAIN_LOOP)` — Unconditional jump to label
+- `wait(300)` — Wait N ticks
+- `break` — Break out of loop
 
 ### Control flow
 
@@ -106,34 +104,30 @@ Top-level keys also include:
 
 ### Argument value types
 
-| Lua value | Meaning |
-|-----------|---------|
-| integer N | register index (positive = component register, negative = owner register) |
-| `"VarName"` | named register (string) |
-| `{ id = "item_id" }` | game item/entity reference |
-| `{ num = 30 }` | literal number |
-| `false` | null/none |
+- integer N — register index (positive = component register, negative = owner register)
+- `"VarName"` — named register (string)
+- `{ id = "item_id" }` — game item/entity reference
+- `{ num = 30 }` — literal number
+- `false` — null/none
 
 ### Key opcodes
 
-| Opcode | Description |
-|--------|-------------|
-| `turnon` / `shutdown` | Enable/disable component |
-| `unlock` / `lock_slots` | Slot management |
-| `set_reg` | Assign value to register: `0`=dest, `1`=src |
-| `wait` | Wait N ticks: `0`={num=N} |
-| `jump` | Unconditional jump: `0`=label id |
-| `label` | Jump target: `0`=label id |
-| `call` | Call sub-behavior: `0`=arg, `sub`=sub-index |
-| `for_inventory_item` | foreach loop over inventory |
-| `for_signal_match` | foreach loop over signals |
-| `check_number` | Conditional branch: `0`=next-if-false, `2`=value |
-| `is_a` | Type check |
-| `domove` | Move command |
-| `dodrop` | Drop items |
-| `notify` | Show notification |
-| `exit` | End execution |
-| `event_parameter` | Declare parameter |
+- `turnon` / `shutdown` — Enable/disable component
+- `unlock` / `lock_slots` — Slot management
+- `set_reg` — Assign value to register: `0`=dest, `1`=src
+- `wait` — Wait N ticks: `0`={num=N}
+- `jump` — Unconditional jump: `0`=label id
+- `label` — Jump target: `0`=label id
+- `call` — Call sub-behavior: `0`=arg, `sub`=sub-index
+- `for_inventory_item` — foreach loop over inventory
+- `for_signal_match` — foreach loop over signals
+- `check_number` — Conditional branch: `0`=next-if-false, `2`=value
+- `is_a` — Type check
+- `domove` — Move command
+- `dodrop` — Drop items
+- `notify` — Show notification
+- `exit` — End execution
+- `event_parameter` — Declare parameter
 
 ---
 
@@ -161,14 +155,12 @@ iDesync/
 
 ## Implementation status
 
-| Component | Status |
-|-----------|--------|
-| Base tokenizer | DONE (base/tokenizer.lua) |
-| Base parser | DONE (base/parser.lua) |
-| Beh tokenizer | STUB — needs keywords/symbols from .beh spec |
-| Beh parser | PARTIAL — only `params` block; missing everything else |
-| Beh AST nodes | STUB — empty |
-| Code generator | NOT STARTED — must emit Desynced JSON |
+- Base tokenizer — DONE (base/tokenizer.lua)
+- Base parser — DONE (base/parser.lua)
+- Beh tokenizer — STUB — needs keywords/symbols from .beh spec
+- Beh parser — PARTIAL — only `params` block; missing everything else
+- Beh AST nodes — STUB — empty
+- Code generator — NOT STARTED — must emit Desynced JSON
 
 ## Next steps (compiler pipeline)
 

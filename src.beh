@@ -1,21 +1,23 @@
 params [
     Cargo,
-    param2,
+    Targets,    -- renamed from param2: list of drop-off targets
     param3,
-    param4
+    param4,
 ]
 
-var State = 0
-var Entity
-var Signal
-var Items
-var Closest
+vars [
+    State = 0,  -- 0=SEARCHING, 1=LOADING, -1=UNLOADING
+    Entity,
+    Signal,
+    Items,
+    Closest,
+]
 
 ------------------- start -----------------
 
 turnOn()
 lockSlots(Cargo)
-State = 0   --STATES \"A\".			   0=SEARCHING.			   1=LOADING.			   -1=UNLOADING
+State = 0
 unlock()
 
 repeat
@@ -26,7 +28,7 @@ repeat
             Entity, Signal = foreach(Cargo)
                 if Signal > 0 then
                     State = 1
-                    break   --break from the loopSignal
+                    break
                 end
             end
         end
@@ -35,50 +37,53 @@ repeat
             Entity, Signal = foreach(Cargo)
                 if Signal > 0 then
                     pickItems(Entity)
-                        if not checkFreeSpace(Cargo) then
-                            State = -1
-                        end
-                        break   --break from the loopSignal
+                    if not checkFreeSpace(Cargo) then
+                        State = -1
+                    end
+                    break
                 end
             end
-            wait(300)   -- wait for 300 ticks without changing state
+            wait(300)
         end
 
         smaller
-            Closest = foreach(param1, param2) end;
+            Closest = findClosest(Cargo, Targets)
             dropItems(Closest)
             Items = countItems()
             Items = -1 * Items
             State = Items
         end
+
     end
+
+    wait(1)
+
 end
 
-wait(1)
-goto(MAIN_LOOP)
-
 function findClosest (Arg1, Arg2)
-    var Var1, Var2, Var3
+    vars (Closest RoomForItems Nearest Var4 Var5)
 
-    var Var4, Var5 = foreach(Cargo)
+    -- First pass: find any valid target with free space
+    Var4, Var5 = foreach(Arg2)
         if Var5 < 0 then
-            RoomForItems = getFreeSpace(Var4, Var5)
+            RoomForItems = getFreeSpace(Var4, Arg1)
             if RoomForItems > 0 then
                 Closest = Var4
-                break   --break from the loopVar5
+                break
             end
         end
     end
 
-    Var4, Var5 = foreach(Cargo)
+    -- Second pass: narrow down to the nearest valid target
+    Var4, Var5 = foreach(Arg2)
         if Var5 < 0 then
-            RoomForItems = getFreeSpace(Var4, Var5)
+            RoomForItems = getFreeSpace(Var4, Arg1)
             if RoomForItems > 0 then
-                Var1 = nearest(Closest, Var4)
-                Closest = Var1
+                Nearest = nearest(Closest, Var4)
+                Closest = Nearest
             end
         end
     end
 
-    return Arg1, Var1
+    return Closest, Nearest
 end
