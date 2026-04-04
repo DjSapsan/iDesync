@@ -110,24 +110,51 @@ Top-level keys also include:
 - `{ num = 30 }` — literal number
 - `false` — null/none
 
+### Game instruction definition format (main/data/instructions.lua)
+
+Each instruction is defined as `data.instructions.<id>` with:
+- `func(comp, state, cause, ...)` — runtime logic (return true = yields/waits)
+- `make_asm(inst)` — optional, generates extra arg passed to func after cause
+- `next(comp, state, it, ...)` / `last(comp, state, it, ...)` — loop iteration/cleanup
+- `exec_arg = { index, "Label", "Description" }` — execution path branching
+- `args = { {'in'|'out'|'exec', "Name", "Desc", filter?, expanded?}, ... }` — argument definitions
+- `name`, `desc`, `category`, `icon` — metadata
+- `node_ui(canvas, inst, program_ui)` — optional visual editor UI
+- `sample` — encoded example string
+
+Categories: Flow, Unit, Global, Math, Move, Component, AutoBase
+
 ### Key opcodes
 
 - `turnon` / `shutdown` — Enable/disable component
 - `unlock` / `lock_slots` — Slot management
 - `set_reg` — Assign value to register: `0`=dest, `1`=src
+- `set_number` — Set numeric value
 - `wait` — Wait N ticks: `0`={num=N}
 - `jump` — Unconditional jump: `0`=label id
 - `label` — Jump target: `0`=label id
 - `call` — Call sub-behavior: `0`=arg, `sub`=sub-index
 - `for_inventory_item` — foreach loop over inventory
 - `for_signal_match` — foreach loop over signals
+- `for_number` / `for_count_resources` / `for_component` — other loop types
 - `check_number` — Conditional branch: `0`=next-if-false, `2`=value
-- `is_a` — Type check
-- `domove` — Move command
-- `dodrop` — Drop items
-- `notify` — Show notification
-- `exit` — End execution
-- `event_parameter` — Declare parameter
+- `compare_register` / `compare_entity` / `compare_item` — comparison ops
+- `is_a` / `is_unit_a` / `is_empty` / `is_equipped` — type/state checks
+- `add` / `sub` / `mul` / `div` / `modulo` — arithmetic
+- `domove` / `domove_async` / `domovexy` / `domove_range` — movement
+- `dopickup` / `dodrop` / `dodock` / `doundock` — item handling
+- `attack_move` / `mine` / `scan` / `scout` — unit commands
+- `get_closest_entity` / `get_distance` / `get_location` / `getxy` — spatial queries
+- `notify` / `ping` / `debug_print` — notifications
+- `exit` / `restart` / `stop` — execution control
+- `event_parameter` / `event_radio` — parameter/event declarations
+- `memory_get` / `memory_set` / `memory_insert` / `memory_remove` / `memory_loop` / `memory_length` — memory ops
+- `read_signal` / `read_radio` / `readkey` — input reading
+- `produce` / `build` / `equip_component` / `unequip_component` — production/equip
+- `random_number` / `random_coordinate` — RNG
+- `match` / `switch` / `sequence` / `select_nearest` — flow branching
+
+Full list: 198 instructions defined in `main/data/instructions.lua`
 
 ---
 
@@ -149,9 +176,38 @@ iDesync/
     tokenizer.lua           -- full base tokenizer (coroutine-based)
     parser.lua              -- base parser class (canbe/mustbe)
     datareader.lua          -- regex-based stream reader
+  main/data/                -- original Desynced game data (Lua source)
+    instructions.lua        -- 198 instruction definitions with func/args/metadata
+    behaviors.lua           -- built-in behavior encoded strings
+    components.lua          -- all game components (slots, registers, recipes)
+    items.lua               -- all game items (resources, produced goods)
+    values.lua              -- signal/color/filter constants
+    library.lua             -- behavior assembly/cache/execution runtime
   lua/                      -- Lua reference parser (for reference)
   grammar/                  -- grammar-based parser (for reference)
 ```
+
+### Instruction runtime helpers (instructions.lua)
+
+The runtime (in `instructions.lua` / `main/data/instructions.lua`) provides register access helpers used by instruction `func` implementations:
+- `InstGet(comp, state, i)` — read register i (handles stack frames, memory, owner regs, faction radio)
+- `InstGetNum(comp, state, i)` — read register as number
+- `InstGetEntity(comp, state, i)` — read register as entity
+- `InstSet(comp, state, i, val)` — write register i
+- `GetStack(state, i)` — resolve stack-relative register index
+- `CallRadio(fn, comp, state, j, setval)` — access faction radio storage registers
+
+Register index conventions: positive = component register, negative (-1..-4) = frame register, negative (<= -100) = faction radio register.
+
+### Game data files (main/data/)
+
+- **items.lua** — all game items with `name`, `slot_type`, `stack_size`, `mining_recipe` / `production_recipe`
+- **components.lua** — all components with slots, registers, activation modes, recipes, callbacks
+- **values.lua** — constants: alien signals, colors, entity filters (radar), coordinate types
+- **behaviors.lua** — encoded strings of built-in behaviors (Formation Move, Loop Recipe, etc.)
+- **library.lua** — `GetFactionBehaviorAsm()` assembler: converts behavior JSON to executable asm array, handles sub-calls, memory, faction registers
+
+---
 
 ## Implementation status
 
