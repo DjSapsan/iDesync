@@ -1,0 +1,12 @@
+params [
+    Resource,
+    Depot,
+]
+
+unlock()
+turnon()
+
+unlock_slots()
+
+is_a(Resource, "Crystal Chunk")
+    

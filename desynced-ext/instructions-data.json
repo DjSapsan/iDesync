@@ -1,0 +1,1943 @@
+{
+  "abort_construction": {
+    "name": "Abort Construction",
+    "desc": "Abort an owned construction",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target Construction","filter":"entity"}
+    ]
+  },
+  "activate": {
+    "name": "Activate",
+    "desc": "Activate",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"exec","name":"Failed","desc":"Failed"}
+    ]
+  },
+  "add": {
+    "name": "Add",
+    "desc": "Adds a number or coordinate to another number or coordinate",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Add Numbers.png",
+    "args": [
+      {"direction":"in","name":"To","filter":"any"},
+      {"direction":"in","name":"Num","filter":"coord_num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "attack_move": {
+    "name": "Attack Move",
+    "desc": "Moves towards a location stopping to attack any enemies encountered",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target unit or coordinate","filter":"coord"},
+      {"direction":"in","name":"Unit","desc":"Unit","filter":"entity","extra":true}
+    ]
+  },
+  "bitwise_op": {
+    "name": "Bitwise Op",
+    "desc": "Performs a bitwise operation on two values",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"A","desc":"First value (or value for NOT)","filter":"num"},
+      {"direction":"in","name":"B","desc":"Second value (ignored for NOT)","filter":"num","extra":true},
+      {"direction":"out","name":"Result","desc":"Bitwise operation result"}
+    ]
+  },
+  "build": {
+    "name": "Place Construction",
+    "desc": "Places a construction site for a specific structure",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","desc":"Target location, or at currently location if not specified","filter":"coord","extra":true},
+      {"direction":"in","name":"Rotation","desc":"Building Rotation (0 to 3) (default 0)","filter":"posnum","extra":true},
+      {"direction":"exec","name":"Construction Failed","desc":"Where to continue if construction fails"}
+    ]
+  },
+  "build_registered": {
+    "name": "Build Registered",
+    "desc": "Places a building to be registered",
+    "category": "AutoBase",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","desc":"Target location, or at currently location if not specified","filter":"coord","extra":true},
+      {"direction":"in","name":"Rotation","desc":"Building Rotation (0 to 3) (default 0)","filter":"posnum","extra":true},
+      {"direction":"in","name":"Id","desc":"Id to register with"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"},
+      {"direction":"exec","name":"Construction Failed","desc":"Where to continue if construction fails"}
+    ]
+  },
+  "call": {
+    "name": "Call",
+    "desc": "Call a subroutine",
+    "category": "Flow",
+    "icon": "icon_input"
+  },
+  "can_equip": {
+    "name": "Can Equip",
+    "desc": "Checks if a component can be equipped on a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Home.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true},
+      {"direction":"in","name":"Component","desc":"Component to equip","filter":"comp"},
+      {"direction":"exec","name":"Cannot Equip","desc":"If the component is unable to be equipped"}
+    ]
+  },
+  "can_produce": {
+    "name": "Can Produce",
+    "desc": "Returns if a unit can produce an item",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Can Produce.png",
+    "args": [
+      {"direction":"exec","name":"Can Produce","desc":"Where to continue if the item can be produced"},
+      {"direction":"in","name":"Item","desc":"Production Item","filter":"item"},
+      {"direction":"in","name":"Component","desc":"Optional Component to check (if Component not equipped)","filter":"comp_num","extra":true}
+    ],
+    "exec_arg": {"index":1,"label":"Cannot Produce","desc":"Where to continue if the item cannot be produced"}
+  },
+  "check_altitude": {
+    "name": "Check Altitude",
+    "desc": "Divert program depending on location of a unit or coordinate",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"The unit or coordinate to check for (if not self)","filter":"coord","extra":true},
+      {"direction":"exec","name":"Valley","desc":"Where to continue if the unit or coordinate is in a valley"},
+      {"direction":"exec","name":"Plateau","desc":"Where to continue if the unit or coordinate is on a plateau"}
+    ],
+    "exec_arg": {"index":4,"label":"No Visibility","desc":"No visibility on target"}
+  },
+  "check_battery": {
+    "name": "Check Battery",
+    "desc": "Checks the Battery level of a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Check Battery.png",
+    "args": [
+      {"direction":"exec","name":"Full","desc":"Where to continue if battery power is fully recharged"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "check_bit": {
+    "name": "Check Bit",
+    "desc": "Checks if a specific bit is set in a number",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"Bit Clear","desc":"Execution path if bit is clear"},
+      {"direction":"in","name":"Value","desc":"The number to check","filter":"num"},
+      {"direction":"in","name":"Bit Index","desc":"Bit index (1 = least significant)","filter":"num"}
+    ],
+    "exec_arg": {"index":1,"label":"Bit Set","desc":"Execution path if bit is set"}
+  },
+  "check_blightness": {
+    "name": "Check Blightness",
+    "desc": "Divert program depending on location of a unit or coordinate",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"The unit or coordinate to check for (if not self)","filter":"coord","extra":true},
+      {"direction":"exec","name":"Blight","desc":"Where to continue if the unit is in the blight"}
+    ]
+  },
+  "check_grid_effeciency": {
+    "name": "Check Grid Efficiency",
+    "desc": "Checks the Efficiency of the logistics network the unit is on",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png",
+    "args": [
+      {"direction":"exec","name":"Full","desc":"Where to continue if at full efficiency"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "check_health": {
+    "name": "Check Health",
+    "desc": "Check a unit's health",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/H Value.png",
+    "args": [
+      {"direction":"exec","name":"Full","desc":"Where to continue if at full health"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "check_number": {
+    "name": "Compare Number",
+    "desc": "Divert program depending on number of Value and Compare",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"If Larger","desc":"Where to continue if Value is larger than Compare"},
+      {"direction":"exec","name":"If Smaller","desc":"Where to continue if Value is smaller than Compare"},
+      {"direction":"in","name":"Value","desc":"The value to check with","filter":"num"},
+      {"direction":"in","name":"Compare","desc":"The number to check against","filter":"num"}
+    ],
+    "exec_arg": {"index":1,"label":"If Equal","desc":"Where to continue if the numerical values are the same"}
+  },
+  "checkfreespace": {
+    "name": "Check space for item",
+    "desc": "Checks if free space is available for an item and amount",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"exec","name":"Can't Fit","desc":"Execution if it can't fit the item"},
+      {"direction":"in","name":"Item","desc":"Item and amount to check can fit","filter":"item_num"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "clear_all_links": {
+    "name": "Clear All Links",
+    "desc": "Clear all register links on this unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png"
+  },
+  "clear_link": {
+    "name": "Clear Link",
+    "desc": "Clear register link",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png",
+    "args": [
+      {"direction":"in","name":"From","desc":"Component/Register Index to start clearing a link","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Index for when multiple components equipped of same type","filter":"posnum","extra":true},
+      {"direction":"in","name":"To","desc":"Component/Register Index to end clearing a link","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Index for when multiple components equipped of same type","filter":"posnum","extra":true}
+    ]
+  },
+  "clear_research": {
+    "name": "Clear Research",
+    "desc": "Clears a research from research queue, or entire queue if no tech passed",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Tech","desc":"Tech to remove from research queue","filter":"tech"}
+    ]
+  },
+  "combine_coordinate": {
+    "name": "Combine Coordinate",
+    "desc": "Returns a coordinate made from x and y values",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"x","filter":"num"},
+      {"direction":"in","name":"y","filter":"num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "combine_register": {
+    "name": "Combine Register",
+    "desc": "Combine to make a register from separate parameters",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Num"},
+      {"direction":"in","name":"Unit"},
+      {"direction":"out","name":"Register","filter":"entity"},
+      {"direction":"in","name":"x","extra":true},
+      {"direction":"in","name":"y","extra":true}
+    ]
+  },
+  "compare_entity": {
+    "name": "Compare Unit",
+    "desc": "Compares Units",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"If Different","desc":"Where to continue if the units differ"},
+      {"direction":"in","name":"Unit 1"},
+      {"direction":"in","name":"Unit 2"}
+    ],
+    "exec_arg": {"index":1,"label":"If Equal","desc":"Where to continue if the units are the same"}
+  },
+  "compare_item": {
+    "name": "Compare Item",
+    "desc": "Compares Item or Unit type",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"If Different","desc":"Where to continue if the types differ"},
+      {"direction":"in","name":"Value 1"},
+      {"direction":"in","name":"Value 2"}
+    ],
+    "exec_arg": {"index":1,"label":"If Equal","desc":"Where to continue if the types are the same"}
+  },
+  "compare_register": {
+    "name": "Compare Register",
+    "desc": "Compares Registers for equality",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"If Different","desc":"Where to continue if the registers differ"},
+      {"direction":"in","name":"Value 1"},
+      {"direction":"in","name":"Value 2"}
+    ],
+    "exec_arg": {"index":1,"label":"If Equal","desc":"Where to continue if the registers are the same"}
+  },
+  "connect": {
+    "name": "Connect",
+    "desc": "Connects the Unit to the Logistics Network",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Carry.png"
+  },
+  "count_item": {
+    "name": "Count Items",
+    "desc": "Counts the number of the passed item contained in the unit's inventory",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item to count","filter":"item"},
+      {"direction":"out","name":"Result","desc":"Number of this item in inventory or empty if none exist"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "count_slots": {
+    "name": "Count Slots",
+    "desc": "Returns the number of slots in this unit of the given type",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"out","name":"Result","desc":"Number of slots of this type"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "debug_print": {
+    "name": "DebugPrint",
+    "desc": "Debug print to log",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Print Value","desc":"Notification Value"}
+    ]
+  },
+  "deploy": {
+    "name": "Deploys held unit",
+    "desc": "Deploys the first found held unit at location specified or current location",
+    "category": "Component",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Coord","desc":"location to deploy"}
+    ]
+  },
+  "disable_transport_route": {
+    "name": "Disable Transport Route",
+    "desc": "Disable Unit to deliver on transport route",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Carry.png"
+  },
+  "disconnect": {
+    "name": "Disconnect",
+    "desc": "Disconnects the Unit from the Logistics Network",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Carry.png"
+  },
+  "div": {
+    "name": "Divide",
+    "desc": "Divides a number or coordinate from another number or coordinate",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Divide Numbers.png",
+    "args": [
+      {"direction":"in","name":"From","filter":"any"},
+      {"direction":"in","name":"Num","filter":"coord_num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "dodrop": {
+    "name": "Drop Off Items",
+    "desc": "Drop off items at a unit or location",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Drop Items.png",
+    "args": [
+      {"direction":"in","name":"Destination","desc":"Unit or destination to bring items to","filter":"entity"},
+      {"direction":"in","name":"Item / Amount","desc":"Item and amount to drop off","filter":"item_num","extra":true},
+      {"direction":"exec","name":"Path Blocked","desc":"If path to destination was blocked"}
+    ]
+  },
+  "domove": {
+    "name": "Move Unit",
+    "desc": "Moves to another unit or within a range of another unit",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit to move to, the number specifies the range in which to be in","filter":"entity"},
+      {"direction":"exec","name":"Path Blocked","desc":"Where to continue if unit is path blocked"},
+      {"direction":"in","name":"Unit","desc":"Target Unit","filter":"entity","extra":true}
+    ]
+  },
+  "domove_async": {
+    "name": "Move Unit (Async)*",
+    "desc": "*DEPRECATED* Use Move Unit",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit to move to","filter":"entity"}
+    ]
+  },
+  "domove_range": {
+    "name": "*Move Unit (Range)*",
+    "desc": "*DEPRECATED* Use Move Unit",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit to move to, the number specifies the range in which to be in","filter":"entity"}
+    ]
+  },
+  "dopickup": {
+    "name": "Pick Up Items",
+    "desc": "Picks up items from a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Pick Up Items.png",
+    "args": [
+      {"direction":"in","name":"Source","desc":"Unit to take items from","filter":"entity"},
+      {"direction":"in","name":"Item / Amount","desc":"Item and amount to pick up","filter":"item_num","extra":true},
+      {"direction":"exec","name":"Path Blocked","desc":"If path to destination was blocked"}
+    ]
+  },
+  "enable_transport_route": {
+    "name": "Enable Transport Route",
+    "desc": "Enable Unit to deliver on transport route",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Carry.png"
+  },
+  "equip_component": {
+    "name": "Equip Component",
+    "desc": "Equips a component if it exists",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Home.png",
+    "args": [
+      {"direction":"exec","name":"No Component","desc":"If you don't current hold the requested component"},
+      {"direction":"in","name":"Component","desc":"Component to equip","filter":"comp"},
+      {"direction":"in","name":"Slot index","desc":"Individual slot to equip component from","filter":"posnum","extra":true}
+    ]
+  },
+  "equip_component_remotely": {
+    "name": "Equip Component Remotely",
+    "desc": "Equips a component if it exists in the unit's inventory",
+    "category": "AutoBase",
+    "icon": "Main/skin/Icons/Common/56x56/Home.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to equip component on (if not self)","filter":"entity"},
+      {"direction":"exec","name":"No Component","desc":"If the unit doesn't hold the requested component"},
+      {"direction":"in","name":"Component","desc":"Component to equip","filter":"comp"},
+      {"direction":"in","name":"Slot index","desc":"Individual slot to equip component from","filter":"posnum","extra":true}
+    ]
+  },
+  "event_parameter": {
+    "name": "Parameter Event",
+    "desc": "Run event when the value of the specified parameter changes",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png"
+  },
+  "event_radio": {
+    "name": "Radio Event",
+    "desc": "Run event when the signal of the specified radio band changes its value",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"out","name":"Signal","desc":"Signal value"}
+    ]
+  },
+  "exit": {
+    "name": "Exit",
+    "desc": "Stops execution of the behavior",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Deny.png"
+  },
+  "faction_item_amount": {
+    "name": "Faction Item Amount",
+    "desc": "Counts the number of the passed item in your logistics network",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item to count","filter":"item"},
+      {"direction":"out","name":"Result","desc":"Number of this item in your faction"},
+      {"direction":"exec","name":"None","desc":"Execution path when none of this item exists in your faction"}
+    ]
+  },
+  "for_component": {
+    "name": "Loop Equipped Components",
+    "desc": "Loops through equipped Components",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"out","name":"Component","desc":"Equipped component"},
+      {"direction":"out","name":"Index","desc":"Returns the index of the result","filter":"num","extra":true},
+      {"direction":"exec","name":"Done","desc":"Finished loop"}
+    ]
+  },
+  "for_count_resources": {
+    "name": "Loop Nearby Resources",
+    "desc": "Scans for nearby resources in power field or visibility range",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Scan.png",
+    "args": [
+      {"direction":"out","name":"Resource"},
+      {"direction":"exec","name":"Done"}
+    ]
+  },
+  "for_entities_in_range": {
+    "name": "Loop Units (Range)",
+    "desc": "Performs code for all units in visibility range of the unit",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Range","desc":"Range (up to units visibility range)","filter":"posnum"},
+      {"direction":"in","name":"Filter","desc":"Filter to check","filter":"radar"},
+      {"direction":"in","name":"Filter","desc":"Second Filter","filter":"radar","extra":true},
+      {"direction":"in","name":"Filter","desc":"Third Filter","filter":"radar","extra":true},
+      {"direction":"out","name":"Unit","desc":"Current Unit in loop"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all units in range"}
+    ]
+  },
+  "for_inventory_item": {
+    "name": "Loop Inventory Slots",
+    "desc": "Loops through Inventory",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"out","name":"Inventory","desc":"Item Inventory"},
+      {"direction":"exec","name":"Done","desc":"Finished loop"},
+      {"direction":"out","name":"Reserved Stack","desc":"Items reserved for outgoing order or recipe","filter":"num","extra":true},
+      {"direction":"out","name":"Unreserved Stack","desc":"Items available","filter":"num","extra":true},
+      {"direction":"out","name":"Reserved Space","desc":"Space reserved for an incoming order","filter":"num","extra":true},
+      {"direction":"out","name":"Unreserved Space","desc":"Remaining space","filter":"num","extra":true},
+      {"direction":"out","name":"Index","desc":"Slot Index","filter":"num","extra":true},
+      {"direction":"in","name":"Unit","desc":"Unit","filter":"entity","extra":true}
+    ]
+  },
+  "for_number": {
+    "name": "Loop Number",
+    "desc": "Performs code for all numbers in a range",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"From","desc":"Loop start number","filter":"num"},
+      {"direction":"in","name":"To","desc":"Loop end number","filter":"num"},
+      {"direction":"in","name":"Step","desc":"Increment step, use -1 or 1 based on inputs if left empty","filter":"num","extra":true},
+      {"direction":"out","name":"Value","desc":"Current number"},
+      {"direction":"exec","name":"Done","desc":"Finished loop"}
+    ]
+  },
+  "for_producers": {
+    "name": "Loop Producers",
+    "desc": "Gets all producers for a production with their production time",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Production","desc":"Production"},
+      {"direction":"out","name":"Producer","desc":"Producer"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all item producers"}
+    ]
+  },
+  "for_producers_items": {
+    "name": "Loop Producer Items",
+    "desc": "Loops through all unlocked items a production component can produce",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Producer","desc":"Producer"},
+      {"direction":"out","name":"Item","desc":"Item"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all items"}
+    ]
+  },
+  "for_recipe_ingredients": {
+    "name": "Loop Recipe Ingredients",
+    "desc": "Loops through Ingredients",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Recipe","filter":"item"},
+      {"direction":"out","name":"Ingredient","desc":"Recipe Ingredient"},
+      {"direction":"exec","name":"Done","desc":"Finished loop"}
+    ]
+  },
+  "for_repair_ingredients": {
+    "name": "Loop Repair Ingredients",
+    "desc": "Loops through each ingredient required to repair a mission unit",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit"},
+      {"direction":"out","name":"Ingredient","desc":"Repair Ingredient"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all mission repair ingredients"}
+    ]
+  },
+  "for_research": {
+    "name": "Loop Research",
+    "desc": "Performs code for all researchable tech",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"out","name":"Tech","desc":"Researchable Tech"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all researchable tech"}
+    ]
+  },
+  "for_research_ingredients": {
+    "name": "Loop Research Ingredients",
+    "desc": "Loops through Ingredients",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Research","filter":"tech"},
+      {"direction":"out","name":"Ingredient","desc":"Research Ingredient"},
+      {"direction":"exec","name":"Done","desc":"Finished loop"}
+    ]
+  },
+  "for_research_unlocks": {
+    "name": "Loop Research Unlocks",
+    "desc": "Performs code for all unlocks for a researchable tech",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Tech","desc":"Tech","filter":"tech"},
+      {"direction":"out","name":"Unlock","desc":"Unlocks"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all unlocks"}
+    ]
+  },
+  "for_signal": {
+    "name": "*Loop Signal*",
+    "desc": "*DEPRECATED* Use Loop Signal (Match) instead",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Signal","desc":"Signal"},
+      {"direction":"out","name":"Unit","desc":"Unit with signal"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all units with signal"}
+    ]
+  },
+  "for_signal_match": {
+    "name": "Loop Signal",
+    "desc": "Loops through all units with a signal of similar type and additional number checks",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Signal","desc":"Signal"},
+      {"direction":"out","name":"Unit","desc":"Found Unit with signal"},
+      {"direction":"out","name":"Signal","desc":"Found signal","filter":"entity","extra":true},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all units with signal"}
+    ]
+  },
+  "gather_information": {
+    "name": "Gather Information",
+    "desc": "Collect information for running the auto base controller",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Range","desc":"Range of operation","filter":"posnum"}
+    ]
+  },
+  "get_active_order": {
+    "name": "Get Active Order",
+    "desc": "Gets the source, target, and amount data from the current active order",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"out","name":"Source"},
+      {"direction":"out","name":"Target"},
+      {"direction":"out","name":"Amount"}
+    ]
+  },
+  "get_battery": {
+    "name": "Get Battery",
+    "desc": "Gets the value of the Battery level as a percent",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Check Battery.png",
+    "args": [
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "get_closest_entity": {
+    "name": "Get Closest Unit",
+    "desc": "Gets the closest visible unit matching a filter",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Closest Enemy.png",
+    "args": [
+      {"direction":"in","name":"Filter","desc":"Filter to check","filter":"radar"},
+      {"direction":"in","name":"Filter","desc":"Second Filter","filter":"radar","extra":true},
+      {"direction":"in","name":"Filter","desc":"Third Filter","filter":"radar","extra":true},
+      {"direction":"out","name":"Output","desc":"Unit"}
+    ]
+  },
+  "get_comp_reg": {
+    "name": "Get from Component",
+    "desc": "Reads a value from a component register",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Set Component Reg.png",
+    "args": [
+      {"direction":"in","name":"From","desc":"Component and register number to get","filter":"comp_num"},
+      {"direction":"out","name":"Value","desc":"Value of Register"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true}
+    ]
+  },
+  "get_distance": {
+    "name": "Distance",
+    "desc": "Returns distance to a unit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Closest Enemy.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target unit","filter":"entity"},
+      {"direction":"out","name":"Distance","desc":"Unit and its distance in the numerical part of the value"},
+      {"direction":"in","name":"Unit","desc":"The unit to measure from (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "get_entity_at": {
+    "name": "Get Unit At",
+    "desc": "Gets the best matching unit at a coordinate",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","desc":"Coordinate to get Unit from","filter":"coord"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "get_equipped_num": {
+    "name": "Get Equipped Num",
+    "desc": "Returns how many of a component are equipped",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Component ID","desc":"Component to search for","filter":"comp_num"},
+      {"direction":"out","name":"Value"},
+      {"direction":"in","name":"Unit","desc":"The unit to check (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "get_first_locked_0": {
+    "name": "Get First Locked Id",
+    "desc": "Gets the first item where the locked slot exists but there is no item in it",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"out","name":"Item","desc":"The first locked item id with no item"}
+    ]
+  },
+  "get_grid_effeciency": {
+    "name": "Get Grid Efficiency",
+    "desc": "Gets the value of the Grid Efficiency as a percent",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png",
+    "args": [
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "get_health": {
+    "name": "Get Health",
+    "desc": "Gets a unit's health as a percentage, current remaining and max amount",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Common/56x56/H Value.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"Unit to check","filter":"entity"},
+      {"direction":"out","name":"Percent","desc":"Percentage of health remaining"},
+      {"direction":"out","name":"Current","desc":"Value of health remaining","extra":true},
+      {"direction":"out","name":"Max","desc":"Value of maximum health","extra":true}
+    ]
+  },
+  "get_ingredients": {
+    "name": "Get Ingredients",
+    "desc": "Returns the ingredients required to produce an item",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Ingradients.png",
+    "args": [
+      {"direction":"in","name":"Product","filter":"item"},
+      {"direction":"out","name":"Out 1","desc":"First Ingredient"},
+      {"direction":"out","name":"Out 2","desc":"Second Ingredient"},
+      {"direction":"out","name":"Out 3","desc":"Third Ingredient"}
+    ]
+  },
+  "get_inventory_item": {
+    "name": "First Item",
+    "desc": "Reads the first item in the inventory of the unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"out","name":"Item"},
+      {"direction":"exec","name":"No Items","desc":"No items in inventory"}
+    ]
+  },
+  "get_inventory_item_index": {
+    "name": "Get Inventory Item",
+    "desc": "Reads the item contained in the specified slot index",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Slot index","filter":"posnum"},
+      {"direction":"out","name":"Item"},
+      {"direction":"exec","name":"No Item","desc":"Item not found"}
+    ]
+  },
+  "get_inventory_total": {
+    "name": "Inventory Total",
+    "desc": "Returns the total contained in inventory",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"out","name":"Result"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "get_item_info": {
+    "name": "Get Item Info",
+    "desc": "Gets information on an item",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"The item to check"},
+      {"direction":"out","name":"Result","desc":"Number of this item's chosen information"}
+    ]
+  },
+  "get_location": {
+    "name": "Get Location",
+    "desc": "Gets location of a seen unit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"Unit to get coordinates of","filter":"entity"},
+      {"direction":"out","name":"Coord","desc":"Coordinate of unit"}
+    ]
+  },
+  "get_max_stack": {
+    "name": "Get Max Stack",
+    "desc": "Returns the amount an item can stack to",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item to count","filter":"item_num"},
+      {"direction":"out","name":"Max Stack","desc":"Max Stack"}
+    ]
+  },
+  "get_offset": {
+    "name": "Get Offset",
+    "desc": "Gets current offset from a unit",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit/Coord to get offset from","filter":"coord"},
+      {"direction":"out","name":"Offset","desc":"Offset from unit","filter":"coord"}
+    ]
+  },
+  "get_reg_remotely": {
+    "name": "Get from Component Remotely",
+    "desc": "Reads a value from a component register on an external unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Component Reg.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to get component register from (if not self)","filter":"entity"},
+      {"direction":"in","name":"From","desc":"Component and register number to get remotely","filter":"comp_num"},
+      {"direction":"out","name":"Value","desc":"Value of Register"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true},
+      {"direction":"exec","name":"Failed","desc":"Failed to get register","extra":true}
+    ]
+  },
+  "get_registered": {
+    "name": "Get Registered",
+    "desc": "Get number of registered buildings",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Id","desc":"Id to get register of"},
+      {"direction":"out","name":"Value","desc":"Value of registered Unit"}
+    ]
+  },
+  "get_research": {
+    "name": "Get Research",
+    "desc": "Returns the first active research tech",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"out","name":"Tech","desc":"First active research"}
+    ]
+  },
+  "get_research_requirement": {
+    "name": "Get Research Requirement",
+    "desc": "Returns the research required (if needed)",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Tech","desc":"The research to investigate for prior tech requirements","filter":"tech"},
+      {"direction":"out","name":"Requirement","desc":"The tech required for the research (if needed)"}
+    ]
+  },
+  "get_resource_item": {
+    "name": "Resource Type",
+    "desc": "Gets the resource type from a resource deposit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Resource Deposit","desc":"Resource Deposit","filter":"entity"},
+      {"direction":"out","name":"Resource","desc":"Resource Type"},
+      {"direction":"exec","name":"Not Resource","desc":"Continue here if it wasn't a resource deposit"}
+    ]
+  },
+  "get_resource_num": {
+    "name": "Get Resource Num",
+    "desc": "Gets the amount of resource",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Resource","desc":"Resource Node to check","filter":"entity"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "get_season": {
+    "name": "Get Season",
+    "desc": "Divert program depending on season",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"Winter","desc":"Where to continue if it is winter"},
+      {"direction":"exec","name":"Spring","desc":"Where to continue if it is spring"},
+      {"direction":"exec","name":"Summer","desc":"Where to continue if it is summer"},
+      {"direction":"exec","name":"Fall","desc":"Where to continue if it is fall"}
+    ]
+  },
+  "get_self": {
+    "name": "Get Self",
+    "desc": "Gets the value of the Unit running the behavior",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png",
+    "args": [
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "get_shield": {
+    "name": "Get Shield",
+    "desc": "Get a unit's shield as a percentage, current remaining and max amount",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Common/56x56/H Value.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"Unit to check","filter":"entity"},
+      {"direction":"out","name":"Percent","desc":"Percentage of shield remaining"},
+      {"direction":"out","name":"Current","desc":"Value of shield remaining","extra":true},
+      {"direction":"out","name":"Max","desc":"Value of maximum shield amount","extra":true}
+    ]
+  },
+  "get_stability": {
+    "name": "Get Stability",
+    "desc": "Gets the current world stability",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"out","name":"Number","desc":"Stability"}
+    ]
+  },
+  "get_type": {
+    "name": "Get Type",
+    "desc": "Gets the type from an item or unit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Common/56x56/Processing.png",
+    "args": [
+      {"direction":"in","name":"Item/Unit"},
+      {"direction":"out","name":"Type"}
+    ]
+  },
+  "get_unit_info": {
+    "name": "Get Unit Info",
+    "desc": "Gets information on a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check"},
+      {"direction":"out","name":"Result","desc":"Returns a specific Unit info"}
+    ]
+  },
+  "get_unit_power_info": {
+    "name": "Get Unit Power Info",
+    "desc": "Gets power information on a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check"},
+      {"direction":"out","name":"Result","desc":"Returns a specific Unit's power info"}
+    ]
+  },
+  "get_unit_type": {
+    "name": "Get Unit Type",
+    "desc": "Get the frame type of the unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check"},
+      {"direction":"out","name":"Type"}
+    ]
+  },
+  "get_unlocked_components": {
+    "name": "Loop Unlocked Components",
+    "desc": "Loops through all produceable unlocked components with a recipe",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"out","name":"Item","desc":"Item"},
+      {"direction":"exec","name":"Done","desc":"Finished looping through all produceable components"}
+    ]
+  },
+  "getfreespace": {
+    "name": "Get space for item",
+    "desc": "Returns how many of the input item can fit in the inventory",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item to check can fit","filter":"item"},
+      {"direction":"out","name":"Result","desc":"Number of a specific item that can fit on a unit"},
+      {"direction":"in","name":"Unit","desc":"The unit to check (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "gethome": {
+    "name": "Get Home",
+    "desc": "Gets the factions home unit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Common/56x56/Question.png",
+    "args": [
+      {"direction":"out","name":"Result","desc":"Factions home unit"}
+    ]
+  },
+  "gettrust": {
+    "name": "Get Trust",
+    "desc": "Gets the trust level of the unit towards you",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Common/56x56/Question.png",
+    "args": [
+      {"direction":"exec","name":"Ally","desc":"Target unit considers you an ally"},
+      {"direction":"exec","name":"Neutral","desc":"Target unit considers you neutral"},
+      {"direction":"exec","name":"Enemy","desc":"Target unit considers you an enemy"},
+      {"direction":"in","name":"Unit","desc":"Target Unit","filter":"entity"}
+    ],
+    "exec_arg": {"index":1,"label":"No Unit","desc":"No Unit Passed"}
+  },
+  "has_like_component": {
+    "name": "Has Like Component",
+    "desc": "Checks Unit for a component type",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Component","desc":"Component"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true},
+      {"direction":"exec","name":"Failed","desc":"Failed"}
+    ]
+  },
+  "have_item": {
+    "name": "Have Item",
+    "desc": "Checks if you have at least a specified amount of an item",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item to count","filter":"item_num"},
+      {"direction":"exec","name":"Have Item","desc":"have the specified item"},
+      {"direction":"in","name":"Unit","desc":"The unit to check for (if not self)","filter":"entity","extra":true}
+    ]
+  },
+  "is_a": {
+    "name": "Is a",
+    "desc": "Compares if an item of unit is of a specific type",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"If Different","desc":"Where to continue if the units differ"},
+      {"direction":"in","name":"Item"},
+      {"direction":"in","name":"Type"}
+    ],
+    "exec_arg": {"index":1,"label":"If Equal","desc":"Where to continue if the units are the same"}
+  },
+  "is_daynight": {
+    "name": "Is Day/Night",
+    "desc": "Divert program depending time of day",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"Day","desc":"Where to continue if it is nighttime"},
+      {"direction":"exec","name":"Night","desc":"Where to continue if it is daytime"}
+    ]
+  },
+  "is_docked": {
+    "name": "Is Docked",
+    "desc": "Check if a unit is docked and get its garage",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"exec","name":"No Dock","desc":"Where to continue if unit is not docked"},
+      {"direction":"out","name":"Garage","desc":"Unit"}
+    ]
+  },
+  "is_empty": {
+    "name": "Is Empty",
+    "desc": "Checks a value if it is empty",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Value","desc":"Value to check"},
+      {"direction":"exec","name":"Empty","desc":"Where to continue if the value is empty"},
+      {"direction":"exec","name":"Has Value","desc":"Where to continue if the value exists"}
+    ]
+  },
+  "is_equipped": {
+    "name": "Is Equipped",
+    "desc": "Check if a specific component has been equipped",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"in","name":"Component","desc":"Component to check","filter":"comp"},
+      {"direction":"exec","name":"Component Equipped","desc":"Where to continue if component is equipped"},
+      {"direction":"out","name":"Result","desc":"Returns how many instances of a component equipped on this Unit","extra":true}
+    ]
+  },
+  "is_fixed": {
+    "name": "Is Item Slot Locked",
+    "desc": "Check if a specific item slot is locked",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"in","name":"Slot index","desc":"Individual slot to check","filter":"posnum"},
+      {"direction":"exec","name":"Is Locked","desc":"Where to continue if inventory slot is locked"}
+    ]
+  },
+  "is_logistics": {
+    "name": "Is Inside Logistics Network",
+    "desc": "Checks if a unit or coordinates is in the logistics network",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"Unit or Coordinate","filter":"entity"},
+      {"direction":"exec","name":"Outside","desc":"If not inside a logistics network"}
+    ],
+    "exec_arg": {"index":1,"label":"Inside","desc":"Where to continue if unit or coordinate is in a logistics network"}
+  },
+  "is_moving": {
+    "name": "Is Moving",
+    "desc": "Checks the movement state of a unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"exec","name":"Not Moving","desc":"Where to continue if unit is not moving"},
+      {"direction":"exec","name":"Path Blocked","desc":"Where to continue if unit is path blocked"},
+      {"direction":"exec","name":"No Result","desc":"Where to continue if unit is out of visual range"},
+      {"direction":"in","name":"Unit","desc":"The unit to check (if not self)","filter":"entity","extra":true}
+    ],
+    "exec_arg": {"index":1,"label":"Moving","desc":"Where to continue if unit is moving"}
+  },
+  "is_passable": {
+    "name": "Is Passable",
+    "desc": "Checks whether a location is passable",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","desc":"The location in a discovered tile to check","filter":"coord"},
+      {"direction":"exec","name":"Impassable","desc":"Unit is unable to pass through this coordinate"},
+      {"direction":"exec","name":"Passable","desc":"Unit is able to pass through this coordinate"}
+    ]
+  },
+  "is_same_grid": {
+    "name": "Is Same Grid",
+    "desc": "Checks if two units or coordinates are in the same logistics network",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"First Unit or Coordinate","filter":"entity"},
+      {"direction":"in","name":"Unit","desc":"Second Unit or Coordinate","filter":"entity"},
+      {"direction":"exec","name":"Different","desc":"Different logistics networks"}
+    ],
+    "exec_arg": {"index":1,"label":"Same Grid","desc":"Where to continue if both units or coordinates are in the same logistics network"}
+  },
+  "is_unit_a": {
+    "name": "Is Unit A",
+    "desc": "Checks if a unit is a specific frame type",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check"},
+      {"direction":"in","name":"Type"},
+      {"direction":"exec","name":"Is Not"}
+    ],
+    "exec_arg": {"index":1,"label":"Is"}
+  },
+  "is_unlocked": {
+    "name": "Is Researched",
+    "desc": "Checks whether a faction has something researched",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Id","desc":"Input Id"},
+      {"direction":"exec","name":"No Match","desc":"Execution path if there is no match"}
+    ]
+  },
+  "is_working": {
+    "name": "Is Working",
+    "desc": "Checks whether a particular component is currently working",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"exec","name":"Is Not Working","desc":"If the requested component is NOT currently working"},
+      {"direction":"in","name":"Component","desc":"Specific component to check or empty to check all components","filter":"comp"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true},
+      {"direction":"out","name":"Value","desc":"Returns the currently working component","filter":"entity","extra":true}
+    ]
+  },
+  "jump": {
+    "name": "Jump",
+    "desc": "Jumps execution to label with the same label id",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/J Value.png",
+    "args": [
+      {"direction":"in","name":"Label","desc":"Label identifier","filter":"any"}
+    ]
+  },
+  "label": {
+    "name": "Label",
+    "desc": "Labels can be jumped to from anywhere in a behavior",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png",
+    "args": [
+      {"direction":"in","name":"Label","desc":"Label identifier","filter":"any"}
+    ]
+  },
+  "land": {
+    "name": "Land",
+    "desc": "Tells a satellite that has been launched to land",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png"
+  },
+  "last": {
+    "name": "Break",
+    "desc": "Break out of a loop",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Deny.png"
+  },
+  "launch": {
+    "name": "Launch",
+    "desc": "Launches a satellite if executed on an AMAC or a Drop Pod to the planet if executed on the Mothership",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png"
+  },
+  "load_behavior": {
+    "name": "Load Behavior",
+    "desc": "Load and run a behavior on an external unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Component Reg.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to load the behavior on (if not self)","filter":"entity"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true},
+      {"direction":"exec","name":"Failed","desc":"Failed"}
+    ]
+  },
+  "lock": {
+    "name": "Lock",
+    "desc": "Run one instruction at a time",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Unlocked.png"
+  },
+  "lock_slots": {
+    "name": "Lock Item Slots",
+    "desc": "Lock all storage slots or a specific item slot index",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item type to try locking to the slots","filter":"item_num"},
+      {"direction":"in","name":"Slot index","desc":"Individual slot to lock","filter":"posnum","extra":true}
+    ]
+  },
+  "lookat": {
+    "name": "Look At",
+    "desc": "Turns the unit to look at a unit or a coordinate",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target unit or coordinate","filter":"coord"}
+    ]
+  },
+  "make_carrier": {
+    "name": "Make Carriers",
+    "desc": "Construct carrier bots for delivering orders or to use for other tasks",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Carriers","desc":"Type and count of carriers to make","filter":"frame_num"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "make_miner": {
+    "name": "Make Miners",
+    "desc": "Construct and equip miner components on available carrier bots",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Resource/Count","desc":"Resource type and number of miners to maintain","filter":"item_num"},
+      {"direction":"in","name":"Frame","desc":"Unit to create if none are free","filter":"frame"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "make_producer": {
+    "name": "Make Producer",
+    "desc": "Build and maintain dedicated production buildings",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Item/Count","desc":"Item type and number of producers to maintain","filter":"item_num"},
+      {"direction":"in","name":"Component","desc":"Production component","filter":"comp"},
+      {"direction":"in","name":"Building","desc":"Building type to use as producer","filter":"frame"},
+      {"direction":"in","name":"Location","desc":"Location offset from self","filter":"coord"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "make_turret_bots": {
+    "name": "Make Turret Bots",
+    "desc": "Construct and equip turret components on available carrier bots",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"in","name":"Number","desc":"Number of turret bots to maintain"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "match": {
+    "name": "Match",
+    "desc": "Filters the passed unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"Unit to Filter, defaults to Self","filter":"entity"},
+      {"direction":"in","name":"Filter","desc":"Filter to check","filter":"radar"},
+      {"direction":"in","name":"Filter","desc":"Second Filter","filter":"radar","extra":true},
+      {"direction":"in","name":"Filter","desc":"Third Filter","filter":"radar","extra":true},
+      {"direction":"exec","name":"Failed","desc":"Did not match filter"}
+    ]
+  },
+  "memory_get": {
+    "name": "Memory Get",
+    "desc": "Get memory array element",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Array identifier and index"},
+      {"direction":"out","name":"Value"}
+    ]
+  },
+  "memory_insert": {
+    "name": "Memory Insert",
+    "desc": "Insert value into memory array",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Array identifier and index"},
+      {"direction":"in","name":"Value","desc":"Value"}
+    ]
+  },
+  "memory_length": {
+    "name": "Memory Length",
+    "desc": "Get length of memory array",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Array identifier"},
+      {"direction":"out","name":"Value"}
+    ]
+  },
+  "memory_loop": {
+    "name": "Loop Memory",
+    "desc": "Loops through memory array or known array identifiers",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Id","desc":"Array identifier or empty to loop through known identifiers"},
+      {"direction":"out","name":"Value"},
+      {"direction":"exec","name":"Done","desc":"Finished loop"},
+      {"direction":"out","name":"Index","extra":true}
+    ]
+  },
+  "memory_remove": {
+    "name": "Memory Remove",
+    "desc": "Remove value from memory array",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Array identifier and index"},
+      {"direction":"out","name":"Old Value","desc":"Removed value"}
+    ]
+  },
+  "memory_set": {
+    "name": "Memory Set",
+    "desc": "Set memory array value at a given index",
+    "category": "Memory",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Index","desc":"Array identifier and index"},
+      {"direction":"in","name":"Value"},
+      {"direction":"out","name":"Old","desc":"Previous value"}
+    ]
+  },
+  "mine": {
+    "name": "Mine",
+    "desc": "Mine a single resource deposit",
+    "category": "Component",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Resource","desc":"Resource to Mine","filter":"resource_num"},
+      {"direction":"exec","name":"Cannot Mine","desc":"Execution path if mining was unable to be performed"},
+      {"direction":"exec","name":"Full","desc":"Execution path if can't fit resource into inventory"}
+    ]
+  },
+  "modulo": {
+    "name": "Modulo",
+    "desc": "Get the remainder of a division",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Mul Numbers.png",
+    "args": [
+      {"direction":"in","name":"Num","filter":"any"},
+      {"direction":"in","name":"By","filter":"coord_num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "move_east": {
+    "name": "Move East",
+    "desc": "Moves towards a tile East of the current location at the specified distance",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Number","desc":"Number of tiles to move East","filter":"posnum"}
+    ]
+  },
+  "move_north": {
+    "name": "Move North",
+    "desc": "Moves towards a tile North of the current location at the specified distance",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Number","desc":"Number of tiles to move North","filter":"posnum"}
+    ]
+  },
+  "move_offset": {
+    "name": "Move Offset",
+    "desc": "Moves to a specific offset of current location or specified unit",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Offset","desc":"Offset to move to","filter":"coord"},
+      {"direction":"in","name":"Unit","desc":"Unit to offset from","filter":"entity","extra":true}
+    ]
+  },
+  "move_south": {
+    "name": "Move South",
+    "desc": "Moves towards a tile South of the current location at the specified distance",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Number","desc":"Number of tiles to move South","filter":"posnum"}
+    ]
+  },
+  "move_west": {
+    "name": "Move West",
+    "desc": "Moves towards a tile West of the current location at the specified distance",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Number","desc":"Number of tiles to move West","filter":"posnum"}
+    ]
+  },
+  "moveaway_range": {
+    "name": "Move Away (Range)",
+    "desc": "Moves out of range of another unit, the number value of the target specifies the range",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Move To.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Unit to move away from","filter":"entity"}
+    ]
+  },
+  "mul": {
+    "name": "Multiply",
+    "desc": "Multiplies a number or coordinate from another number or coordinate",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Mul Numbers.png",
+    "args": [
+      {"direction":"in","name":"To","filter":"any"},
+      {"direction":"in","name":"Num","filter":"coord_num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "nop": {
+    "name": "Invalid Instruction",
+    "desc": "Instruction has been removed, behavior needs to be updated",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png"
+  },
+  "notify": {
+    "name": "Notify",
+    "desc": "Triggers a faction notification",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Notify Value","desc":"Notification Value"},
+      {"direction":"in","name":"Timeout","desc":"Notification Value","filter":"num","extra":true}
+    ]
+  },
+  "order_to_shared_storage": {
+    "name": "Order to Shared Storage",
+    "desc": "Request Inventory to be sent to nearest shared storage with corresponding locked item slots",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png"
+  },
+  "order_transfer": {
+    "name": "Order Transfer To",
+    "desc": "Transfers an Item to another Unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target unit","filter":"entity"},
+      {"direction":"in","name":"Item","desc":"Item and amount to transfer","filter":"item_num"}
+    ]
+  },
+  "percent_value": {
+    "name": "Percent",
+    "desc": "Gives you the percent that value is of Max Value",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Value","desc":"Value to check"},
+      {"direction":"in","name":"Max Value","desc":"Max Value to get percentage of"},
+      {"direction":"out","name":"Number","desc":"Percent"}
+    ]
+  },
+  "ping": {
+    "name": "Ping",
+    "desc": "Plays the Ping effect and notifies other players playing in the same faction",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Target unit","filter":"entity"}
+    ]
+  },
+  "produce": {
+    "name": "Produce Unit",
+    "desc": "Sets a production component to produce a blueprint",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png"
+  },
+  "produce_registered": {
+    "name": "Produce Registered Unit",
+    "desc": "Sets a production component to produce a blueprint",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Id","desc":"Id to register with"},
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "random_coordinate": {
+    "name": "Random Coordinate",
+    "desc": "Returns a random coordinate from a location within a specified range",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","desc":"Entity or Coordinate","filter":"coord"},
+      {"direction":"in","name":"Range","desc":"Radius range from coordinate","filter":"posnum"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "random_number": {
+    "name": "Random Number",
+    "desc": "Returns a random number value between a min and max value",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"in","name":"Min","filter":"num"},
+      {"direction":"in","name":"Max","filter":"num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "read_radio": {
+    "name": "Read Radio",
+    "desc": "Reads the Radio signal on a specified band",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Scan.png",
+    "args": [
+      {"direction":"in","name":"Band","desc":"The band to check for"},
+      {"direction":"out","name":"Result","desc":"Value of the radio signal"}
+    ]
+  },
+  "read_signal": {
+    "name": "Read Signal",
+    "desc": "Reads the Signal register of another unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Scan.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The owned unit to check for","filter":"entity"},
+      {"direction":"out","name":"Result","desc":"Value of units Signal register"}
+    ]
+  },
+  "readkey": {
+    "name": "Read Key",
+    "desc": "Attempts to read the internal key of the unit",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Read Key.png",
+    "args": [
+      {"direction":"in","name":"Frame","desc":"Structure to read the key for","filter":"entity"},
+      {"direction":"out","name":"Key","desc":"Number key of structure"}
+    ]
+  },
+  "remap_value": {
+    "name": "Remap",
+    "desc": "Remaps a value between two ranges",
+    "category": "Global",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Value","desc":"Value to Remap"},
+      {"direction":"in","name":"Input Low","desc":"Low value for input"},
+      {"direction":"in","name":"Input High","desc":"High value for input"},
+      {"direction":"in","name":"Target Low","desc":"Low value for target"},
+      {"direction":"in","name":"Target high","desc":"High value for target"},
+      {"direction":"out","name":"Result","desc":"Remapped value"}
+    ]
+  },
+  "request_item": {
+    "name": "Request Item",
+    "desc": "Requests an item if it doesn't exist in the inventory",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item and amount to order","filter":"item_num"},
+      {"direction":"in","name":"Channel","desc":"Optionally request on a specific logistics channel (1-4)","filter":"posnum","extra":true}
+    ]
+  },
+  "request_wait": {
+    "name": "Request Wait",
+    "desc": "Requests up to a specified amount of an item and waits until that amount exists in inventory",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Item","desc":"Item and amount to order","filter":"item_num"},
+      {"direction":"in","name":"Channel","desc":"Optionally request on a specific logistics channel (1-4)","filter":"posnum","extra":true}
+    ]
+  },
+  "restart": {
+    "name": "Restart",
+    "desc": "Restart execution of the behavior",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Deny.png"
+  },
+  "scan": {
+    "name": "Radar",
+    "desc": "Scan for the closest unit that matches the filters",
+    "category": "Component",
+    "icon": "Main/skin/Icons/Special/Commands/Scan.png",
+    "args": [
+      {"direction":"in","name":"Filter 1","desc":"First filter","filter":"radar"},
+      {"direction":"in","name":"Filter 2","desc":"Second filter","filter":"radar"},
+      {"direction":"in","name":"Filter 3","desc":"Third filter","filter":"radar"},
+      {"direction":"out","name":"Result"},
+      {"direction":"exec","name":"No Result","desc":"Execution path if no results are found"}
+    ]
+  },
+  "scout": {
+    "name": "Scout",
+    "desc": "Moves in a scouting pattern around the factions home location",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Scout.png"
+  },
+  "scout_rand_range": {
+    "name": "Scout Range",
+    "desc": "Moves in a random direction a specified amount\nOptionally pass a coordinate to give some directionality",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Scout.png",
+    "args": [
+      {"direction":"in","name":"Range","desc":"Range to scout","filter":"posnum"},
+      {"direction":"in","name":"Coord","desc":"Last Coordinate","filter":"coord"}
+    ]
+  },
+  "select_nearest": {
+    "name": "Select Nearest",
+    "desc": "Branches based on which unit is closer, optional branches for closer unit",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Closest Enemy.png",
+    "args": [
+      {"direction":"exec","name":"A","desc":"A is nearer (or equal)"},
+      {"direction":"exec","name":"B","desc":"B is nearer"},
+      {"direction":"in","name":"Unit A","filter":"entity"},
+      {"direction":"in","name":"Unit B","filter":"entity"},
+      {"direction":"out","name":"Closest","desc":"Closest unit","extra":true}
+    ]
+  },
+  "separate_coordinate": {
+    "name": "Separate Coordinate",
+    "desc": "Split a coordinate into x and y values",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Coordinate","filter":"coord"},
+      {"direction":"out","name":"x"},
+      {"direction":"out","name":"y"}
+    ]
+  },
+  "separate_register": {
+    "name": "Separate Register",
+    "desc": "Split a register into separate parameters",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Register","filter":"entity"},
+      {"direction":"out","name":"Num"},
+      {"direction":"out","name":"Unit","extra":true},
+      {"direction":"out","name":"ID","extra":true},
+      {"direction":"out","name":"x","extra":true},
+      {"direction":"out","name":"y","extra":true}
+    ]
+  },
+  "sequence": {
+    "name": "Sequence",
+    "desc": "Executes a series of exec nodes in sequence",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Count Item.png",
+    "args": [
+      {"direction":"exec","name":"First","desc":"First"},
+      {"direction":"exec","name":"Second","desc":"Second","extra":true},
+      {"direction":"exec","name":"Third","desc":"Third","extra":true},
+      {"direction":"exec","name":"Fourth","desc":"Fourth","extra":true},
+      {"direction":"exec","name":"Last","desc":"Last"}
+    ]
+  },
+  "serve_construction": {
+    "name": "Serve Construction",
+    "desc": "Produce materials needed in construction sites",
+    "category": "AutoBase",
+    "icon": "icon_input",
+    "args": [
+      {"direction":"exec","name":"If Working","desc":"Where to continue if the unit started working"}
+    ]
+  },
+  "set_comp_reg": {
+    "name": "Set to Component",
+    "desc": "Writes a value into a component register",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Set Component Reg.png",
+    "args": [
+      {"direction":"in","name":"Value","desc":"Value to set","filter":"any"},
+      {"direction":"in","name":"To","desc":"Component and register number to set","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true}
+    ]
+  },
+  "set_link": {
+    "name": "Set Link",
+    "desc": "Set register link",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png",
+    "args": [
+      {"direction":"in","name":"From","desc":"Component and register number to start a new link","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple components equipped of same type","filter":"posnum","extra":true},
+      {"direction":"in","name":"To","desc":"Component and register number to end a new link","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple components equipped of same type","filter":"posnum","extra":true}
+    ]
+  },
+  "set_logistics_options": {
+    "name": "Set Logistics",
+    "desc": "Sets current unit to the specified logistics settings",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Network.png"
+  },
+  "set_number": {
+    "name": "Set Number",
+    "desc": "Sets the numerical/coordinate part of a value",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Value"},
+      {"direction":"in","name":"Num/Coord","filter":"coord_num"},
+      {"direction":"out","name":"To"}
+    ]
+  },
+  "set_reg": {
+    "name": "Copy",
+    "desc": "Copy a value to a frame register, parameter or variable",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Set Register.png",
+    "args": [
+      {"direction":"in","name":"Value","filter":"any"},
+      {"direction":"out","name":"Target"}
+    ]
+  },
+  "set_reg_remotely": {
+    "name": "Set to Component Remotely",
+    "desc": "Writes a value into a component register on an external unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Set Component Reg.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to set component register on (if not self)","filter":"entity"},
+      {"direction":"in","name":"Value","desc":"Value to set remotely","filter":"any"},
+      {"direction":"in","name":"To","desc":"Component and register number to set","filter":"comp_num"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true},
+      {"direction":"exec","name":"Failed","desc":"Failed to set register","extra":true}
+    ]
+  },
+  "set_research": {
+    "name": "Set Research",
+    "desc": "Add a new research into the active research queue",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Make Order.png",
+    "args": [
+      {"direction":"in","name":"Tech","desc":"First active research","filter":"tech"}
+    ]
+  },
+  "set_signpost": {
+    "name": "Set Signpost",
+    "desc": "Set the signpost to specific text",
+    "category": "Component",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png"
+  },
+  "shutdown": {
+    "name": "Turn Off",
+    "desc": "Shuts down the power of the Unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png"
+  },
+  "simulation_tick": {
+    "name": "Simulation Tick",
+    "desc": "Returns the current Simulation Tick",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"out","name":"Tick","desc":"Simulation Tick"}
+    ]
+  },
+  "solve": {
+    "name": "Solve Explorable",
+    "desc": "Attempt to solve an explorable",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Drop Items.png",
+    "args": [
+      {"direction":"in","name":"Target","desc":"Explorable to solve","filter":"entity"},
+      {"direction":"out","name":"Missing","desc":"Missing repair item, scanner component or Unpowered"},
+      {"direction":"exec","name":"Failed","desc":"Missing item, component, or power to scan"}
+    ]
+  },
+  "sort_storage": {
+    "name": "Sort Storage",
+    "desc": "Sorts Storage Containers on Unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/32x32/Sort.png"
+  },
+  "stop": {
+    "name": "Stop Unit",
+    "desc": "Stop movement and abort what is currently controlling the unit's movement",
+    "category": "Move",
+    "icon": "Main/skin/Icons/Special/Commands/Notify.png"
+  },
+  "sub": {
+    "name": "Subtract",
+    "desc": "Subtracts a number or coordinate from another number or coordinate",
+    "category": "Math",
+    "icon": "Main/skin/Icons/Special/Commands/Substact Numbers.png",
+    "args": [
+      {"direction":"in","name":"From","filter":"any"},
+      {"direction":"in","name":"Num","filter":"coord_num"},
+      {"direction":"out","name":"Result"}
+    ]
+  },
+  "switch": {
+    "name": "Switch",
+    "desc": "Filters the passed unit or item",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Input","desc":"Unit or item to Filter","filter":"entity"},
+      {"direction":"in","name":"Case 1","desc":"Case 1","filter":"radar"},
+      {"direction":"exec","name":"1","desc":"Case 1"},
+      {"direction":"in","name":"Case 2","desc":"Case 2","filter":"radar","extra":true},
+      {"direction":"exec","name":"2","desc":"Case 2","extra":true},
+      {"direction":"in","name":"Case 3","desc":"Case 3","filter":"radar","extra":true},
+      {"direction":"exec","name":"3","desc":"Case 3","extra":true},
+      {"direction":"in","name":"Case 4","desc":"Case 4","filter":"radar","extra":true},
+      {"direction":"exec","name":"4","desc":"Case 4","extra":true},
+      {"direction":"in","name":"Case 5","desc":"Case 5","filter":"radar","extra":true},
+      {"direction":"exec","name":"5","desc":"Case 5","extra":true}
+    ],
+    "exec_arg": {"index":1,"label":"Default","desc":"Did not match filter"}
+  },
+  "turnon": {
+    "name": "Turn On",
+    "desc": "Turns on the power of the Unit",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Power.png"
+  },
+  "unequip_component": {
+    "name": "Unequip Component",
+    "desc": "Unequips a component if it exists",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Common/56x56/Detach.png",
+    "args": [
+      {"direction":"exec","name":"No Component","desc":"If you don't current hold the requested component or slot was empty"},
+      {"direction":"in","name":"Component","desc":"Component to unequip","filter":"comp"},
+      {"direction":"in","name":"Slot index","desc":"Individual slot to try to unequip component from","filter":"posnum","extra":true}
+    ]
+  },
+  "unequip_component_remotely": {
+    "name": "Unequip Component Remotely",
+    "desc": "Unequips a component if it exists",
+    "category": "AutoBase",
+    "icon": "Main/skin/Icons/Common/56x56/Detach.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to equip component on (if not self)","filter":"entity"},
+      {"direction":"exec","name":"No Component","desc":"If you don't current hold the requested component or slot was empty"},
+      {"direction":"in","name":"Component","desc":"Component to unequip","filter":"comp"},
+      {"direction":"in","name":"Slot index","desc":"Individual slot to try to unequip component from","filter":"posnum","extra":true}
+    ]
+  },
+  "unit_type": {
+    "name": "Unit Type",
+    "desc": "Divert program depending on unit type",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Compare Values.png",
+    "args": [
+      {"direction":"in","name":"Unit","desc":"The unit to check","filter":"entity"},
+      {"direction":"exec","name":"Building","desc":"Where to continue if the unit is a building"},
+      {"direction":"exec","name":"Bot","desc":"Where to continue if the unit is a bot"},
+      {"direction":"exec","name":"Construction","desc":"Where to continue if the unit is a construction site","extra":true}
+    ],
+    "exec_arg": {"index":5,"label":"No Unit","desc":"No visible unit passed"}
+  },
+  "unlock": {
+    "name": "Unlock",
+    "desc": "Run as many instructions as possible. Use wait instructions to throttle execution.",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Unlocked.png"
+  },
+  "unlock_slots": {
+    "name": "Unlock Item Slots",
+    "desc": "Unlock all inventory slots or a specific item slot index",
+    "category": "Unit",
+    "icon": "Main/skin/Icons/Special/Commands/Count Free Space.png",
+    "args": [
+      {"direction":"in","name":"Slot index","desc":"Individual slot to unlock","filter":"posnum","extra":true}
+    ]
+  },
+  "value_type": {
+    "name": "Data type switch",
+    "desc": "Switch based on type of value",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Common/56x56/Processing.png",
+    "args": [
+      {"direction":"in","name":"Data","desc":"Data to test"},
+      {"direction":"exec","name":"Item","desc":"Item Type"},
+      {"direction":"exec","name":"Unit","desc":"Unit Type"},
+      {"direction":"exec","name":"Component","desc":"Component Type"},
+      {"direction":"exec","name":"Tech","desc":"Tech Type","extra":true},
+      {"direction":"exec","name":"Value","desc":"Information Value Type","extra":true},
+      {"direction":"exec","name":"Coord","desc":"Coordinate Value Type","extra":true}
+    ],
+    "exec_arg": {"index":1,"label":"No Match","desc":"Where to continue if there is no match"}
+  },
+  "wait": {
+    "name": "Wait Ticks",
+    "desc": "Pauses execution of the behavior until 1 or more ticks later",
+    "category": "Flow",
+    "icon": "Main/skin/Icons/Special/Commands/Wait.png",
+    "args": [
+      {"direction":"in","name":"Time","desc":"Number of ticks to wait","filter":"posnum"}
+    ]
+  },
+  "wait_component": {
+    "name": "Wait Component",
+    "desc": "Waits for a component before continuing behavior",
+    "category": "Component",
+    "icon": "Main/skin/Icons/Special/Commands/Wait.png",
+    "args": [
+      {"direction":"in","name":"Component","desc":"Component to wait for","filter":"comp"},
+      {"direction":"in","name":"Component Index","desc":"Component index if multiple are equipped","filter":"posnum","extra":true},
+      {"direction":"exec","name":"Not Working","desc":"Execution path if the component isn't currently working","extra":true}
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "desyncbehavior",
+  "displayName": "Desynced Behavior Language",
+  "description": "Language support for Desynced .beh behavior scripts — syntax highlighting, IntelliSense, hover docs, go-to-definition, diagnostics",
+  "version": "0.1.0",
+  "publisher": "djsapsan",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "beh",
+      "aliases": ["Desynced Behavior", "behavior", "beh"],
+      "extensions": [".beh"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "beh",
+      "scopeName": "source.beh",
+      "path": "./syntaxes/beh.tmLanguage.json"
+    }],
+    "snippets": [{
+      "language": "beh",
+      "path": "./snippets/beh.json"
+    }]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  }
+}

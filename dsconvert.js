@@ -355,7 +355,7 @@ if (typeof process !== 'undefined' && require.main === module) {
 		// encode [input.json] — reads JSON, outputs .base string
 		const input = args[1] ? fs.readFileSync(args[1], 'utf8') : fs.readFileSync(0, 'utf8');
 		const obj = JSON.parse(input);
-		const type = args[2] || 'B'; // 'B' for behavior
+		const type = args[2] || 'C'; // 'C' for behavior (current Desynced format)
 		process.stdout.write(ObjectToDesyncedString(obj, type));
 	} else if (cmd === 'decode') {
 		// decode [input.base] — reads .base string, outputs JSON

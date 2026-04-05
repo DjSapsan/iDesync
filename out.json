@@ -1,0 +1,270 @@
+{
+  "0": {
+    "0": {
+      "num": 0
+    },
+    "1": "State",
+    "op": "set_reg"
+  },
+  "1": {
+    "op": "turnon"
+  },
+  "2": {
+    "0": 1,
+    "op": "lock_slots"
+  },
+  "3": {
+    "0": {
+      "num": 0
+    },
+    "1": "State",
+    "op": "set_reg"
+  },
+  "4": {
+    "op": "unlock"
+  },
+  "5": {
+    "0": 11,
+    "1": 19,
+    "2": "State",
+    "3": {
+      "num": 0
+    },
+    "op": "check_number"
+  },
+  "6": {
+    "0": 1,
+    "1": "Entity",
+    "2": "Signal",
+    "3": 10,
+    "op": "for_signal_match"
+  },
+  "7": {
+    "1": 10,
+    "2": "Signal",
+    "3": {
+      "num": 0
+    },
+    "next": 10,
+    "op": "check_number"
+  },
+  "8": {
+    "0": {
+      "num": 1
+    },
+    "1": "State",
+    "op": "set_reg"
+  },
+  "9": {
+    "next": false,
+    "op": "last"
+  },
+  "10": {
+    "next": 24,
+    "op": "nop"
+  },
+  "11": {
+    "0": 1,
+    "1": "Entity",
+    "2": "Signal",
+    "3": 17,
+    "op": "for_signal_match"
+  },
+  "12": {
+    "1": 17,
+    "2": "Signal",
+    "3": {
+      "num": 0
+    },
+    "next": 17,
+    "op": "check_number"
+  },
+  "13": {
+    "0": "Entity",
+    "op": "dopickup"
+  },
+  "14": {
+    "1": 1,
+    "next": 16,
+    "op": "checkfreespace"
+  },
+  "15": {
+    "0": {
+      "num": -1
+    },
+    "1": "State",
+    "op": "set_reg"
+  },
+  "16": {
+    "next": false,
+    "op": "last"
+  },
+  "17": {
+    "0": {
+      "num": 300
+    },
+    "op": "wait"
+  },
+  "18": {
+    "next": 24,
+    "op": "nop"
+  },
+  "19": {
+    "0": 1,
+    "1": 2,
+    "2": "Closest",
+    "op": "call",
+    "sub": 1
+  },
+  "20": {
+    "0": "Closest",
+    "op": "dodrop"
+  },
+  "21": {
+    "1": "Items",
+    "op": "count_item"
+  },
+  "22": {
+    "0": {
+      "num": -1
+    },
+    "1": "Items",
+    "2": "Items",
+    "op": "mul"
+  },
+  "23": {
+    "0": "Items",
+    "1": "State",
+    "op": "set_reg"
+  },
+  "24": {
+    "0": {
+      "num": 1
+    },
+    "next": 5,
+    "op": "wait"
+  },
+  "dependencies": [
+    {
+      "0": {
+        "0": 2,
+        "1": "Var4",
+        "2": "Var5",
+        "3": 6,
+        "op": "for_signal_match"
+      },
+      "1": {
+        "0": 6,
+        "2": "Var5",
+        "3": {
+          "num": 0
+        },
+        "next": 6,
+        "op": "check_number"
+      },
+      "2": {
+        "0": "Var4",
+        "1": "RoomForItems",
+        "2": 1,
+        "op": "getfreespace"
+      },
+      "3": {
+        "1": 6,
+        "2": "RoomForItems",
+        "3": {
+          "num": 0
+        },
+        "next": 6,
+        "op": "check_number"
+      },
+      "4": {
+        "0": "Var4",
+        "1": "Closest",
+        "op": "set_reg"
+      },
+      "5": {
+        "next": false,
+        "op": "last"
+      },
+      "6": {
+        "0": 2,
+        "1": "Var4",
+        "2": "Var5",
+        "3": 12,
+        "op": "for_signal_match"
+      },
+      "7": {
+        "0": 12,
+        "2": "Var5",
+        "3": {
+          "num": 0
+        },
+        "next": 12,
+        "op": "check_number"
+      },
+      "8": {
+        "0": "Var4",
+        "1": "RoomForItems",
+        "2": 1,
+        "op": "getfreespace"
+      },
+      "9": {
+        "1": 12,
+        "2": "RoomForItems",
+        "3": {
+          "num": 0
+        },
+        "next": 12,
+        "op": "check_number"
+      },
+      "10": {
+        "2": "Closest",
+        "3": "Var4",
+        "4": "Nearest",
+        "op": "select_nearest"
+      },
+      "11": {
+        "0": "Nearest",
+        "1": "Closest",
+        "next": 7,
+        "op": "set_reg"
+      },
+      "12": {
+        "0": "Closest",
+        "1": 3,
+        "op": "set_reg"
+      },
+      "13": {
+        "0": "Nearest",
+        "1": 4,
+        "op": "set_reg"
+      },
+      "14": {
+        "next": false,
+        "op": "exit"
+      },
+      "name": "findClosest",
+      "parameters": [
+        true,
+        true
+      ],
+      "pnames": [
+        "Arg1",
+        "Arg2"
+      ]
+    }
+  ],
+  "name": "src",
+  "parameters": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "pnames": [
+    "Cargo",
+    "Targets",
+    "param3",
+    "param4"
+  ]
+}

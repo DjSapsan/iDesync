@@ -1,149 +1,111 @@
 {
-    "0": {
-        "1": {
-            "id": "c_adv_miner"
-        },
-        "op": "set_comp_reg"
-    },
+  "0": {
+    "op": "unlock"
+  },
+  "1": {
+    "0": 1,
+    "1": -3,
+    "op": "set_reg"
+  },
+  "2": {
+    "0": 1,
+    "op": "lock_slots",
+    "c": 2
+  },
+  "3": {
+    "0": 1,
     "1": {
-        "1": -4,
-        "op": "set_reg"
+      "num": 20
     },
+    "2": "res",
+    "op": "set_number"
+  },
+  "4": {
+    "0": "res",
+    "1": "target",
+    "3": 10,
+    "op": "for_signal_match",
+    "c": 7
+  },
+  "5": {
+    "0": "target",
+    "2": 9,
+    "c": 2,
+    "op": "dopickup"
+  },
+  "6": {
+    "1": 1,
+    "op": "checkfreespace",
+    "next": false
+  },
+  "7": {
+    "op": "last"
+  },
+  "8": {
+    "0": {
+      "num": 10
+    },
+    "op": "wait",
+    "next": 6
+  },
+  "9": {
+    "0": 1,
+    "1": "target",
+    "2": "s",
+    "3": 18,
+    "op": "for_signal_match",
+    "c": 2
+  },
+  "10": {
+    "1": "s",
     "2": {
-        "0": -1,
-        "1": "A",
-        "op": "read_signal"
+      "id": "v_resource"
     },
-    "3": {
-        "0": "A",
-        "1": "B",
-        "2": 3,
-        "op": "get_resource_item"
+    "op": "compare_item",
+    "next": false
+  },
+  "11": {
+    "0": 1,
+    "1": "space",
+    "2": "target",
+    "op": "getfreespace"
+  },
+  "12": {
+    "1": false,
+    "2": "space",
+    "next": false,
+    "op": "check_number"
+  },
+  "13": {
+    "0": "target",
+    "2": 17,
+    "op": "dodrop"
+  },
+  "14": {
+    "1": 1,
+    "op": "checkfreespace",
+    "next": false
+  },
+  "15": {
+    "op": "last"
+  },
+  "16": {
+    "0": {
+      "num": 10
     },
-    "4": {
-        "0": -1,
-        "1": 1,
-        "op": "set_reg"
+    "next": false,
+    "op": "wait"
+  },
+  "17": {
+    "0": {
+      "num": 1
     },
-    "5": {
-        "1": -1,
-        "op": "set_reg"
-    },
-    "6": {
-        "0": "B",
-        "op": "lock_slots"
-    },
-    "7": {
-        "0": 1,
-        "1": "A",
-        "op": "read_signal"
-    },
-    "8": {
-        "0": "A",
-        "op": "domove",
-        "c": 2
-    },
-    "9": {
-        "0": 12,
-        "1": 18,
-        "2": 18,
-        "op": "is_moving"
-    },
-    "10": {
-        "op": "wait",
-        "next": 9
-    },
-    "11": {
-        "0": "A",
-        "1": 18,
-        "2": 20,
-        "op": "mine"
-    },
-    "12": {
-        "0": "B",
-        "1": "C",
-        "op": "count_item"
-    },
-    "13": {
-        "1": 17,
-        "2": "C",
-        "3": {
-            "num": 20
-        },
-        "op": "check_number"
-    },
-    "14": {
-        "0": "B",
-        "1": "C",
-        "2": -4,
-        "op": "set_number"
-    },
-    "15": {
-        "op": "wait",
-        "next": 8
-    },
-    "16": {
-        "1": -4,
-        "op": "set_reg",
-        "next": 16
-    },
-    "17": {
-        "0": "B",
-        "1": {
-            "id": "c_adv_miner"
-        },
-        "op": "set_comp_reg"
-    },
-    "18": {
-        "0": {
-            "num": 10
-        },
-        "op": "wait",
-        "next": 13
-    },
-    "19": {
-        "0": "B",
-        "1": "C",
-        "op": "count_item"
-    },
-    "20": {
-        "1": 25,
-        "2": "C",
-        "3": {
-            "num": 20
-        },
-        "op": "check_number"
-    },
-    "21": {
-        "0": "B",
-        "1": "C",
-        "2": -4,
-        "op": "set_number"
-    },
-    "22": {
-        "1": "B",
-        "op": "checkfreespace",
-        "next": 16
-    },
-    "23": {
-        "op": "wait",
-        "next": 20
-    },
-    "24": {
-        "1": -4,
-        "next": 16,
-        "op": "set_reg"
-    },
-    "parameters": [
-        true
-    ],
-    "pnames": [
-        "Lead"
-    ],
-    "vars": {
-        "A": 2,
-        "B": 3,
-        "C": 4
-    },
-    "name": "Swarm Miner T1"
-}
+    "op": "wait"
+  },
+  "parameters": [
+    false
+  ],
+  "name": "Transport Smart",
+  "pnames": [
+    "Res"
+  ]

@@ -13,8 +13,8 @@ var Closest
 
 ------------------- start -----------------
 
-turnOn()
-lockSlots(Cargo)
+turnon()
+lock_slots(Cargo)
 State = 0
 unlock()
 

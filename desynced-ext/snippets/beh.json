@@ -1,0 +1,1413 @@
+{
+  "Params Block": {
+    "prefix": "params",
+    "body": [
+      "params [",
+      "\t${1:Param1},",
+      "\t${2:Param2},",
+      "]",
+      ""
+    ],
+    "description": "Declare exposed behavior parameters"
+  },
+  "Vars Block": {
+    "prefix": "vars",
+    "body": [
+      "vars [",
+      "\t${1:Var1} = ${2:0},",
+      "\t${3:Var2},",
+      "]",
+      ""
+    ],
+    "description": "Declare local variables"
+  },
+  "Repeat Loop": {
+    "prefix": "repeat",
+    "body": [
+      "repeat",
+      "\t${1:-- body}",
+      "end"
+    ],
+    "description": "Repeat loop (infinite)"
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} then",
+      "\t${2:-- body}",
+      "end"
+    ],
+    "description": "If conditional block"
+  },
+  "Compare Block": {
+    "prefix": "compare_block",
+    "body": [
+      "compare(${1:variable}, ${2:0})",
+      "\tequal",
+      "\t\t${3:-- equal}",
+      "\tend",
+      "",
+      "\tlarger",
+      "\t\t${4:-- larger}",
+      "\tend",
+      "",
+      "\tsmaller",
+      "\t\t${5:-- smaller}",
+      "\tend",
+      "end"
+    ],
+    "description": "Compare block with equal/larger/smaller branches"
+  },
+  "Foreach Loop": {
+    "prefix": "foreach",
+    "body": [
+      "${1:Entity}, ${2:Signal} = foreach(${3:Cargo})",
+      "\t${4:-- body}",
+      "end"
+    ],
+    "description": "Foreach loop with two output variables"
+  },
+  "Function Definition": {
+    "prefix": "function",
+    "body": [
+      "function ${1:name} (${2:Arg1}, ${3:Arg2})",
+      "\tvars (${4:Var1} ${5:Var2})",
+      "",
+      "\t${6:-- body}",
+      "",
+      "\treturn (${7:Arg1} ${8:Result})",
+      "end"
+    ],
+    "description": "Function with local vars and return"
+  },
+  "Global: Abort Construction": {
+    "prefix": "abort_construction",
+    "body": [
+      "abort_construction(${1:Target})"
+    ],
+    "description": "Abort Construction \u2014 Abort an owned construction"
+  },
+  "Global: Activate": {
+    "prefix": "activate",
+    "body": [
+      "activate()"
+    ],
+    "description": "Activate \u2014 Activate"
+  },
+  "Math: Add": {
+    "prefix": "add",
+    "body": [
+      "${3:Result} = add(${1:To}, ${2:Num})"
+    ],
+    "description": "Add \u2014 Adds a number or coordinate to another number or coordinate"
+  },
+  "Move: Attack Move": {
+    "prefix": "attack_move",
+    "body": [
+      "attack_move(${1:Target})"
+    ],
+    "description": "Attack Move \u2014 Moves towards a location stopping to attack any enemies encountered"
+  },
+  "Math: Bitwise Op": {
+    "prefix": "bitwise_op",
+    "body": [
+      "${2:Result} = bitwise_op(${1:A})"
+    ],
+    "description": "Bitwise Op \u2014 Performs a bitwise operation on two values"
+  },
+  "Global: Place Construction": {
+    "prefix": "build",
+    "body": [
+      "build()"
+    ],
+    "description": "Place Construction \u2014 Places a construction site for a specific structure"
+  },
+  "AutoBase: Build Registered": {
+    "prefix": "build_registered",
+    "body": [
+      "build_registered(${1:Id})"
+    ],
+    "description": "Build Registered \u2014 Places a building to be registered"
+  },
+  "Flow: Call": {
+    "prefix": "call",
+    "body": [
+      "call()"
+    ],
+    "description": "Call \u2014 Call a subroutine"
+  },
+  "Unit: Can Equip": {
+    "prefix": "can_equip",
+    "body": [
+      "can_equip(${1:Component})"
+    ],
+    "description": "Can Equip \u2014 Checks if a component can be equipped on a unit"
+  },
+  "Global: Can Produce": {
+    "prefix": "can_produce",
+    "body": [
+      "can_produce(${1:Item})"
+    ],
+    "description": "Can Produce \u2014 Returns if a unit can produce an item"
+  },
+  "Unit: Check Altitude": {
+    "prefix": "check_altitude",
+    "body": [
+      "check_altitude()"
+    ],
+    "description": "Check Altitude \u2014 Divert program depending on location of a unit or coordinate"
+  },
+  "Unit: Check Battery": {
+    "prefix": "check_battery",
+    "body": [
+      "check_battery()"
+    ],
+    "description": "Check Battery \u2014 Checks the Battery level of a unit"
+  },
+  "Math: Check Bit": {
+    "prefix": "check_bit",
+    "body": [
+      "check_bit(${1:Value}, ${2:Bit Index})"
+    ],
+    "description": "Check Bit \u2014 Checks if a specific bit is set in a number"
+  },
+  "Unit: Check Blightness": {
+    "prefix": "check_blightness",
+    "body": [
+      "check_blightness()"
+    ],
+    "description": "Check Blightness \u2014 Divert program depending on location of a unit or coordinate"
+  },
+  "Unit: Check Grid Efficiency": {
+    "prefix": "check_grid_effeciency",
+    "body": [
+      "check_grid_effeciency()"
+    ],
+    "description": "Check Grid Efficiency \u2014 Checks the Efficiency of the logistics network the unit is on"
+  },
+  "Unit: Check Health": {
+    "prefix": "check_health",
+    "body": [
+      "check_health()"
+    ],
+    "description": "Check Health \u2014 Check a unit's health"
+  },
+  "Math: Compare Number": {
+    "prefix": "check_number",
+    "body": [
+      "check_number(${1:Value}, ${2:Compare})"
+    ],
+    "description": "Compare Number \u2014 Divert program depending on number of Value and Compare"
+  },
+  "Math: Check space for item": {
+    "prefix": "checkfreespace",
+    "body": [
+      "checkfreespace(${1:Item})"
+    ],
+    "description": "Check space for item \u2014 Checks if free space is available for an item and amount"
+  },
+  "Unit: Clear All Links": {
+    "prefix": "clear_all_links",
+    "body": [
+      "clear_all_links()"
+    ],
+    "description": "Clear All Links \u2014 Clear all register links on this unit"
+  },
+  "Unit: Clear Link": {
+    "prefix": "clear_link",
+    "body": [
+      "clear_link(${1:From}, ${2:To})"
+    ],
+    "description": "Clear Link \u2014 Clear register link"
+  },
+  "Flow: Clear Research": {
+    "prefix": "clear_research",
+    "body": [
+      "clear_research(${1:Tech})"
+    ],
+    "description": "Clear Research \u2014 Clears a research from research queue, or entire queue if no tech passed"
+  },
+  "Math: Combine Coordinate": {
+    "prefix": "combine_coordinate",
+    "body": [
+      "${3:Result} = combine_coordinate(${1:x}, ${2:y})"
+    ],
+    "description": "Combine Coordinate \u2014 Returns a coordinate made from x and y values"
+  },
+  "Math: Combine Register": {
+    "prefix": "combine_register",
+    "body": [
+      "${3:Register} = combine_register(${1:Num}, ${2:Unit})"
+    ],
+    "description": "Combine Register \u2014 Combine to make a register from separate parameters"
+  },
+  "Flow: Compare Unit": {
+    "prefix": "compare_entity",
+    "body": [
+      "compare_entity(${1:Unit 1}, ${2:Unit 2})"
+    ],
+    "description": "Compare Unit \u2014 Compares Units"
+  },
+  "Flow: Compare Item": {
+    "prefix": "compare_item",
+    "body": [
+      "compare_item(${1:Value 1}, ${2:Value 2})"
+    ],
+    "description": "Compare Item \u2014 Compares Item or Unit type"
+  },
+  "Flow: Compare Register": {
+    "prefix": "compare_register",
+    "body": [
+      "compare_register(${1:Value 1}, ${2:Value 2})"
+    ],
+    "description": "Compare Register \u2014 Compares Registers for equality"
+  },
+  "Unit: Connect": {
+    "prefix": "connect",
+    "body": [
+      "connect()"
+    ],
+    "description": "Connect \u2014 Connects the Unit to the Logistics Network"
+  },
+  "Unit: Count Items": {
+    "prefix": "count_item",
+    "body": [
+      "${2:Result} = count_item(${1:Item})"
+    ],
+    "description": "Count Items \u2014 Counts the number of the passed item contained in the unit's inventory"
+  },
+  "Unit: Count Slots": {
+    "prefix": "count_slots",
+    "body": [
+      "${1:Result} = count_slots()"
+    ],
+    "description": "Count Slots \u2014 Returns the number of slots in this unit of the given type"
+  },
+  "Global: DebugPrint": {
+    "prefix": "debug_print",
+    "body": [
+      "debug_print(${1:Print Value})"
+    ],
+    "description": "DebugPrint \u2014 Debug print to log"
+  },
+  "Component: Deploys held unit": {
+    "prefix": "deploy",
+    "body": [
+      "deploy(${1:Coord})"
+    ],
+    "description": "Deploys held unit \u2014 Deploys the first found held unit at location specified or current location"
+  },
+  "Unit: Disable Transport Route": {
+    "prefix": "disable_transport_route",
+    "body": [
+      "disable_transport_route()"
+    ],
+    "description": "Disable Transport Route \u2014 Disable Unit to deliver on transport route"
+  },
+  "Unit: Disconnect": {
+    "prefix": "disconnect",
+    "body": [
+      "disconnect()"
+    ],
+    "description": "Disconnect \u2014 Disconnects the Unit from the Logistics Network"
+  },
+  "Math: Divide": {
+    "prefix": "div",
+    "body": [
+      "${3:Result} = div(${1:From}, ${2:Num})"
+    ],
+    "description": "Divide \u2014 Divides a number or coordinate from another number or coordinate"
+  },
+  "Unit: Drop Off Items": {
+    "prefix": "dodrop",
+    "body": [
+      "dodrop(${1:Destination})"
+    ],
+    "description": "Drop Off Items \u2014 Drop off items at a unit or location"
+  },
+  "Move: Move Unit": {
+    "prefix": "domove",
+    "body": [
+      "domove(${1:Target})"
+    ],
+    "description": "Move Unit \u2014 Moves to another unit or within a range of another unit"
+  },
+  "Move: Move Unit (Async)*": {
+    "prefix": "domove_async",
+    "body": [
+      "domove_async(${1:Target})"
+    ],
+    "description": "Move Unit (Async)* \u2014 *DEPRECATED* Use Move Unit"
+  },
+  "Move: *Move Unit (Range)*": {
+    "prefix": "domove_range",
+    "body": [
+      "domove_range(${1:Target})"
+    ],
+    "description": "*Move Unit (Range)* \u2014 *DEPRECATED* Use Move Unit"
+  },
+  "Unit: Pick Up Items": {
+    "prefix": "dopickup",
+    "body": [
+      "dopickup(${1:Source})"
+    ],
+    "description": "Pick Up Items \u2014 Picks up items from a unit"
+  },
+  "Unit: Enable Transport Route": {
+    "prefix": "enable_transport_route",
+    "body": [
+      "enable_transport_route()"
+    ],
+    "description": "Enable Transport Route \u2014 Enable Unit to deliver on transport route"
+  },
+  "Unit: Equip Component": {
+    "prefix": "equip_component",
+    "body": [
+      "equip_component(${1:Component})"
+    ],
+    "description": "Equip Component \u2014 Equips a component if it exists"
+  },
+  "AutoBase: Equip Component Remotely": {
+    "prefix": "equip_component_remotely",
+    "body": [
+      "equip_component_remotely(${1:Unit}, ${2:Component})"
+    ],
+    "description": "Equip Component Remotely \u2014 Equips a component if it exists in the unit's inventory"
+  },
+  "Flow: Parameter Event": {
+    "prefix": "event_parameter",
+    "body": [
+      "event_parameter()"
+    ],
+    "description": "Parameter Event \u2014 Run event when the value of the specified parameter changes"
+  },
+  "Flow: Radio Event": {
+    "prefix": "event_radio",
+    "body": [
+      "${1:Signal} = event_radio()"
+    ],
+    "description": "Radio Event \u2014 Run event when the signal of the specified radio band changes its value"
+  },
+  "Flow: Exit": {
+    "prefix": "exit",
+    "body": [
+      "exit()"
+    ],
+    "description": "Exit \u2014 Stops execution of the behavior"
+  },
+  "Global: Faction Item Amount": {
+    "prefix": "faction_item_amount",
+    "body": [
+      "${2:Result} = faction_item_amount(${1:Item})"
+    ],
+    "description": "Faction Item Amount \u2014 Counts the number of the passed item in your logistics network"
+  },
+  "Flow: Loop Equipped Components": {
+    "prefix": "for_component",
+    "body": [
+      "${1:Component}, ${2:Index} = for_component()"
+    ],
+    "description": "Loop Equipped Components \u2014 Loops through equipped Components"
+  },
+  "Unit: Loop Nearby Resources": {
+    "prefix": "for_count_resources",
+    "body": [
+      "${1:Resource} = for_count_resources()"
+    ],
+    "description": "Loop Nearby Resources \u2014 Scans for nearby resources in power field or visibility range"
+  },
+  "Flow: Loop Units (Range)": {
+    "prefix": "for_entities_in_range",
+    "body": [
+      "${3:Unit} = for_entities_in_range(${1:Range}, ${2:Filter})"
+    ],
+    "description": "Loop Units (Range) \u2014 Performs code for all units in visibility range of the unit"
+  },
+  "Flow: Loop Inventory Slots": {
+    "prefix": "for_inventory_item",
+    "body": [
+      "${1:Inventory}, ${2:Reserved Stack}, ${3:Unreserved Stack}, ${4:Reserved Space}, ${5:Unreserved Space}, ${6:Index} = for_inventory_item()"
+    ],
+    "description": "Loop Inventory Slots \u2014 Loops through Inventory"
+  },
+  "Flow: Loop Number": {
+    "prefix": "for_number",
+    "body": [
+      "${3:Value} = for_number(${1:From}, ${2:To})"
+    ],
+    "description": "Loop Number \u2014 Performs code for all numbers in a range"
+  },
+  "Flow: Loop Producers": {
+    "prefix": "for_producers",
+    "body": [
+      "${2:Producer} = for_producers(${1:Production})"
+    ],
+    "description": "Loop Producers \u2014 Gets all producers for a production with their production time"
+  },
+  "Flow: Loop Producer Items": {
+    "prefix": "for_producers_items",
+    "body": [
+      "${2:Item} = for_producers_items(${1:Producer})"
+    ],
+    "description": "Loop Producer Items \u2014 Loops through all unlocked items a production component can produce"
+  },
+  "Flow: Loop Recipe Ingredients": {
+    "prefix": "for_recipe_ingredients",
+    "body": [
+      "${2:Ingredient} = for_recipe_ingredients(${1:Recipe})"
+    ],
+    "description": "Loop Recipe Ingredients \u2014 Loops through Ingredients"
+  },
+  "Flow: Loop Repair Ingredients": {
+    "prefix": "for_repair_ingredients",
+    "body": [
+      "${2:Ingredient} = for_repair_ingredients(${1:Target})"
+    ],
+    "description": "Loop Repair Ingredients \u2014 Loops through each ingredient required to repair a mission unit"
+  },
+  "Flow: Loop Research": {
+    "prefix": "for_research",
+    "body": [
+      "${1:Tech} = for_research()"
+    ],
+    "description": "Loop Research \u2014 Performs code for all researchable tech"
+  },
+  "Flow: Loop Research Ingredients": {
+    "prefix": "for_research_ingredients",
+    "body": [
+      "${2:Ingredient} = for_research_ingredients(${1:Research})"
+    ],
+    "description": "Loop Research Ingredients \u2014 Loops through Ingredients"
+  },
+  "Flow: Loop Research Unlocks": {
+    "prefix": "for_research_unlocks",
+    "body": [
+      "${2:Unlock} = for_research_unlocks(${1:Tech})"
+    ],
+    "description": "Loop Research Unlocks \u2014 Performs code for all unlocks for a researchable tech"
+  },
+  "Flow: *Loop Signal*": {
+    "prefix": "for_signal",
+    "body": [
+      "${2:Unit} = for_signal(${1:Signal})"
+    ],
+    "description": "*Loop Signal* \u2014 *DEPRECATED* Use Loop Signal (Match) instead"
+  },
+  "Flow: Loop Signal": {
+    "prefix": "for_signal_match",
+    "body": [
+      "${2:Unit}, ${3:Signal} = for_signal_match(${1:Signal})"
+    ],
+    "description": "Loop Signal \u2014 Loops through all units with a signal of similar type and additional number checks"
+  },
+  "AutoBase: Gather Information": {
+    "prefix": "gather_information",
+    "body": [
+      "gather_information(${1:Range})"
+    ],
+    "description": "Gather Information \u2014 Collect information for running the auto base controller"
+  },
+  "Unit: Get Active Order": {
+    "prefix": "get_active_order",
+    "body": [
+      "${1:Source}, ${2:Target}, ${3:Amount} = get_active_order()"
+    ],
+    "description": "Get Active Order \u2014 Gets the source, target, and amount data from the current active order"
+  },
+  "Math: Get Battery": {
+    "prefix": "get_battery",
+    "body": [
+      "${1:Result} = get_battery()"
+    ],
+    "description": "Get Battery \u2014 Gets the value of the Battery level as a percent"
+  },
+  "Unit: Get Closest Unit": {
+    "prefix": "get_closest_entity",
+    "body": [
+      "${2:Output} = get_closest_entity(${1:Filter})"
+    ],
+    "description": "Get Closest Unit \u2014 Gets the closest visible unit matching a filter"
+  },
+  "Math: Get from Component": {
+    "prefix": "get_comp_reg",
+    "body": [
+      "${2:Value} = get_comp_reg(${1:From})"
+    ],
+    "description": "Get from Component \u2014 Reads a value from a component register"
+  },
+  "Global: Distance": {
+    "prefix": "get_distance",
+    "body": [
+      "${2:Distance} = get_distance(${1:Target})"
+    ],
+    "description": "Distance \u2014 Returns distance to a unit"
+  },
+  "Math: Get Unit At": {
+    "prefix": "get_entity_at",
+    "body": [
+      "${2:Result} = get_entity_at(${1:Coordinate})"
+    ],
+    "description": "Get Unit At \u2014 Gets the best matching unit at a coordinate"
+  },
+  "Math: Get Equipped Num": {
+    "prefix": "get_equipped_num",
+    "body": [
+      "${2:Value} = get_equipped_num(${1:Component ID})"
+    ],
+    "description": "Get Equipped Num \u2014 Returns how many of a component are equipped"
+  },
+  "Unit: Get First Locked Id": {
+    "prefix": "get_first_locked_0",
+    "body": [
+      "${1:Item} = get_first_locked_0()"
+    ],
+    "description": "Get First Locked Id \u2014 Gets the first item where the locked slot exists but there is no item in it"
+  },
+  "Math: Get Grid Efficiency": {
+    "prefix": "get_grid_effeciency",
+    "body": [
+      "${1:Result} = get_grid_effeciency()"
+    ],
+    "description": "Get Grid Efficiency \u2014 Gets the value of the Grid Efficiency as a percent"
+  },
+  "Math: Get Health": {
+    "prefix": "get_health",
+    "body": [
+      "${2:Percent}, ${3:Current}, ${4:Max} = get_health(${1:Unit})"
+    ],
+    "description": "Get Health \u2014 Gets a unit's health as a percentage, current remaining and max amount"
+  },
+  "Global: Get Ingredients": {
+    "prefix": "get_ingredients",
+    "body": [
+      "${2:Out 1}, ${3:Out 2}, ${4:Out 3} = get_ingredients(${1:Product})"
+    ],
+    "description": "Get Ingredients \u2014 Returns the ingredients required to produce an item"
+  },
+  "Unit: First Item": {
+    "prefix": "get_inventory_item",
+    "body": [
+      "${1:Item} = get_inventory_item()"
+    ],
+    "description": "First Item \u2014 Reads the first item in the inventory of the unit"
+  },
+  "Unit: Get Inventory Item": {
+    "prefix": "get_inventory_item_index",
+    "body": [
+      "${2:Item} = get_inventory_item_index(${1:Index})"
+    ],
+    "description": "Get Inventory Item \u2014 Reads the item contained in the specified slot index"
+  },
+  "Unit: Inventory Total": {
+    "prefix": "get_inventory_total",
+    "body": [
+      "${1:Result} = get_inventory_total()"
+    ],
+    "description": "Inventory Total \u2014 Returns the total contained in inventory"
+  },
+  "Unit: Get Item Info": {
+    "prefix": "get_item_info",
+    "body": [
+      "${2:Result} = get_item_info(${1:Item})"
+    ],
+    "description": "Get Item Info \u2014 Gets information on an item"
+  },
+  "Global: Get Location": {
+    "prefix": "get_location",
+    "body": [
+      "${2:Coord} = get_location(${1:Unit})"
+    ],
+    "description": "Get Location \u2014 Gets location of a seen unit"
+  },
+  "Flow: Get Max Stack": {
+    "prefix": "get_max_stack",
+    "body": [
+      "${2:Max Stack} = get_max_stack(${1:Item})"
+    ],
+    "description": "Get Max Stack \u2014 Returns the amount an item can stack to"
+  },
+  "Move: Get Offset": {
+    "prefix": "get_offset",
+    "body": [
+      "${2:Offset} = get_offset(${1:Target})"
+    ],
+    "description": "Get Offset \u2014 Gets current offset from a unit"
+  },
+  "Unit: Get from Component Remotely": {
+    "prefix": "get_reg_remotely",
+    "body": [
+      "${3:Value} = get_reg_remotely(${1:Unit}, ${2:From})"
+    ],
+    "description": "Get from Component Remotely \u2014 Reads a value from a component register on an external unit"
+  },
+  "AutoBase: Get Registered": {
+    "prefix": "get_registered",
+    "body": [
+      "${2:Value} = get_registered(${1:Id})"
+    ],
+    "description": "Get Registered \u2014 Get number of registered buildings"
+  },
+  "Flow: Get Research": {
+    "prefix": "get_research",
+    "body": [
+      "${1:Tech} = get_research()"
+    ],
+    "description": "Get Research \u2014 Returns the first active research tech"
+  },
+  "Flow: Get Research Requirement": {
+    "prefix": "get_research_requirement",
+    "body": [
+      "${2:Requirement} = get_research_requirement(${1:Tech})"
+    ],
+    "description": "Get Research Requirement \u2014 Returns the research required (if needed)"
+  },
+  "Global: Resource Type": {
+    "prefix": "get_resource_item",
+    "body": [
+      "${2:Resource} = get_resource_item(${1:Resource Deposit})"
+    ],
+    "description": "Resource Type \u2014 Gets the resource type from a resource deposit"
+  },
+  "Math: Get Resource Num": {
+    "prefix": "get_resource_num",
+    "body": [
+      "${2:Result} = get_resource_num(${1:Resource})"
+    ],
+    "description": "Get Resource Num \u2014 Gets the amount of resource"
+  },
+  "Global: Get Season": {
+    "prefix": "get_season",
+    "body": [
+      "get_season()"
+    ],
+    "description": "Get Season \u2014 Divert program depending on season"
+  },
+  "Math: Get Self": {
+    "prefix": "get_self",
+    "body": [
+      "${1:Result} = get_self()"
+    ],
+    "description": "Get Self \u2014 Gets the value of the Unit running the behavior"
+  },
+  "Math: Get Shield": {
+    "prefix": "get_shield",
+    "body": [
+      "${2:Percent}, ${3:Current}, ${4:Max} = get_shield(${1:Unit})"
+    ],
+    "description": "Get Shield \u2014 Get a unit's shield as a percentage, current remaining and max amount"
+  },
+  "Global: Get Stability": {
+    "prefix": "get_stability",
+    "body": [
+      "${1:Number} = get_stability()"
+    ],
+    "description": "Get Stability \u2014 Gets the current world stability"
+  },
+  "Global: Get Type": {
+    "prefix": "get_type",
+    "body": [
+      "${2:Type} = get_type(${1:Item/Unit})"
+    ],
+    "description": "Get Type \u2014 Gets the type from an item or unit"
+  },
+  "Unit: Get Unit Info": {
+    "prefix": "get_unit_info",
+    "body": [
+      "${2:Result} = get_unit_info(${1:Unit})"
+    ],
+    "description": "Get Unit Info \u2014 Gets information on a unit"
+  },
+  "Unit: Get Unit Power Info": {
+    "prefix": "get_unit_power_info",
+    "body": [
+      "${2:Result} = get_unit_power_info(${1:Unit})"
+    ],
+    "description": "Get Unit Power Info \u2014 Gets power information on a unit"
+  },
+  "Unit: Get Unit Type": {
+    "prefix": "get_unit_type",
+    "body": [
+      "${2:Type} = get_unit_type(${1:Unit})"
+    ],
+    "description": "Get Unit Type \u2014 Get the frame type of the unit"
+  },
+  "Flow: Loop Unlocked Components": {
+    "prefix": "get_unlocked_components",
+    "body": [
+      "${1:Item} = get_unlocked_components()"
+    ],
+    "description": "Loop Unlocked Components \u2014 Loops through all produceable unlocked components with a recipe"
+  },
+  "Math: Get space for item": {
+    "prefix": "getfreespace",
+    "body": [
+      "${2:Result} = getfreespace(${1:Item})"
+    ],
+    "description": "Get space for item \u2014 Returns how many of the input item can fit in the inventory"
+  },
+  "Global: Get Home": {
+    "prefix": "gethome",
+    "body": [
+      "${1:Result} = gethome()"
+    ],
+    "description": "Get Home \u2014 Gets the factions home unit"
+  },
+  "Global: Get Trust": {
+    "prefix": "gettrust",
+    "body": [
+      "gettrust(${1:Unit})"
+    ],
+    "description": "Get Trust \u2014 Gets the trust level of the unit towards you"
+  },
+  "Flow: Has Like Component": {
+    "prefix": "has_like_component",
+    "body": [
+      "has_like_component(${1:Component})"
+    ],
+    "description": "Has Like Component \u2014 Checks Unit for a component type"
+  },
+  "Flow: Have Item": {
+    "prefix": "have_item",
+    "body": [
+      "have_item(${1:Item})"
+    ],
+    "description": "Have Item \u2014 Checks if you have at least a specified amount of an item"
+  },
+  "Flow: Is a": {
+    "prefix": "is_a",
+    "body": [
+      "is_a(${1:Item}, ${2:Type})"
+    ],
+    "description": "Is a \u2014 Compares if an item of unit is of a specific type"
+  },
+  "Global: Is Day/Night": {
+    "prefix": "is_daynight",
+    "body": [
+      "is_daynight()"
+    ],
+    "description": "Is Day/Night \u2014 Divert program depending time of day"
+  },
+  "Unit: Is Docked": {
+    "prefix": "is_docked",
+    "body": [
+      "${1:Garage} = is_docked()"
+    ],
+    "description": "Is Docked \u2014 Check if a unit is docked and get its garage"
+  },
+  "Flow: Is Empty": {
+    "prefix": "is_empty",
+    "body": [
+      "is_empty(${1:Value})"
+    ],
+    "description": "Is Empty \u2014 Checks a value if it is empty"
+  },
+  "Unit: Is Equipped": {
+    "prefix": "is_equipped",
+    "body": [
+      "${2:Result} = is_equipped(${1:Component})"
+    ],
+    "description": "Is Equipped \u2014 Check if a specific component has been equipped"
+  },
+  "Unit: Is Item Slot Locked": {
+    "prefix": "is_fixed",
+    "body": [
+      "is_fixed(${1:Slot index})"
+    ],
+    "description": "Is Item Slot Locked \u2014 Check if a specific item slot is locked"
+  },
+  "Unit: Is Inside Logistics Network": {
+    "prefix": "is_logistics",
+    "body": [
+      "is_logistics(${1:Unit})"
+    ],
+    "description": "Is Inside Logistics Network \u2014 Checks if a unit or coordinates is in the logistics network"
+  },
+  "Unit: Is Moving": {
+    "prefix": "is_moving",
+    "body": [
+      "is_moving()"
+    ],
+    "description": "Is Moving \u2014 Checks the movement state of a unit"
+  },
+  "Move: Is Passable": {
+    "prefix": "is_passable",
+    "body": [
+      "is_passable(${1:Coordinate})"
+    ],
+    "description": "Is Passable \u2014 Checks whether a location is passable"
+  },
+  "Unit: Is Same Grid": {
+    "prefix": "is_same_grid",
+    "body": [
+      "is_same_grid(${1:Unit}, ${2:Unit})"
+    ],
+    "description": "Is Same Grid \u2014 Checks if two units or coordinates are in the same logistics network"
+  },
+  "Unit: Is Unit A": {
+    "prefix": "is_unit_a",
+    "body": [
+      "is_unit_a(${1:Unit}, ${2:Type})"
+    ],
+    "description": "Is Unit A \u2014 Checks if a unit is a specific frame type"
+  },
+  "Flow: Is Researched": {
+    "prefix": "is_unlocked",
+    "body": [
+      "is_unlocked(${1:Id})"
+    ],
+    "description": "Is Researched \u2014 Checks whether a faction has something researched"
+  },
+  "Math: Is Working": {
+    "prefix": "is_working",
+    "body": [
+      "${2:Value} = is_working(${1:Component})"
+    ],
+    "description": "Is Working \u2014 Checks whether a particular component is currently working"
+  },
+  "Flow: Jump": {
+    "prefix": "jump",
+    "body": [
+      "jump(${1:Label})"
+    ],
+    "description": "Jump \u2014 Jumps execution to label with the same label id"
+  },
+  "Flow: Label": {
+    "prefix": "label",
+    "body": [
+      "label(${1:Label})"
+    ],
+    "description": "Label \u2014 Labels can be jumped to from anywhere in a behavior"
+  },
+  "Global: Land": {
+    "prefix": "land",
+    "body": [
+      "land()"
+    ],
+    "description": "Land \u2014 Tells a satellite that has been launched to land"
+  },
+  "Flow: Break": {
+    "prefix": "last",
+    "body": [
+      "last()"
+    ],
+    "description": "Break \u2014 Break out of a loop"
+  },
+  "Global: Launch": {
+    "prefix": "launch",
+    "body": [
+      "launch()"
+    ],
+    "description": "Launch \u2014 Launches a satellite if executed on an AMAC or a Drop Pod to the planet if executed on the Mothership"
+  },
+  "Unit: Load Behavior": {
+    "prefix": "load_behavior",
+    "body": [
+      "load_behavior(${1:Unit})"
+    ],
+    "description": "Load Behavior \u2014 Load and run a behavior on an external unit"
+  },
+  "Flow: Lock": {
+    "prefix": "lock",
+    "body": [
+      "lock()"
+    ],
+    "description": "Lock \u2014 Run one instruction at a time"
+  },
+  "Unit: Lock Item Slots": {
+    "prefix": "lock_slots",
+    "body": [
+      "lock_slots(${1:Item})"
+    ],
+    "description": "Lock Item Slots \u2014 Lock all storage slots or a specific item slot index"
+  },
+  "Global: Look At": {
+    "prefix": "lookat",
+    "body": [
+      "lookat(${1:Target})"
+    ],
+    "description": "Look At \u2014 Turns the unit to look at a unit or a coordinate"
+  },
+  "AutoBase: Make Carriers": {
+    "prefix": "make_carrier",
+    "body": [
+      "make_carrier(${1:Carriers})"
+    ],
+    "description": "Make Carriers \u2014 Construct carrier bots for delivering orders or to use for other tasks"
+  },
+  "AutoBase: Make Miners": {
+    "prefix": "make_miner",
+    "body": [
+      "make_miner(${1:Resource/Count}, ${2:Frame})"
+    ],
+    "description": "Make Miners \u2014 Construct and equip miner components on available carrier bots"
+  },
+  "AutoBase: Make Producer": {
+    "prefix": "make_producer",
+    "body": [
+      "make_producer(${1:Item/Count}, ${2:Component}, ${3:Building}, ${4:Location})"
+    ],
+    "description": "Make Producer \u2014 Build and maintain dedicated production buildings"
+  },
+  "AutoBase: Make Turret Bots": {
+    "prefix": "make_turret_bots",
+    "body": [
+      "make_turret_bots(${1:Number})"
+    ],
+    "description": "Make Turret Bots \u2014 Construct and equip turret components on available carrier bots"
+  },
+  "Unit: Match": {
+    "prefix": "match",
+    "body": [
+      "match(${1:Unit}, ${2:Filter})"
+    ],
+    "description": "Match \u2014 Filters the passed unit"
+  },
+  "Memory: Memory Get": {
+    "prefix": "memory_get",
+    "body": [
+      "${2:Value} = memory_get(${1:Index})"
+    ],
+    "description": "Memory Get \u2014 Get memory array element"
+  },
+  "Memory: Memory Insert": {
+    "prefix": "memory_insert",
+    "body": [
+      "memory_insert(${1:Index}, ${2:Value})"
+    ],
+    "description": "Memory Insert \u2014 Insert value into memory array"
+  },
+  "Memory: Memory Length": {
+    "prefix": "memory_length",
+    "body": [
+      "${2:Value} = memory_length(${1:Index})"
+    ],
+    "description": "Memory Length \u2014 Get length of memory array"
+  },
+  "Memory: Loop Memory": {
+    "prefix": "memory_loop",
+    "body": [
+      "${2:Value}, ${3:Index} = memory_loop(${1:Id})"
+    ],
+    "description": "Loop Memory \u2014 Loops through memory array or known array identifiers"
+  },
+  "Memory: Memory Remove": {
+    "prefix": "memory_remove",
+    "body": [
+      "${2:Old Value} = memory_remove(${1:Index})"
+    ],
+    "description": "Memory Remove \u2014 Remove value from memory array"
+  },
+  "Memory: Memory Set": {
+    "prefix": "memory_set",
+    "body": [
+      "${3:Old} = memory_set(${1:Index}, ${2:Value})"
+    ],
+    "description": "Memory Set \u2014 Set memory array value at a given index"
+  },
+  "Component: Mine": {
+    "prefix": "mine",
+    "body": [
+      "mine(${1:Resource})"
+    ],
+    "description": "Mine \u2014 Mine a single resource deposit"
+  },
+  "Math: Modulo": {
+    "prefix": "modulo",
+    "body": [
+      "${3:Result} = modulo(${1:Num}, ${2:By})"
+    ],
+    "description": "Modulo \u2014 Get the remainder of a division"
+  },
+  "Move: Move East": {
+    "prefix": "move_east",
+    "body": [
+      "move_east(${1:Number})"
+    ],
+    "description": "Move East \u2014 Moves towards a tile East of the current location at the specified distance"
+  },
+  "Move: Move North": {
+    "prefix": "move_north",
+    "body": [
+      "move_north(${1:Number})"
+    ],
+    "description": "Move North \u2014 Moves towards a tile North of the current location at the specified distance"
+  },
+  "Move: Move Offset": {
+    "prefix": "move_offset",
+    "body": [
+      "move_offset(${1:Offset})"
+    ],
+    "description": "Move Offset \u2014 Moves to a specific offset of current location or specified unit"
+  },
+  "Move: Move South": {
+    "prefix": "move_south",
+    "body": [
+      "move_south(${1:Number})"
+    ],
+    "description": "Move South \u2014 Moves towards a tile South of the current location at the specified distance"
+  },
+  "Move: Move West": {
+    "prefix": "move_west",
+    "body": [
+      "move_west(${1:Number})"
+    ],
+    "description": "Move West \u2014 Moves towards a tile West of the current location at the specified distance"
+  },
+  "Move: Move Away (Range)": {
+    "prefix": "moveaway_range",
+    "body": [
+      "moveaway_range(${1:Target})"
+    ],
+    "description": "Move Away (Range) \u2014 Moves out of range of another unit, the number value of the target specifies the range"
+  },
+  "Math: Multiply": {
+    "prefix": "mul",
+    "body": [
+      "${3:Result} = mul(${1:To}, ${2:Num})"
+    ],
+    "description": "Multiply \u2014 Multiplies a number or coordinate from another number or coordinate"
+  },
+  "Invalid Instruction": {
+    "prefix": "nop",
+    "body": [
+      "nop()"
+    ],
+    "description": "Invalid Instruction \u2014 Instruction has been removed, behavior needs to be updated"
+  },
+  "Global: Notify": {
+    "prefix": "notify",
+    "body": [
+      "notify(${1:Notify Value})"
+    ],
+    "description": "Notify \u2014 Triggers a faction notification"
+  },
+  "Unit: Order to Shared Storage": {
+    "prefix": "order_to_shared_storage",
+    "body": [
+      "order_to_shared_storage()"
+    ],
+    "description": "Order to Shared Storage \u2014 Request Inventory to be sent to nearest shared storage with corresponding locked item slots"
+  },
+  "Unit: Order Transfer To": {
+    "prefix": "order_transfer",
+    "body": [
+      "order_transfer(${1:Target}, ${2:Item})"
+    ],
+    "description": "Order Transfer To \u2014 Transfers an Item to another Unit"
+  },
+  "Global: Percent": {
+    "prefix": "percent_value",
+    "body": [
+      "${3:Number} = percent_value(${1:Value}, ${2:Max Value})"
+    ],
+    "description": "Percent \u2014 Gives you the percent that value is of Max Value"
+  },
+  "Global: Ping": {
+    "prefix": "ping",
+    "body": [
+      "ping(${1:Target})"
+    ],
+    "description": "Ping \u2014 Plays the Ping effect and notifies other players playing in the same faction"
+  },
+  "Global: Produce Unit": {
+    "prefix": "produce",
+    "body": [
+      "produce()"
+    ],
+    "description": "Produce Unit \u2014 Sets a production component to produce a blueprint"
+  },
+  "Global: Produce Registered Unit": {
+    "prefix": "produce_registered",
+    "body": [
+      "produce_registered(${1:Id})"
+    ],
+    "description": "Produce Registered Unit \u2014 Sets a production component to produce a blueprint"
+  },
+  "Math: Random Coordinate": {
+    "prefix": "random_coordinate",
+    "body": [
+      "${3:Result} = random_coordinate(${1:Coordinate}, ${2:Range})"
+    ],
+    "description": "Random Coordinate \u2014 Returns a random coordinate from a location within a specified range"
+  },
+  "Math: Random Number": {
+    "prefix": "random_number",
+    "body": [
+      "${3:Result} = random_number(${1:Min}, ${2:Max})"
+    ],
+    "description": "Random Number \u2014 Returns a random number value between a min and max value"
+  },
+  "Unit: Read Radio": {
+    "prefix": "read_radio",
+    "body": [
+      "${2:Result} = read_radio(${1:Band})"
+    ],
+    "description": "Read Radio \u2014 Reads the Radio signal on a specified band"
+  },
+  "Unit: Read Signal": {
+    "prefix": "read_signal",
+    "body": [
+      "${2:Result} = read_signal(${1:Unit})"
+    ],
+    "description": "Read Signal \u2014 Reads the Signal register of another unit"
+  },
+  "Global: Read Key": {
+    "prefix": "readkey",
+    "body": [
+      "${2:Key} = readkey(${1:Frame})"
+    ],
+    "description": "Read Key \u2014 Attempts to read the internal key of the unit"
+  },
+  "Global: Remap": {
+    "prefix": "remap_value",
+    "body": [
+      "${6:Result} = remap_value(${1:Value}, ${2:Input Low}, ${3:Input High}, ${4:Target Low}, ${5:Target high})"
+    ],
+    "description": "Remap \u2014 Remaps a value between two ranges"
+  },
+  "Unit: Request Item": {
+    "prefix": "request_item",
+    "body": [
+      "request_item(${1:Item})"
+    ],
+    "description": "Request Item \u2014 Requests an item if it doesn't exist in the inventory"
+  },
+  "Unit: Request Wait": {
+    "prefix": "request_wait",
+    "body": [
+      "request_wait(${1:Item})"
+    ],
+    "description": "Request Wait \u2014 Requests up to a specified amount of an item and waits until that amount exists in inventory"
+  },
+  "Flow: Restart": {
+    "prefix": "restart",
+    "body": [
+      "restart()"
+    ],
+    "description": "Restart \u2014 Restart execution of the behavior"
+  },
+  "Component: Radar": {
+    "prefix": "scan",
+    "body": [
+      "${4:Result} = scan(${1:Filter 1}, ${2:Filter 2}, ${3:Filter 3})"
+    ],
+    "description": "Radar \u2014 Scan for the closest unit that matches the filters"
+  },
+  "Move: Scout": {
+    "prefix": "scout",
+    "body": [
+      "scout()"
+    ],
+    "description": "Scout \u2014 Moves in a scouting pattern around the factions home location"
+  },
+  "Move: Scout Range": {
+    "prefix": "scout_rand_range",
+    "body": [
+      "scout_rand_range(${1:Range}, ${2:Coord})"
+    ],
+    "description": "Scout Range \u2014 Moves in a random direction a specified amount\nOptionally pass a coordinate to give some directionality"
+  },
+  "Flow: Select Nearest": {
+    "prefix": "select_nearest",
+    "body": [
+      "${3:Closest} = select_nearest(${1:Unit A}, ${2:Unit B})"
+    ],
+    "description": "Select Nearest \u2014 Branches based on which unit is closer, optional branches for closer unit"
+  },
+  "Math: Separate Coordinate": {
+    "prefix": "separate_coordinate",
+    "body": [
+      "${2:x}, ${3:y} = separate_coordinate(${1:Coordinate})"
+    ],
+    "description": "Separate Coordinate \u2014 Split a coordinate into x and y values"
+  },
+  "Math: Separate Register": {
+    "prefix": "separate_register",
+    "body": [
+      "${2:Num}, ${3:Unit}, ${4:ID}, ${5:x}, ${6:y} = separate_register(${1:Register})"
+    ],
+    "description": "Separate Register \u2014 Split a register into separate parameters"
+  },
+  "Flow: Sequence": {
+    "prefix": "sequence",
+    "body": [
+      "sequence()"
+    ],
+    "description": "Sequence \u2014 Executes a series of exec nodes in sequence"
+  },
+  "AutoBase: Serve Construction": {
+    "prefix": "serve_construction",
+    "body": [
+      "serve_construction()"
+    ],
+    "description": "Serve Construction \u2014 Produce materials needed in construction sites"
+  },
+  "Math: Set to Component": {
+    "prefix": "set_comp_reg",
+    "body": [
+      "set_comp_reg(${1:Value}, ${2:To})"
+    ],
+    "description": "Set to Component \u2014 Writes a value into a component register"
+  },
+  "Unit: Set Link": {
+    "prefix": "set_link",
+    "body": [
+      "set_link(${1:From}, ${2:To})"
+    ],
+    "description": "Set Link \u2014 Set register link"
+  },
+  "Unit: Set Logistics": {
+    "prefix": "set_logistics_options",
+    "body": [
+      "set_logistics_options()"
+    ],
+    "description": "Set Logistics \u2014 Sets current unit to the specified logistics settings"
+  },
+  "Math: Set Number": {
+    "prefix": "set_number",
+    "body": [
+      "${3:To} = set_number(${1:Value}, ${2:Num/Coord})"
+    ],
+    "description": "Set Number \u2014 Sets the numerical/coordinate part of a value"
+  },
+  "Math: Copy": {
+    "prefix": "set_reg",
+    "body": [
+      "${2:Target} = set_reg(${1:Value})"
+    ],
+    "description": "Copy \u2014 Copy a value to a frame register, parameter or variable"
+  },
+  "Unit: Set to Component Remotely": {
+    "prefix": "set_reg_remotely",
+    "body": [
+      "set_reg_remotely(${1:Unit}, ${2:Value}, ${3:To})"
+    ],
+    "description": "Set to Component Remotely \u2014 Writes a value into a component register on an external unit"
+  },
+  "Flow: Set Research": {
+    "prefix": "set_research",
+    "body": [
+      "set_research(${1:Tech})"
+    ],
+    "description": "Set Research \u2014 Add a new research into the active research queue"
+  },
+  "Component: Set Signpost": {
+    "prefix": "set_signpost",
+    "body": [
+      "set_signpost()"
+    ],
+    "description": "Set Signpost \u2014 Set the signpost to specific text"
+  },
+  "Unit: Turn Off": {
+    "prefix": "shutdown",
+    "body": [
+      "shutdown()"
+    ],
+    "description": "Turn Off \u2014 Shuts down the power of the Unit"
+  },
+  "Math: Simulation Tick": {
+    "prefix": "simulation_tick",
+    "body": [
+      "${1:Tick} = simulation_tick()"
+    ],
+    "description": "Simulation Tick \u2014 Returns the current Simulation Tick"
+  },
+  "Unit: Solve Explorable": {
+    "prefix": "solve",
+    "body": [
+      "${2:Missing} = solve(${1:Target})"
+    ],
+    "description": "Solve Explorable \u2014 Attempt to solve an explorable"
+  },
+  "Unit: Sort Storage": {
+    "prefix": "sort_storage",
+    "body": [
+      "sort_storage()"
+    ],
+    "description": "Sort Storage \u2014 Sorts Storage Containers on Unit"
+  },
+  "Move: Stop Unit": {
+    "prefix": "stop",
+    "body": [
+      "stop()"
+    ],
+    "description": "Stop Unit \u2014 Stop movement and abort what is currently controlling the unit's movement"
+  },
+  "Math: Subtract": {
+    "prefix": "sub",
+    "body": [
+      "${3:Result} = sub(${1:From}, ${2:Num})"
+    ],
+    "description": "Subtract \u2014 Subtracts a number or coordinate from another number or coordinate"
+  },
+  "Unit: Switch": {
+    "prefix": "switch",
+    "body": [
+      "switch(${1:Input}, ${2:Case 1})"
+    ],
+    "description": "Switch \u2014 Filters the passed unit or item"
+  },
+  "Unit: Turn On": {
+    "prefix": "turnon",
+    "body": [
+      "turnon()"
+    ],
+    "description": "Turn On \u2014 Turns on the power of the Unit"
+  },
+  "Unit: Unequip Component": {
+    "prefix": "unequip_component",
+    "body": [
+      "unequip_component(${1:Component})"
+    ],
+    "description": "Unequip Component \u2014 Unequips a component if it exists"
+  },
+  "AutoBase: Unequip Component Remotely": {
+    "prefix": "unequip_component_remotely",
+    "body": [
+      "unequip_component_remotely(${1:Unit}, ${2:Component})"
+    ],
+    "description": "Unequip Component Remotely \u2014 Unequips a component if it exists"
+  },
+  "Flow: Unit Type": {
+    "prefix": "unit_type",
+    "body": [
+      "unit_type(${1:Unit})"
+    ],
+    "description": "Unit Type \u2014 Divert program depending on unit type"
+  },
+  "Flow: Unlock": {
+    "prefix": "unlock",
+    "body": [
+      "unlock()"
+    ],
+    "description": "Unlock \u2014 Run as many instructions as possible. Use wait instructions to throttle execution."
+  },
+  "Unit: Unlock Item Slots": {
+    "prefix": "unlock_slots",
+    "body": [
+      "unlock_slots()"
+    ],
+    "description": "Unlock Item Slots \u2014 Unlock all inventory slots or a specific item slot index"
+  },
+  "Flow: Data type switch": {
+    "prefix": "value_type",
+    "body": [
+      "value_type(${1:Data})"
+    ],
+    "description": "Data type switch \u2014 Switch based on type of value"
+  },
+  "Flow: Wait Ticks": {
+    "prefix": "wait",
+    "body": [
+      "wait(${1:Time})"
+    ],
+    "description": "Wait Ticks \u2014 Pauses execution of the behavior until 1 or more ticks later"
+  },
+  "Component: Wait Component": {
+    "prefix": "wait_component",
+    "body": [
+      "wait_component(${1:Component})"
+    ],
+    "description": "Wait Component \u2014 Waits for a component before continuing behavior"
+  }
+}
