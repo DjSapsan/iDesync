@@ -12,9 +12,8 @@
 
 local KEYWORDS = {}
 for _, kw in ipairs({
-    'params', 'var',
-    'repeat', 'compare', 'equal', 'larger', 'smaller',
-    'foreach',
+    'params', 'var', 'local',
+    'repeat',
     'if', 'then', 'else', 'end',
     'break', 'goto',
     'function', 'return',
@@ -53,6 +52,21 @@ local function tokenize(source)
         elseif source:sub(i, i+1) == '--' then
             i = i + 2
             while i <= n and source:sub(i, i) ~= '\n' do i = i + 1 end
+
+        -- String literals
+        elseif c == '"' or c == "'" then
+            local quote = c
+            i = i + 1
+            local j = i
+            while i <= n and source:sub(i, i) ~= quote do
+                if source:sub(i, i) == '\\' then i = i + 1 end
+                i = i + 1
+            end
+            if i > n then
+                error(string.format("tokenizer: unterminated string at line %d", line))
+            end
+            push('string', source:sub(j, i - 1))
+            i = i + 1  -- skip closing quote
 
         -- Numbers
         elseif c >= '0' and c <= '9' then

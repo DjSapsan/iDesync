@@ -1,11 +1,13 @@
+local ore = "Metal Ore"
+
 params [
     Cargo,
-    Targets,    -- renamed from param2: list of drop-off targets
+    Targets,
     param3,
     param4,
 ]
 
-var State = 0   -- 0=SEARCHING, 1=LOADING, -1=UNLOADING
+var State = 0
 var Entity
 var Signal
 var Items
@@ -13,17 +15,17 @@ var Closest
 
 ------------------- start -----------------
 
-turnon()
-lock_slots(Cargo)
+turnOn()
+lockSlots(Cargo)
 State = 0
 unlock()
 
 repeat
 
-    compare(State, 0)
+    checkNumber(State, 0)
 
         equal
-            Entity, Signal = foreach(Cargo)
+            Entity, Signal = forSignalMatch(Cargo)
                 if Signal > 0 then
                     State = 1
                     break
@@ -32,10 +34,10 @@ repeat
         end
 
         larger
-            Entity, Signal = foreach(Cargo)
+            Entity, Signal = forSignalMatch(Cargo)
                 if Signal > 0 then
                     pickItems(Entity)
-                    if not checkFreeSpace(Cargo) then
+                    if not checkFreeSpace(Cargo, ore) then
                         State = -1
                     end
                     break
@@ -46,7 +48,7 @@ repeat
 
         smaller
             Closest = findClosest(Cargo, Targets)
-            dropItems(Closest)
+            Result = getItemInfo(Closest)
             Items = countItems()
             Items = -1 * Items
             State = Items
@@ -65,8 +67,7 @@ function findClosest (Arg1, Arg2)
     var Var4
     var Var5
 
-    -- First pass: find any valid target with free space
-    Var4, Var5 = foreach(Arg2)
+    Var4, Var5 = forSignalMatch(Arg2)
         if Var5 < 0 then
             RoomForItems = getFreeSpace(Var4, Arg1)
             if RoomForItems > 0 then
@@ -76,8 +77,7 @@ function findClosest (Arg1, Arg2)
         end
     end
 
-    -- Second pass: narrow down to the nearest valid target
-    Var4, Var5 = foreach(Arg2)
+    Var4, Var5 = forSignalMatch(Arg2)
         if Var5 < 0 then
             RoomForItems = getFreeSpace(Var4, Arg1)
             if RoomForItems > 0 then

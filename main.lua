@@ -120,6 +120,7 @@ local function expr_str(node)
     local t = node.type
     if t == "Identifier" then return node.name
     elseif t == "Number"  then return tostring(node.value)
+    elseif t == "String"  then return '"' .. node.value .. '"'
     elseif t == "BinOp"   then
         return string.format("(%s %s %s)", expr_str(node.left), node.op, expr_str(node.right))
     elseif t == "UnaryOp" then
@@ -128,11 +129,6 @@ local function expr_str(node)
         local a = {}
         for _, arg in ipairs(node.args) do a[#a+1] = expr_str(arg) end
         return string.format("%s(%s)", node.name, table.concat(a, ", "))
-    elseif t == "Foreach" then
-        local a = {}
-        for _, arg in ipairs(node.args) do a[#a+1] = expr_str(arg) end
-        return string.format("foreach(%s)%s", table.concat(a, ", "),
-            node.body and " {body}" or "")
     else
         return "<" .. t .. ">"
     end
@@ -158,13 +154,18 @@ print_node = function(node, d)
     if t == "Assign" then
         local targets = {}
         for _, tgt in ipairs(node.targets) do targets[#targets+1] = tgt.name end
-        if node.value.type == "Foreach" then
+        if node.value.type == "ComplexCall" then
             local a = {}
             for _, arg in ipairs(node.value.args) do a[#a+1] = expr_str(arg) end
-            print(pad .. table.concat(targets, ", ") .. " = foreach("
-                .. table.concat(a, ", ") .. ")")
+            print(pad .. table.concat(targets, ", ") .. " = "
+                .. node.value.name .. "(" .. table.concat(a, ", ") .. ")")
             if node.value.body then
                 print_block(node.value.body, d + 1)
+            end
+            for _, branch in ipairs(node.value.branches or {}) do
+                print(pad .. "  " .. branch.kind)
+                print_block(branch.body, d + 2)
+                print(pad .. "  end")
             end
         else
             print(pad .. table.concat(targets, ", ") .. " = " .. expr_str(node.value))
@@ -174,6 +175,19 @@ print_node = function(node, d)
         local a = {}
         for _, arg in ipairs(node.args) do a[#a+1] = expr_str(arg) end
         print(pad .. node.name .. "(" .. table.concat(a, ", ") .. ")")
+
+    elseif t == "ComplexCall" then
+        local a = {}
+        for _, arg in ipairs(node.args) do a[#a+1] = expr_str(arg) end
+        print(pad .. node.name .. "(" .. table.concat(a, ", ") .. ")")
+        if node.body then
+            print_block(node.body, d + 1)
+        end
+        for _, branch in ipairs(node.branches or {}) do
+            print(pad .. "  " .. branch.kind)
+            print_block(branch.body, d + 2)
+            print(pad .. "  end")
+        end
 
     elseif t == "If" then
         print(pad .. "if " .. expr_str(node.cond))
@@ -189,16 +203,6 @@ print_node = function(node, d)
         print_block(node.body, d + 1)
         print(pad .. "end")
 
-    elseif t == "Compare" then
-        local a = {}
-        for _, arg in ipairs(node.args) do a[#a+1] = expr_str(arg) end
-        print(pad .. "compare(" .. table.concat(a, ", ") .. ")")
-        for _, branch in ipairs(node.branches) do
-            print(pad .. "  " .. branch.kind)
-            print_block(branch.body, d + 2)
-            print(pad .. "  end")
-        end
-
     elseif t == "Break"  then print(pad .. "break")
     elseif t == "Goto"   then print(pad .. "goto(" .. node.label .. ")")
     elseif t == "Return" then
@@ -208,12 +212,7 @@ print_node = function(node, d)
 
     elseif t == "Local" then
         local names = table.concat(node.names, ", ")
-        if node.value and node.value.type == "Foreach" then
-            local a = {}
-            for _, arg in ipairs(node.value.args) do a[#a+1] = expr_str(arg) end
-            print(pad .. "var " .. names .. " = foreach(" .. table.concat(a, ", ") .. ")")
-            print_block(node.value.body, d + 1)
-        elseif node.value then
+        if node.value then
             print(pad .. "var " .. names .. " = " .. expr_str(node.value))
         else
             print(pad .. "var " .. names)

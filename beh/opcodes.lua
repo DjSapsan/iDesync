@@ -104,6 +104,11 @@ local function load_instructions(path)
             end
         end
 
+        -- Loop detection: instructions with next/last are loop iterators
+        if type(def.next) == "function" then
+            entry.is_loop = true
+        end
+
         result[id] = entry
     end
 
@@ -214,5 +219,47 @@ function M.exec_args(info)
 end
 
 M.camel_to_snake = camel_to_snake
+
+--- Convert a game data exec label to a .beh branch name.
+--- "If Equal" -> "equal", "Path Blocked" -> "pathBlocked", "Done" -> "done"
+function M.label_to_branch_name(label)
+    -- Strip "If " prefix
+    local s = label:gsub("^If ", "")
+    -- Split on spaces, camelCase: first word lowercase, rest capitalized
+    local parts = {}
+    for word in s:gmatch("%S+") do parts[#parts + 1] = word end
+    local result = parts[1]:lower()
+    for i = 2, #parts do
+        result = result .. parts[i]:sub(1, 1):upper() .. parts[i]:sub(2):lower()
+    end
+    return result
+end
+
+--- Build a mapping from branch names to exec arg positions for an instruction.
+--- Returns {branch_name -> {pos=N, source="exec_arg"|"arg"}} and the
+--- fallthrough branch name (from exec_arg).
+function M.branch_map(info)
+    if not info then return {}, nil end
+    local map = {}
+    local fallthrough = nil
+
+    -- exec_arg is the fallthrough path
+    if info.exec_arg and info.exec_arg ~= false then
+        fallthrough = M.label_to_branch_name(info.exec_arg.name)
+        map[fallthrough] = { pos = info.exec_arg.index, source = "exec_arg" }
+    end
+
+    -- exec args in the args list
+    if info.args then
+        for i, a in ipairs(info.args) do
+            if a.dir == "exec" then
+                local bname = M.label_to_branch_name(a.name)
+                map[bname] = { pos = i, source = "arg" }
+            end
+        end
+    end
+
+    return map, fallthrough
+end
 
 return M

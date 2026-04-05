@@ -69,6 +69,9 @@ local function resolve_value(node, scope)
     if t == "Number" then
         return { num = node.value }
 
+    elseif t == "String" then
+        return { id = node.value }
+
     elseif t == "Identifier" then
         if scope.params[node.name] then
             return scope.params[node.name]  -- integer param reference
@@ -198,48 +201,34 @@ local function compile_behavior(scope, body_block, em)
         em:emit(make_inst(op_id, arg_map))
     end
 
-    -- ── Emit: Assignment ────────────────────────────────────────────────
+    -- ── Emit: ComplexCall (generalized branches + loops) ────────────────
 
-    local function emit_assign(node)
-        local val = node.value
+    local function emit_complex_call(name, args, body, branches, targets)
+        local op_id, info = opcodes.resolve(name)
+        if not op_id then
+            -- User-defined function with complex call (shouldn't happen normally)
+            io.stderr:write("warning: unknown complex function '" .. name .. "'\n")
+            return
+        end
 
-        -- Case: multi-target assign from foreach
-        if val.type == "Foreach" then
-            -- Determine foreach opcode: if an input signal arg is provided,
-            -- use for_signal_match; otherwise for_inventory_item.
-            local foreach_op, foreach_info
-            if #val.args > 0 then
-                foreach_op = "for_signal_match"
-            else
-                foreach_op = "for_inventory_item"
-            end
-            foreach_info = opcodes.get(foreach_op)
+        local arg_map = map_call_args(args, info)
+        if targets then
+            map_output_targets(targets, info, arg_map)
+        end
 
-            local arg_map = map_call_args(val.args, foreach_info)
-            map_output_targets(node.targets, foreach_info, arg_map)
+        local bmap, fallthrough = opcodes.branch_map(info)
+        local is_loop = info and info.is_loop
 
-            -- Find the exec Done arg position
-            local done_pos = nil
-            if foreach_info and foreach_info.args then
-                for i, a in ipairs(foreach_info.args) do
-                    if a.dir == "exec" then
-                        done_pos = i
-                        break
-                    end
-                end
-            end
-
-            local loop_idx = em:emit(make_inst(foreach_op, arg_map))
+        -- For loops with body: emit loop instruction, body, loop-back, then branches
+        if is_loop and body and body.stmts and #body.stmts > 0 then
+            local loop_idx = em:emit(make_inst(op_id, arg_map))
             local body_start = em:here()
 
             -- Push loop context for break
             local loop_ctx = { done_patches = {} }
             loop_stack[#loop_stack + 1] = loop_ctx
 
-            -- Emit foreach body
-            if val.body then
-                emit_block(val.body)
-            end
+            emit_block(body)
 
             -- Loop back: last body instruction points to body_start
             if em.count >= body_start then
@@ -251,17 +240,142 @@ local function compile_behavior(scope, body_block, em)
 
             local after_loop = em:here()
 
-            -- Patch Done exec arg
-            if done_pos then
-                em:patch(loop_idx, tostring(done_pos - 1), to_json_idx(after_loop))
+            -- Emit named branches (e.g., "done")
+            local end_jumps = {}
+            for _, branch in ipairs(branches or {}) do
+                local binfo = bmap[branch.kind]
+                if binfo then
+                    local branch_start = em:here()
+                    em:patch(loop_idx, tostring(binfo.pos - 1), to_json_idx(branch_start))
+                    emit_block(branch.body)
+                    local jmp = em:emit(make_inst("nop", nil, { next = false }))
+                    end_jumps[#end_jumps + 1] = jmp
+                else
+                    io.stderr:write("warning: unknown branch '"
+                        .. branch.kind .. "' for " .. name .. "\n")
+                end
             end
 
-            -- Patch any break-related targets
+            local after_all = em:here()
+
+            -- Patch exec args that weren't used (point to after_loop)
+            for bname, binfo in pairs(bmap) do
+                if binfo.source == "arg" then
+                    -- Check if this branch was provided
+                    local found = false
+                    for _, branch in ipairs(branches or {}) do
+                        if branch.kind == bname then found = true; break end
+                    end
+                    if not found then
+                        em:patch(loop_idx, tostring(binfo.pos - 1), to_json_idx(after_loop))
+                    end
+                end
+            end
+
+            -- Patch break targets
             for _, patch in ipairs(loop_ctx.done_patches) do
-                em:patch(patch.idx, patch.field, to_json_idx(after_loop))
+                em:patch(patch.idx, patch.field, to_json_idx(after_all))
+            end
+
+            -- Patch end jumps
+            for _, jmp_idx in ipairs(end_jumps) do
+                em:patch(jmp_idx, "next", to_json_idx(after_all))
             end
 
             loop_stack[#loop_stack] = nil
+            return
+        end
+
+        -- Non-loop complex call (branching, like check_number)
+        local check_idx = em:emit(make_inst(op_id, arg_map))
+
+        -- Build branch bodies
+        local branch_bodies = {}  -- kind -> {start, end_jump}
+        local end_jumps = {}
+
+        -- Determine emit order: fallthrough branch first, then others
+        local ordered = {}
+        if fallthrough then
+            for _, branch in ipairs(branches or {}) do
+                if branch.kind == fallthrough then
+                    ordered[#ordered + 1] = branch
+                    break
+                end
+            end
+        end
+        for _, branch in ipairs(branches or {}) do
+            if branch.kind ~= fallthrough then
+                ordered[#ordered + 1] = branch
+            end
+        end
+
+        for idx, branch in ipairs(ordered) do
+            local branch_start = em:here()
+            emit_block(branch.body)
+            -- Jump past remaining branches (except for last branch)
+            local jmp = nil
+            if idx < #ordered then
+                jmp = em:emit(make_inst("nop", nil, { next = false }))
+                end_jumps[#end_jumps + 1] = jmp
+            end
+            branch_bodies[branch.kind] = { start = branch_start, end_jump = jmp }
+        end
+
+        local after_all = em:here()
+
+        -- Patch exec arg positions to branch start addresses
+        for _, branch in ipairs(branches or {}) do
+            local binfo = bmap[branch.kind]
+            local bdata = branch_bodies[branch.kind]
+            if binfo and bdata then
+                if binfo.source == "arg" then
+                    em:patch(check_idx, tostring(binfo.pos - 1), to_json_idx(bdata.start))
+                elseif binfo.source == "exec_arg" and branch.kind ~= fallthrough then
+                    -- Non-fallthrough exec_arg: patch next
+                    em:patch(check_idx, "next", to_json_idx(bdata.start))
+                end
+                -- Fallthrough (exec_arg) naturally falls through, no patch needed
+            end
+        end
+
+        -- Patch missing branches to skip to after_all
+        if fallthrough and not branch_bodies[fallthrough] then
+            -- No fallthrough branch: next should skip
+            local first_non_ft = nil
+            for _, branch in ipairs(ordered) do
+                if branch.kind ~= fallthrough then
+                    first_non_ft = branch_bodies[branch.kind]
+                    break
+                end
+            end
+            if first_non_ft then
+                em:patch(check_idx, "next", to_json_idx(first_non_ft.start))
+            else
+                em:patch(check_idx, "next", to_json_idx(after_all))
+            end
+        end
+
+        -- Patch exec args for branches not provided → skip to after_all
+        for bname, binfo in pairs(bmap) do
+            if binfo.source == "arg" and not branch_bodies[bname] then
+                em:patch(check_idx, tostring(binfo.pos - 1), to_json_idx(after_all))
+            end
+        end
+
+        -- Patch end jumps to after_all
+        for _, jmp_idx in ipairs(end_jumps) do
+            em:patch(jmp_idx, "next", to_json_idx(after_all))
+        end
+    end
+
+    -- ── Emit: Assignment ────────────────────────────────────────────────
+
+    local function emit_assign(node)
+        local val = node.value
+
+        -- Case: assign from ComplexCall (loops + branches)
+        if val.type == "ComplexCall" then
+            emit_complex_call(val.name, val.args, val.body, val.branches, node.targets)
             return
         end
 
@@ -307,7 +421,6 @@ local function compile_behavior(scope, body_block, em)
                                  or val.op == "*" or val.op == "/") then
             local op_map = { ["+"] = "add", ["-"] = "sub", ["*"] = "mul", ["/"] = "div" }
             local arith_op = op_map[val.op]
-            local info = opcodes.get(arith_op)
             -- arith ops: 1:in(To/From), 2:in(Num), 3:out(Result)
             local left_val  = resolve_value(val.left, scope)
             local right_val = resolve_value(val.right, scope)
@@ -364,41 +477,27 @@ local function compile_behavior(scope, body_block, em)
                 emit_block(node.ebody)
                 after_else = em:here()
                 -- Patch the jump at end of then-body
-                -- jump with no label arg, just use next field
                 em.insts[else_jump_idx].next = to_json_idx(after_else)
             end
 
             local skip = to_json_idx(node.ebody and after_then or after_then)
-            local past_all = to_json_idx(after_else)
 
             -- Patch check_number exec paths based on operator
             if op == ">" then
-                -- body when larger; skip when equal or smaller
-                -- "0" (If Larger) = nil (falls through to body)
-                em:patch(check_idx, "1", skip)       -- If Smaller → skip
-                em:patch(check_idx, "next", skip)     -- If Equal → skip
+                em:patch(check_idx, "1", skip)
+                em:patch(check_idx, "next", skip)
             elseif op == "<" then
-                em:patch(check_idx, "0", skip)        -- If Larger → skip
-                -- "1" (If Smaller) = nil (falls through to body)
-                em:patch(check_idx, "next", skip)     -- If Equal → skip
+                em:patch(check_idx, "0", skip)
+                em:patch(check_idx, "next", skip)
             elseif op == ">=" then
-                -- body when larger or equal
-                -- "0" (If Larger) = nil (falls through)
-                em:patch(check_idx, "1", skip)        -- If Smaller → skip
-                -- next (If Equal) = nil (falls through)
+                em:patch(check_idx, "1", skip)
             elseif op == "<=" then
-                em:patch(check_idx, "0", skip)        -- If Larger → skip
-                -- "1" (If Smaller) = nil (falls through)
-                -- next (If Equal) = nil (falls through)
+                em:patch(check_idx, "0", skip)
             elseif op == "==" then
-                em:patch(check_idx, "0", skip)        -- If Larger → skip
-                em:patch(check_idx, "1", skip)        -- If Smaller → skip
-                -- next (If Equal) = nil (falls through to body)
+                em:patch(check_idx, "0", skip)
+                em:patch(check_idx, "1", skip)
             elseif op == "~=" or op == "!=" then
-                -- body when NOT equal
-                -- "0" (If Larger) = nil (falls through)
-                -- "1" (If Smaller) = nil (falls through)
-                em:patch(check_idx, "next", skip)     -- If Equal → skip
+                em:patch(check_idx, "next", skip)
             end
 
             return
@@ -419,7 +518,6 @@ local function compile_behavior(scope, body_block, em)
                 -- "not" inverts: the exec branch (failure) falls through to body,
                 -- success (fallthrough/next) skips body
                 em:patch(check_idx, "next", to_json_idx(after_body))
-                -- Leave exec args absent (fall through to body on failure)
                 return
             end
         end
@@ -437,7 +535,6 @@ local function compile_behavior(scope, body_block, em)
 
                 -- Success (fallthrough/next) enters body,
                 -- failure exec branch skips body
-                -- Find exec arg positions and patch them to skip
                 if info.args then
                     for i, a in ipairs(info.args) do
                         if a.dir == "exec" then
@@ -469,8 +566,6 @@ local function compile_behavior(scope, body_block, em)
         if last_inst and last_inst.next == nil then
             last_inst.next = to_json_idx(loop_start)
         elseif em.count >= 1 then
-            -- If last instruction already has a next (e.g., a jump), add a
-            -- separate jump back
             em:emit(make_inst("nop", nil, { next = to_json_idx(loop_start) }))
         end
 
@@ -482,77 +577,6 @@ local function compile_behavior(scope, body_block, em)
         end
 
         loop_stack[#loop_stack] = nil
-    end
-
-    -- ── Emit: Compare statement ─────────────────────────────────────────
-
-    local function emit_compare(node)
-        -- compare(Value, Compare) → check_number
-        -- check_number: 1:exec(If Larger), 2:exec(If Smaller),
-        --               3:in(Value), 4:in(Compare)
-        -- exec_arg: fallthrough = "If Equal"
-
-        local val_ref   = resolve_value(node.args[1], scope)
-        local cmp_ref   = resolve_value(node.args[2], scope)
-        local arg_map   = { [3] = val_ref, [4] = cmp_ref }
-        local check_idx = em:emit(make_inst("check_number", arg_map))
-
-        -- Collect branch info: {kind, body}
-        local branch_map = {}
-        for _, branch in ipairs(node.branches) do
-            branch_map[branch.kind] = branch
-        end
-
-        -- Emit branches in order: equal (fallthrough), larger, smaller
-        -- Each branch ends with a jump to after-all
-        local end_jumps = {}  -- indices of jump instructions to patch
-
-        -- Equal branch (fallthrough from check_number)
-        if branch_map.equal then
-            emit_block(branch_map.equal.body)
-            -- Jump past remaining branches
-            local jmp = em:emit(make_inst("nop", nil, { next = false }))
-            end_jumps[#end_jumps + 1] = jmp
-        end
-
-        -- Larger branch
-        local larger_start = em:here()
-        if branch_map.larger then
-            emit_block(branch_map.larger.body)
-            local jmp = em:emit(make_inst("nop", nil, { next = false }))
-            end_jumps[#end_jumps + 1] = jmp
-        end
-
-        -- Smaller branch
-        local smaller_start = em:here()
-        if branch_map.smaller then
-            emit_block(branch_map.smaller.body)
-            -- No jump needed after last branch
-        end
-
-        local after_all = em:here()
-
-        -- Patch check_number exec args
-        if branch_map.larger then
-            em:patch(check_idx, "0", to_json_idx(larger_start))  -- If Larger
-        end
-        if branch_map.smaller then
-            em:patch(check_idx, "1", to_json_idx(smaller_start))  -- If Smaller
-        end
-        -- If Equal = fallthrough (no patch needed unless equal branch is missing)
-        if not branch_map.equal then
-            -- No equal branch: fallthrough goes to larger or after_all
-            if branch_map.larger then
-                em:patch(check_idx, "next", to_json_idx(larger_start))
-            else
-                em:patch(check_idx, "next", to_json_idx(after_all))
-            end
-        end
-
-        -- Patch end jumps to after_all
-        for _, jmp_idx in ipairs(end_jumps) do
-            em:patch(jmp_idx, "next", to_json_idx(after_all))
-        end
     end
 
     -- ── Emit: Local (var declaration) ───────────────────────────────────
@@ -587,7 +611,7 @@ local function compile_behavior(scope, body_block, em)
             local jmp_idx = em:emit(make_inst("nop", nil, { next = false }))
             ctx.done_patches[#ctx.done_patches + 1] = { idx = jmp_idx, field = "next" }
         else
-            -- Break from foreach loop: emit 'last' opcode
+            -- Break from foreach/loop: emit 'last' opcode
             em:emit(make_inst("last", nil, { next = false }))
         end
     end
@@ -601,17 +625,12 @@ local function compile_behavior(scope, body_block, em)
     -- ── Emit: Return ────────────────────────────────────────────────────
 
     local function emit_return(node)
-        -- For sub-behaviors, return values are passed back via parameter slots.
-        -- The convention: first N params are inputs, return values go into
-        -- param slots starting at N+1 (where N = number of input params).
         if node.values and #node.values > 0 then
             local n_params = 0
             for _ in pairs(scope.params) do n_params = n_params + 1 end
-            -- Output param slots start right after declared input params
             for i, val in ipairs(node.values) do
                 local v = resolve_value(val, scope)
                 if v ~= nil then
-                    -- Write return value to its output parameter slot
                     em:emit(make_inst("set_reg", { [1] = v, [2] = n_params + i }))
                 end
             end
@@ -623,15 +642,15 @@ local function compile_behavior(scope, body_block, em)
 
     emit_stmt = function(node)
         local t = node.type
-        if     t == "Call"    then emit_call(node)
-        elseif t == "Assign"  then emit_assign(node)
-        elseif t == "If"      then emit_if(node)
-        elseif t == "Repeat"  then emit_repeat(node)
-        elseif t == "Compare" then emit_compare(node)
-        elseif t == "Local"   then emit_local(node)
-        elseif t == "Break"   then emit_break()
-        elseif t == "Goto"    then emit_goto(node)
-        elseif t == "Return"  then emit_return(node)
+        if     t == "Call"        then emit_call(node)
+        elseif t == "Assign"      then emit_assign(node)
+        elseif t == "ComplexCall"  then emit_complex_call(node.name, node.args, node.body, node.branches, nil)
+        elseif t == "If"          then emit_if(node)
+        elseif t == "Repeat"      then emit_repeat(node)
+        elseif t == "Local"       then emit_local(node)
+        elseif t == "Break"       then emit_break()
+        elseif t == "Goto"        then emit_goto(node)
+        elseif t == "Return"      then emit_return(node)
         else
             io.stderr:write("warning: unsupported statement type: " .. t .. "\n")
         end
@@ -698,7 +717,7 @@ function codegen.generate(ast_program, options)
     local deps = {}
     local func_map = {}  -- name -> {dep_index, param_names}
 
-    for i, func_def in ipairs(ast_program.funcs) do
+    for _, func_def in ipairs(ast_program.funcs) do
         local func_scope = new_scope(func_def.params, {})
         local func_em = compile_behavior(func_scope, func_def.body)
 

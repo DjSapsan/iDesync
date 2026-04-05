@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /mnt/data/Programming/Lua/iDesync/*.beh)",
+      "Bash(lua main.lua)",
+      "Bash(lua -e ':*)",
+      "Bash(lua -v)",
+      "Bash(lua5.4 main.lua --compile)",
+      "Bash(grep -E \"\\\\.\\(lua|js|json\\)$\")",
+      "Bash(lua5.4 /mnt/data/Programming/Lua/iDesync/main.lua --compile)",
+      "Read(//tmp/**)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); dep=d['dependencies'][0]; print\\('Return instructions in findClosest:'\\); [print\\(f'  {k}: {v}'\\) for k,v in sorted\\(dep.items\\(\\)\\) if isinstance\\(v,dict\\) and v.get\\('op'\\)=='set_reg']\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(f'  {k}: {v}'\\) for k,v in sorted\\(d.items\\(\\)\\) if isinstance\\(v,dict\\) and v.get\\('op'\\)=='call']\")",
+      "Bash(lua5.4 -e ':*)",
+      "Bash(node dsconvert.js encode)",
+      "Bash(lua5.4 main.lua --encode)",
+      "Bash(lua5.4 main.lua --encode src.beh /tmp/test.base)",
+      "Bash(lua5.4 main.lua)",
+      "Bash(lua5.4 main.lua --example)",
+      "Read(//usr/bin/**)",
+      "Bash(update-alternatives --display lua)",
+      "Read(//mnt/data/Programming/Python/DesyncExtention/**)",
+      "Bash(cp package.json language-configuration.json README.md example.beh blocks.txt functions.txt schema.json CHANGELOG.md .vscodeignore .gitignore vsc-extension-quickstart.md /mnt/data/Programming/Lua/iDesync/desynced-ext/)",
+      "Bash(cp syntaxes/beh.tmLanguage.json /mnt/data/Programming/Lua/iDesync/desynced-ext/syntaxes/)",
+      "Bash(cp snippets/beh.json /mnt/data/Programming/Lua/iDesync/desynced-ext/snippets/)",
+      "Bash(cp .vscode/launch.json /mnt/data/Programming/Lua/iDesync/desynced-ext/.vscode/)",
+      "Bash(cp Untitled-1.json /mnt/data/Programming/Lua/iDesync/desynced-ext/instructions-data.json)",
+      "Bash(lua desynced-ext/extract-instructions.lua)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('desynced-ext/instructions-data-new.json'\\)\\); print\\(f'{len\\(d\\)} instructions extracted'\\); cats={}; [cats.__setitem__\\(v.get\\('category','?'\\), cats.get\\(v.get\\('category','?'\\),0\\)+1\\) for v in d.values\\(\\)]; print\\(dict\\(sorted\\(cats.items\\(\\)\\)\\)\\)\")",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}
