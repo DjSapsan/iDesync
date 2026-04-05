@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /mnt/data/Programming/Lua/iDesync/*.beh)",
+      "Bash(lua main.lua)",
+      "Bash(lua -e ':*)",
+      "Bash(lua -v)"
+    ]
+  }
+}

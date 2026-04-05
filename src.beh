@@ -5,13 +5,11 @@ params [
     param4,
 ]
 
-vars [
-    State = 0,  -- 0=SEARCHING, 1=LOADING, -1=UNLOADING
-    Entity,
-    Signal,
-    Items,
-    Closest,
-]
+var State = 0   -- 0=SEARCHING, 1=LOADING, -1=UNLOADING
+var Entity
+var Signal
+var Items
+var Closest
 
 ------------------- start -----------------
 
@@ -61,7 +59,11 @@ repeat
 end
 
 function findClosest (Arg1, Arg2)
-    vars (Closest RoomForItems Nearest Var4 Var5)
+    var Closest
+    var RoomForItems
+    var Nearest
+    var Var4
+    var Var5
 
     -- First pass: find any valid target with free space
     Var4, Var5 = foreach(Arg2)

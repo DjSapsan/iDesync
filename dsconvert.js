@@ -344,3 +344,28 @@ function ObjectToDesyncedString(obj, type)
 	Base62_WriteData(arr, bytes, end);
 	return arr.join('');
 }
+
+// ── CLI entry point ──────────────────────────────────────────────────────────
+if (typeof process !== 'undefined' && require.main === module) {
+	const fs = require('fs');
+	const args = process.argv.slice(2);
+	const cmd = args[0];
+
+	if (cmd === 'encode') {
+		// encode [input.json] — reads JSON, outputs .base string
+		const input = args[1] ? fs.readFileSync(args[1], 'utf8') : fs.readFileSync(0, 'utf8');
+		const obj = JSON.parse(input);
+		const type = args[2] || 'B'; // 'B' for behavior
+		process.stdout.write(ObjectToDesyncedString(obj, type));
+	} else if (cmd === 'decode') {
+		// decode [input.base] — reads .base string, outputs JSON
+		const input = args[1] ? fs.readFileSync(args[1], 'utf8').trim() : fs.readFileSync(0, 'utf8').trim();
+		const info = {};
+		const obj = DesyncedStringToObject(input, info);
+		process.stdout.write(JSON.stringify(obj, null, 2));
+	} else {
+		process.stderr.write('Usage: node dsconvert.js encode [input.json] [type]\n');
+		process.stderr.write('       node dsconvert.js decode [input.base]\n');
+		process.exit(1);
+	}
+}

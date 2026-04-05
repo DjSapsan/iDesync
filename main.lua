@@ -42,6 +42,71 @@ if arg and arg[1] == "--example" then
 	os.exit(0)
 end
 
+--- OPTIONAL: --compile flag ---
+-- Usage: lua5.4 main.lua --compile [input.beh] [output.json]
+if arg and arg[1] == "--compile" then
+	local beh     = require("beh.parser")
+	local codegen = require("beh.codegen")
+	local json    = require("beh.json")
+
+	local inputFile  = arg[2] or "src.beh"
+	local outputFile = arg[3]  -- nil = stdout
+
+	local tree   = beh.parsefile(inputFile)
+	local name   = inputFile:match("([^/\\]+)%.beh$") or "Behavior"
+	local result = codegen.generate(tree, { name = name })
+	local out    = json.encode(result, true) .. "\n"
+
+	if outputFile then
+		local f = assert(io.open(outputFile, "w"))
+		f:write(out)
+		f:close()
+		print("Compiled " .. inputFile .. " -> " .. outputFile)
+	else
+		io.write(out)
+	end
+	os.exit(0)
+end
+
+--- OPTIONAL: --encode flag ---
+-- Usage: lua5.4 main.lua --encode [input.beh] [output.base]
+if arg and arg[1] == "--encode" then
+	local beh     = require("beh.parser")
+	local codegen = require("beh.codegen")
+	local json    = require("beh.json")
+
+	local inputFile  = arg[2] or "src.beh"
+	local outputFile = arg[3]  -- nil = stdout
+
+	local tree   = beh.parsefile(inputFile)
+	local name   = inputFile:match("([^/\\]+)%.beh$") or "Behavior"
+	local result = codegen.generate(tree, { name = name })
+	local jsonStr = json.encode(result, true)
+
+	-- Write JSON to temp file, encode via node
+	local tmpFile = os.tmpname()
+	local tmp = assert(io.open(tmpFile, "w"))
+	tmp:write(jsonStr)
+	tmp:close()
+
+	local scriptDir = arg[0]:match("(.*/)")  or "./"
+	local cmd = string.format("node %sdsconvert.js encode %s", scriptDir, tmpFile)
+	local pipe = assert(io.popen(cmd, "r"))
+	local encoded = pipe:read("*a")
+	pipe:close()
+	os.remove(tmpFile)
+
+	if outputFile then
+		local f = assert(io.open(outputFile, "w"))
+		f:write(encoded)
+		f:close()
+		print("Encoded " .. inputFile .. " -> " .. outputFile)
+	else
+		io.write(encoded .. "\n")
+	end
+	os.exit(0)
+end
+
 --- RUN ---
 local beh = require("beh.parser")
 
